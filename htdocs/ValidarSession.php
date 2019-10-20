@@ -1,12 +1,6 @@
 <?php
 require_once 'Conexion.php';
 
-
-
-
-
-
-
 /*if(empty($usuario) || empty($pass)){
    // header("index.php");
 
