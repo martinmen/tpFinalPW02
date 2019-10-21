@@ -19,17 +19,16 @@
     <table class="table">
         <thead>
         <tr>
-            <th scope="col">Id</th>
-            <th scope="col">Nombre</th>
-            <th scope="col">Tipo</th>
-            <th scope="col">Imagen</th>
-            <th scope="col">Accion</th>
-
+            <th>Nro Vuelo</th>
+            <th>Fecha</th>
+            <th>Duración</th>
+            <th>Tipo Vuelo</th>
+            <th>Equipo</th>
         </tr>
         </thead>
         <tbody>
         <?php
-        $conn=mysqli_connect("localhost","root", "admin","tpfinal");
+        $conn=mysqli_connect("localhost","root", "1234","tpfinal");
         $sql="SELECT * FROM vuelos";
         $result=mysqli_query($conn,$sql);
 
@@ -37,9 +36,10 @@
         {
             echo "<tr>";
             echo "<td>".$row['id']."</td>";
-            echo "<td>".$row['nombre']."</td>";
-            echo "<td>".$row['tipo']."</td>";
-            echo "<td>".$row['imagen']."</td>";
+            echo "<td>".$row['fecha']."</td>";
+            echo "<td>".$row['duracion']."</td>";
+            echo "<td>".$row['tipo_vuelo']."</td>";
+            echo "<td>".$row['equipo']."</td>";
             echo "<td><a href=\"delete&&id= a><td>";
             echo "</tr>";
         }
