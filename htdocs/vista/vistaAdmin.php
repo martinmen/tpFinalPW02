@@ -2,9 +2,6 @@
 <body>
     <h1>Bienvenido Administrador</h1>
 
-    <li class="nav-item">
-        <a class="nav-link" href="../CerrarSession.php"><i class="fas fa-sign-out-alt"></i> Cerrar Sesión </a>
-    </li>
 
 
     <head>

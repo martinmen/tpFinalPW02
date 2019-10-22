@@ -33,19 +33,20 @@
 
 
 
-<li class="nav-item">
-    <a class="nav-link" href="../CerrarSession.php"><i class="fas fa-sign-out-alt"></i> Cerrar Sesión </a>
-</li>
 <div class="d-sm-flex align-items-center justify-content-between mb-4">
     <h1 class="h3 mb-0 text-gray-800">VUELOS</h1>
 </div>
 <div class="card shadow mb-4">
     <div class="card-header py-3">
-        <form class="form-inline" method="get" action="../vista/vistaCliente.php">
-<!--            <input class="form-control mr-sm-3" name="busca" type="search" placeholder="Cabina" aria-label="Search">-->
-            <input class="form-control mr-sm-3" type="text" name="fdesde" placeholder="Fecha desde" id="datepickerDesde">
-            <input class="form-control mr-sm-3" type="text" name="fhasta" placeholder="Fecha hasta" id="datepickerHasta">
-            <button class="btn btn-primary " type="submit" >Buscar</button>
+        <form class="form-inline" method="get" action="../vista/vistaCliente.php">        
+    <!--            <input class="form-control mr-sm-3" name="busca" type="search" placeholder="Cabina" aria-label="Search">-->
+                Desde:<input class="form-control mr-sm-3" type="date" name="fdesde" placeholder="Fecha desde" id="datepickerDesde">
+                Hasta:<input class="form-control mr-sm-3" type="date" name="fhasta" placeholder="Fecha hasta" id="datepickerHasta">
+                   <!--            <input class="form-control mr-sm-3" name="busca" type="search" placeholder="Cabina" aria-label="Search">-->
+                <input class="form-control mr-sm-3" type="text" name="origen" placeholder="Origen" id="inputOrigen">
+                
+                <button class="btn btn-primary " type="submit" >Buscar</button>
+
         </form>
 
 
@@ -83,6 +84,9 @@
                     <th>Duración</th>
                     <th>Tipo Vuelo</th>
                     <th>Equipo</th>
+
+                    <th>Origen</th>
+                    <th>accion</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -94,15 +98,17 @@
 
                 $fdesde = $_GET['fdesde'];
                 $fhasta = $_GET['fhasta'];
+                $origen = $_GET['origen'];
 
-                if($fdesde == "" && $fhasta == ""){
+                if($fdesde == "" && $fhasta == "" && $origen == ""){
                     $sql="SELECT * FROM vuelos";
                     $result=mysqli_query($conn,$sql);
 
                 }else {
-                    $sql = "SELECT * FROM vuelos WHERE fecha between '$fdesde' and  '$fhasta'";
+                    // $sql = "SELECT * FROM vuelos WHERE fecha between '$fdesde' and  '$fhasta'";
+                    // $result=mysqli_query($conn,$sql );
+                    $sql = "SELECT * FROM vuelos WHERE ((origen = '$origen') AND (fecha between '$fdesde' and  '$fhasta')) OR (origen = '$origen') OR (fecha between '$fdesde' and  '$fhasta')";
                     $result=mysqli_query($conn,$sql );
-
                     if($result)
                     {echo "Resultado busqueda";}else{echo "No se encontro coincidencias";}
                 }
@@ -114,6 +120,10 @@
                     echo "<td>".$row['duracion']."</td>";
                     echo "<td>".$row['tipo_vuelo']."</td>";
                     echo "<td>".$row['equipo']."</td>";
+                    echo "<td>".$row['origen']."</td>";
+                    echo "<td><a href='../vista/vistaCrearReserva.php?vuelo=".$row['id']."'>Reservar</a></td>";
+                 //   echo "<td><a href='pepeito.php?vuelo=".$row['id']."'>REservar</a></td>";
+                   // href="../vista/vistaCrearReserva.php"
                     //  echo "<td><a href=\"delete&&id= a><td>";
                     echo "</tr>";
                 }
