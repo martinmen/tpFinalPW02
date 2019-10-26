@@ -18,35 +18,71 @@
     <!-- Custom styles for this template-->
     <link href="../assets/css/sb-admin-2.min.css" rel="stylesheet">
 
-
-
-
-
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <link rel="stylesheet" href="/resources/demos/style.css">
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
-
 </head>
 <body>
 
-
-
 <div class="d-sm-flex align-items-center justify-content-between mb-4">
     <h1 class="h3 mb-0 text-gray-800">VUELOS</h1>
+
+
 </div>
 <div class="card shadow mb-4">
     <div class="card-header py-3">
-        <form class="form-inline" method="get" action="../vista/vistaCliente.php">        
-    <!--            <input class="form-control mr-sm-3" name="busca" type="search" placeholder="Cabina" aria-label="Search">-->
-                Desde:<input class="form-control mr-sm-3" type="date" name="fdesde" placeholder="Fecha desde" id="datepickerDesde">
-                Hasta:<input class="form-control mr-sm-3" type="date" name="fhasta" placeholder="Fecha hasta" id="datepickerHasta">
-                   <!--            <input class="form-control mr-sm-3" name="busca" type="search" placeholder="Cabina" aria-label="Search">-->
-                <input class="form-control mr-sm-3" type="text" name="origen" placeholder="Origen" id="inputOrigen">
-                
-                <button class="btn btn-primary " type="submit" >Buscar</button>
+        <form class="form-inline" method="get" action="../vista/vistaCliente.php">
+            <select class="form-control" name="tipo_vuelo">
+                <option value="">Tipo</option>
+                <?php
+                require_once("../Conexion.php");
+                $con= getConexion();
+                $sql="SELECT DISTINCT descripcion, id_tipo_vuelo FROM tipo_vuelo";
+                $result=mysqli_query($con,$sql);
 
+                while ($row=mysqli_fetch_assoc($result)){ ?>
+                    <option value="<?php echo $row['id_tipo_vuelo']?>">
+                        <?php echo $row['descripcion'] ?>
+                    </option>
+                <?php } ?>
+            </select>
+            <!--            <input class="form-control mr-sm-3" name="busca" type="search" placeholder="Cabina" aria-label="Search">-->
+            Desde:<input class="form-control mr-sm-3" type="date" name="fdesde" placeholder="Fecha desde" id="datepickerDesde">
+            Hasta:<input class="form-control mr-sm-3" type="date" name="fhasta" placeholder="Fecha hasta" id="datepickerHasta">
+            <!--            <input class="form-control mr-sm-3" name="busca" type="search" placeholder="Cabina" aria-label="Search">-->
+            <select class="form-control" name="origen">
+                <option value="">Origen</option>
+                <?php
+
+                $con= getConexion();
+                $sql="SELECT DISTINCT descripcion, id_origen FROM origen";
+                $result=mysqli_query($con,$sql);
+
+                while ($row=mysqli_fetch_assoc($result)){ ?>
+                    <option value="<?php echo $row['id_origen']?>">
+                        <?php echo $row['descripcion'] ?>
+                    </option>
+                <?php } ?>
+            </select>
+            <select class="form-control" name="destino">
+                <option value="">Destino</option>
+                <?php
+
+                $con= getConexion();
+                $sql="SELECT DISTINCT descripcion, id_destino FROM destino";
+                $result=mysqli_query($con,$sql);
+
+                while ($row=mysqli_fetch_assoc($result)){ ?>
+                    <option value="<?php echo $row['id_destino']?>">
+                        <?php echo $row['descripcion'] ?>
+                    </option>
+                <?php } ?>
+            </select>
+
+
+            <button class="btn btn-primary " type="submit" >Buscar</button>
         </form>
 
 
@@ -92,26 +128,80 @@
                 <tbody>
                 <?php
                 $conn=mysqli_connect("localhost","root", "1234","tpfinal");
-                $sql="SELECT * FROM vuelos";
+                $sql="SELECT * FROM vuelos ";
                 $result=mysqli_query($conn,$sql);
 
-
-                $fdesde = $_GET['fdesde'];
-                $fhasta = $_GET['fhasta'];
-                $origen = $_GET['origen'];
-
-                if($fdesde == "" && $fhasta == "" && $origen == ""){
+              /*  if($fdesde == "" && $fhasta == "" && $origen == ""){
                     $sql="SELECT * FROM vuelos";
                     $result=mysqli_query($conn,$sql);
-
                 }else {
                     // $sql = "SELECT * FROM vuelos WHERE fecha between '$fdesde' and  '$fhasta'";
-                    // $result=mysqli_query($conn,$sql );
-                    $sql = "SELECT * FROM vuelos WHERE ((origen = '$origen') AND (fecha between '$fdesde' and  '$fhasta')) OR (origen = '$origen') OR (fecha between '$fdesde' and  '$fhasta')";
+                    // $result=mysqli_query($conn,$sql );*/
+
+                    //WHERE ((origen = '$origen') AND (fecha between '$fdesde' and  '$fhasta')) OR (origen = '$origen') OR (fecha between '$fdesde' and  '$fhasta')";
+
+                $criterio="";
+    if(isset( $_GET['tipo_vuelo']))
+    {
+        if($criterio ==""){
+            $tipo_vuelo = $_GET['tipo_vuelo'];
+            $criterio = "where tipo_vuelo = '$tipo_vuelo'";
+        }
+    }
+    echo "212123";
+    if(isset($_GET['fdesde']))
+                    {
+                        $fdesde = $_GET['fdesde'];
+                        if($criterio ==""){
+
+                            $criterio . "where fdesde = '$fdesde'";
+                        }else{
+
+                            $criterio . " and  fdesde = '$fdesde'";
+                        }
+                    }
+
+    if(isset($_GET['fhasta']))
+                    {
+                        $fhasta = $_GET['fhasta'];
+                        if($criterio ==""){
+
+                            $criterio . "where fhasta = '$fhasta'";
+                        }else{
+
+                            $criterio . " and  fhasta = '$fhasta'";
+                        }
+                    }
+
+                    if(isset($_GET['origen']))
+                    {   $origen = $_GET['origen'];
+                        if($criterio ==""){
+
+                            $criterio . "where origen = '$origen'";
+                        }else{
+
+                            $criterio . " and  origen = '$origen'";
+                        }
+                    }
+
+                    if(isset($_GET['destino']))
+                    {   $destino = $_GET['destino'];
+                        if($criterio ==""){
+
+                            $criterio . "where origen = '$destino'";
+                        }else{
+
+                            $criterio . " and  origen = '$destino'";
+                        }
+                    }
+
+                $sql = $sql. $criterio;
+                    echo  $sql;
+
                     $result=mysqli_query($conn,$sql );
                     if($result)
                     {echo "Resultado busqueda";}else{echo "No se encontro coincidencias";}
-                }
+
                 while ($row=mysqli_fetch_assoc($result))
                 {
                     echo "<tr>";
