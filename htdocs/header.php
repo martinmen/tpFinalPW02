@@ -19,6 +19,16 @@
     <!-- Custom styles for this template-->
     <link href="../assets/css/sb-admin-2.min.css" rel="stylesheet">
 
+
+
+
+
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <link rel="stylesheet" href="/resources/demos/style.css">
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+
 </head>
 
 <body id="page-top">
@@ -115,12 +125,12 @@
                             </form>
                         </div>
                     </li>
-                    <li class="nav-item dropdown no-arrow mx-1">
-<!--                        <a class="nav-link" href="">Crear reserva</a>-->
+               <!--     <li class="nav-item dropdown no-arrow mx-1">
+                      <a class="nav-link" href="">Crear reserva</a>-
                         <a href="../vista/vistaCrearReserva.php" class="btn btn-primary btn-icon-split" style="margin-top: 15px!important;">
                             <span class="text">CREAR RESERVA</span>
                         </a>
-                    </li>
+                    </li>-->
                     <div class="topbar-divider d-none d-sm-block"></div>
                     <!-- Nav Item - User Information -->
                     <li class="nav-item dropdown no-arrow">

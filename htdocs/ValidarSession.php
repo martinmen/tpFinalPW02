@@ -10,11 +10,11 @@ require_once 'Conexion.php';
 $usuario = $_POST["emailUsuario"];
 $pass = $_POST['passUsuario'];
 
-$sql = "SELECT * from usuario where nombre ='$usuario'";
+$sql = "SELECT * from usuario where email ='$usuario'";
 $result = mysqli_query($conexion,$sql);
 
 if($row = mysqli_fetch_array($result)) {
-    if ($row['password'] == $pass) {
+    if ($row['contraseña'] == $pass) {
         session_start();
 
 //Direccionamiento segun rol.
@@ -23,14 +23,14 @@ if($row = mysqli_fetch_array($result)) {
         Cliente = 2
         Intesados = 3
         */
-        if ($row['rol'] == 1) {
+        if ($row['tipo_usuario'] == 1) {
 
             $_SESSION['administrador'] = $usuario;
             header("Location:administradorHome.php");
-        } elseif ($row['rol'] == 2) {
+        } elseif ($row['tipo_usuario'] == 2) {
             $_SESSION['cliente'] = $usuario;
             header("Location:clienteHome.php");
-        } elseif ($row['rol'] == 3) {
+        } elseif ($row['tipo_usuario'] == 3) {
             $_SESSION['interesado'] = $usuario;
             header("Location:interesadoHome.php");
         }

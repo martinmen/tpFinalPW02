@@ -12,9 +12,13 @@ include_once ("../header.php");
             var newRow = $("<tr>");
             var cols = "";
 
-            cols += '<td><input type="text" class="form-control" name="name' + counter + '"/></td>';
-            cols += '<td><input type="text" class="form-control" name="mail' + counter + '"/></td>';
-            cols += '<td><input type="text" class="form-control" name="phone' + counter + '"/></td>';
+            cols += '<td><input type="text" class="form-control" name="nombre' + counter + '"/></td>';
+            cols += '<td><input type="text" class="form-control" name="apellido' + counter + '"/></td>';
+            cols += '<td><input type="text" class="form-control" name="dni' + counter + '"/></td>';
+
+            cols += '<td><input type="text" class="form-control" name="dniNro' + counter + '"/></td>';
+            cols += '<td><input type="text" class="form-control" name="email' + counter + '"/></td>';
+            cols += '<td><input type="text" class="form-control" name="vuelo' + counter + '"/></td>';
 
             cols += '<td><input type="button" class="ibtnDel btn btn-md btn-danger "  value="X"></td>';
             newRow.append(cols);
@@ -56,22 +60,37 @@ include_once ("../header.php");
             <table class="table table-bordered order-list" id="myTable" width="100%" cellspacing="0">
                 <thead>
                 <tr>
-                    <td>Name</td>
-                    <td>Gmail</td>
-                    <td>Phone</td>
+                    <td>Nombre</td>
+                    <td>Apellido</td>
+                    <td>Dni</td>
+
+                    <td>DniNro</td>
+                    <td>Email</td>
+                    <td>Vuelo</td>
                 </tr>
                 </thead>
                 <tbody>
                 <tr>
-                    <td class="col-sm-4">
-                        <input type="text" name="name" class="form-control" />
+                    <td class="col-sm-2">
+                        <input type="text" name="Nombre" class="form-control" />
                     </td>
-                    <td class="col-sm-4">
-                        <input type="mail" name="mail"  class="form-control"/>
+                    <td class="col-sm-2">
+                        <input type="mail" name="Apellido"  class="form-control"/>
                     </td>
-                    <td class="col-sm-3">
-                        <input type="text" name="phone"  class="form-control"/>
+                    <td class="col-sm-2">
+                        <input type="text" name="dni"  class="form-control"/>
                     </td>
+
+                    <td class="col-sm-2">
+                        <input type="text" name="dniNro" class="form-control" />
+                    </td>
+                    <td class="col-sm-2">
+                        <input type="mail" name="email"  class="form-control"/>
+                    </td>
+                    <td class="col-sm-2">
+                        <input type="text" name="vuelo"  class="form-control"/>
+                    </td>
+
                     <td class="col-sm-2"><a class="deleteRow"></a>
 
                     </td>
