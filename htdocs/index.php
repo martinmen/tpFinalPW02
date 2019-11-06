@@ -7,9 +7,9 @@ if(isset($_SESSION['administrador'])){
     header("Location: administradorHome.php");}
 
 include_once("login.php");
-//    if( isset($_GET['pag']) && $_GET['pag'] == 'login') {
-//        include_once("login.php");
-//    }
+    if( isset($_GET['pag']) && $_GET['pag'] == 'login') {
+        include_once("login.php");
+    }
 
 
 //include_once ("footer.php");

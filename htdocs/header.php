@@ -125,12 +125,7 @@
                             </form>
                         </div>
                     </li>
-                    <li class="nav-item dropdown no-arrow mx-1">
-<!--                        <a class="nav-link" href="">Crear reserva</a>-->
-                        <a href="../vista/vistaCrearReserva.php" class="btn btn-primary btn-icon-split" style="margin-top: 15px!important;">
-                            <span class="text">CREAR RESERVA</span>
-                        </a>
-                    </li>
+
                     <div class="topbar-divider d-none d-sm-block"></div>
                     <!-- Nav Item - User Information -->
                     <li class="nav-item dropdown no-arrow">
