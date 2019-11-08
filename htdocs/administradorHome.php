@@ -9,6 +9,6 @@ if(!isset($_SESSION['administrador'])){
 
 <?php
 include('header.php');
-include('vista/vistaAdmin.php');
+include('vista/vista_admin.php');
 include('footer.php');
 ?>

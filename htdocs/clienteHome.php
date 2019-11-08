@@ -9,6 +9,6 @@ if(!isset($_SESSION['cliente'])){
 
 <?php
 include('header.php');
-include('vista/vistaCliente.php');
+include('vista/vista_cliente.php');
 include('footer.php');
 ?>

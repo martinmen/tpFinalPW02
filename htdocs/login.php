@@ -44,7 +44,7 @@
 //                            }
 //                            ?>
                             <button class="btn btn-lg btn-primary btn-block btn-login text-uppercase font-weight-bold mb-2" type="submit" value="Iniciar Sesión">Ingresar</button>
-                            <a class="btn btn-lg btn-primary btn-block btn-login text-uppercase font-weight-bold mb-2" href="vista/vistaRegistrar.php" value="Registrarme">Registrar</a>
+                            <a class="btn btn-lg btn-primary btn-block btn-login text-uppercase font-weight-bold mb-2" href="vista/vista_registrar.php" value="Registrarme">Registrar</a>
                         </form>
                     </div>
                 </div>

@@ -19,7 +19,7 @@ if(isset($_POST["submit"])){
         if ( $usuarioOk == true){
             Header('location:../login.php');
         } else {
-            Header('location: ../vista/vistaRegistrar.php');
+            Header('location: ../vista/vista_registrar.php');
         }
     } else{
         $error=true;
