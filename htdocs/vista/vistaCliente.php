@@ -127,7 +127,7 @@
                 </thead>
                 <tbody>
                 <?php
-                $conn=mysqli_connect("localhost","root", "1234","tpfinal");
+                $conn=mysqli_connect("localhost","root", "","tpfinal");
                 $sql="SELECT * FROM vuelos ";
                 $result=mysqli_query($conn,$sql);
 

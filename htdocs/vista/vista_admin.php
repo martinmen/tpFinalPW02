@@ -1,3 +1,9 @@
+    <input type="button" class="btn btn-primary" style="float:right" id="addCard" value="Imprimir Reporte"/>
+    
+    
+    
+    
+    
     <table class="table">
         <thead>
         <tr>
