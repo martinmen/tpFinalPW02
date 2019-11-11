@@ -72,18 +72,22 @@ $cantidadVendida=mysqli_query($conn,$sql);
         </tbody>
     </table> -->
     <div id="piechart" style="width: 900px; height: 500px;"></div>
-     <form class="form-control row" action="" name="imprimirPdf">
+    <!-- <form class="form-control row" action="" name="imprimirPdf">
             <div class="col">
                 <input type="submit" class="btn btn-primary" id="crearPdf" value="Descargar Pdf"/>
             </div>  
         </div>
+    </form> -->
+    <form method="post" id="make_pdf" target="_blank" action="crearPdf.php">
+      <input type="hidden" name="hidden_html" id="hidden_html" />
+      <button type="submit" name="create_pdf" id="create_pdf" class="btn btn-primary">Descargar</button>
     </form>
 </body>
  </html>
  <script>
 	  $(document).ready(function(){
 
-		$('#CrearPdf').click(function(){
+		$('#create_pdf').click(function(){
 											$('#hidden_html').val($('#testing').html());
 											$('#make_pdf').submit();
 										});
