@@ -19,6 +19,26 @@ function getTipoDocumentos(){
     return $tipo_doc;
 }
 
+function getTipoDeCabinas($vueloId){
+    $conn = getConexion();
+    $sql="select concat('Familiar: ',e.capacidad_cabinaF) as descripcion from vuelo as v join equipo as e on v.cod_equipo = e.id_equipo where v.id_vuelo = $vueloId
+            UNION ALL 
+            select concat('General: ', e.capacidad_cabinaG) from vuelo as v join equipo as e on v.cod_equipo = e.id_equipo where v.id_vuelo = $vueloId
+            UNION ALL 
+            select concat('Suite: ', e.capacidad_cabinaS) from vuelo as v join equipo as e on v.cod_equipo = e.id_equipo where v.id_vuelo = $vueloId;";
+    $result=mysqli_query($conn,$sql);
+    $tipo_doc = "";
+
+    if(mysqli_num_rows($result) > 0){
+        while ($row=mysqli_fetch_assoc($result)){
+            $tipo_doc .= "<option value='".$row['']."'>".$row['descripcion']."</option>";
+        }
+    }else {
+        $tipo_doc="<option>NO HAY DATOS</option>";
+    }
+
+    return $tipo_doc;
+}
 
 //function crearReserva($nombre, $apellido, $email, $pass, $vuelo){
 //

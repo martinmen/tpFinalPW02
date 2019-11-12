@@ -29,13 +29,21 @@ SET time_zone = "+00:00";
 --
 -- Estructura de tabla para la tabla `asiento`
 --
+create table factura(
+ id_factura int(11) not null,
+ cod_cliente int(11)not null,
+ cod_reserva int(11) not null,
+ cod_metodo_pogo int (11) not null,
+ fecha_alta_factura datetime DEFAULT NOW(),
+ fecha_baja_factura date DEFAULT NULL,
+ fecha_modificacion_factura date DEFAULT NULL
+);
 
-
-CREATE TABLE `asiento` (
-  `id_asiento` int(11) NOT NULL,
-  `cod_equipo` int(11) NOT NULL,
-  `cod_cabina` int(11) NOT NULL,
-  `cod_estado` int(11) NOT NULL
+CREATE TABLE asiento (
+  id_asiento int(11) NOT NULL,
+  cod_equipo int(11) NOT NULL,
+  cod_cabina int(11) NOT NULL,
+  cod_estado int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -44,9 +52,9 @@ CREATE TABLE `asiento` (
 -- Estructura de tabla para la tabla `cabina`
 --
 
-CREATE TABLE `cabina` (
-  `id_cabina` int(4) NOT NULL,
-  `descripcion` varchar(100) NOT NULL
+CREATE TABLE cabina (
+  id_cabina int(4) NOT NULL,
+  descripcion varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -116,47 +124,51 @@ CREATE TABLE `estado` (
 --
 -- Estructura de tabla para la tabla `nivel_vuelo`
 --
-CREATE TABLE `nivel_vuelo` (
-  `id_nivel_vuelo` int(11) NOT NULL,
-  `descripcion` varchar(100) NOT NULL
+CREATE TABLE nivel_vuelo (
+  id_nivel_vuelo int(11) NOT NULL,
+  descripcion varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 --
 -- Estructura de tabla para la tabla `reserva`
 --
 create table estado_usuario (
-  `id_estado_usuario` int(11) NOT NULL,
-  `descripcion` varchar(60) DEFAULT NULL
+  id_estado_usuario int(11) NOT NULL,
+  descripcion varchar(60) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 create table estado_reserva (
-  `id_estado_reserva` int(11) NOT NULL ,
-  `descripcion` varchar(60) DEFAULT NULL
+  id_estado_reserva int(11) NOT NULL ,
+  descripcion varchar(60) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
-drop table reserva;
-CREATE TABLE `reserva` (
-  `id_reserva` int(11) NOT NULL,
-  `cod_usuario` int(11) NOT NULL,
-  `cod_cabina` int(11) NOT NULL,
-  `cod_asiento` int(11) NOT NULL,
-  `cod_vuelo` int(11) NOT NULL,
-  `cod_estado_reserva` int(11) NOT NULL,
-  `cod_codigo_reserva` varchar(8) NOT NULL
+
+CREATE TABLE reserva (
+  id_reserva int(11) NOT NULL,
+  cod_usuario int(11) NOT NULL,
+  cod_cabina int(11) NOT NULL,
+  cod_asiento int(11) NOT NULL,
+  cod_vuelo int(11) NOT NULL,
+  importe float (10.2), 
+  cod_estado_reserva int(11) NOT NULL,
+  cod_codigo_reserva varchar(8) NOT NULL,
+  fecha_alta_reserva datetime DEFAULT now(),
+  fecha_baja_reserva datetime DEFAULT NULL,
+  fecha_modificacion_reserva datetime DEFAULT NULL
 );
 --
 -- Estructura de tabla para la tabla `tipo_documento`
 --
-CREATE TABLE `tipo_documento` (
-  `id_tipo_documento` int(11) NOT NULL,
-  `descripcion` varchar(60) DEFAULT NULL
+CREATE TABLE tipo_documento (
+  id_tipo_documento int(11) NOT NULL,
+  descripcion varchar(60) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 --
 -- Estructura de tabla para la tabla `tipo_usuario`
 --
 
-CREATE TABLE `tipo_usuario` (
-  `id_tipo_usuario` int(11) NOT NULL,
-  `descripcion` varchar(60) DEFAULT NULL
+CREATE TABLE tipo_usuario (
+  id_tipo_usuario int(11) NOT NULL,
+  descripcion varchar(60) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -174,57 +186,62 @@ CREATE TABLE `tipo_usuario` (
 -- Estructura de tabla para la tabla `tipo_vuelo`
 --
 
-CREATE TABLE `tipo_vuelo` (
-  `id_tipo_vuelo` int(11) NOT NULL,
-  `descripcion` varchar(100) NOT NULL
+CREATE TABLE tipo_vuelo (
+  id_tipo_vuelo int(11) NOT NULL,
+  descripcion varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
-CREATE TABLE `trayecto` (
-  `id_trayecto` int(11) NOT NULL,
-  `cod_estacion_origen` int(11) NOT NULL,
-  `cod_estacion_destino` int(11) NOT NULL
+CREATE TABLE trayecto (
+  id_trayecto int(11) NOT NULL,
+  cod_estacion_origen int(11) NOT NULL,
+  cod_estacion_destino int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
-CREATE TABLE `turno` (
-  `id_turno_medico` int(11) NOT NULL,
-  `cod_usuario` int(11) NOT NULL,
-  `cod_centro_medico` int(11) NOT NULL,
-  `cod_nivel_vuelo` int(11) NOT NULL
+CREATE TABLE turno (
+  id_turno_medico int(11) NOT NULL,
+  cod_usuario int(11) NOT NULL,
+  cod_centro_medico int(11) NOT NULL,
+  fecha_turno date not null,
+  fecha_alta_turno datetime DEFAULT now(),
+  fecha_baja_turno datetime DEFAULT null,
+  fecha_modificacion_turno datetime DEFAULT null,
+  cod_nivel_vuelo int(11) NOT NULL
+  
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
-CREATE TABLE `usuario` (
-  `id_usuario` int(11) NOT NULL,
-  `nombre` varchar(100) NOT NULL,
-  `apellido` varchar(100) NOT NULL,
-  `cod_tipo_doc` int(11) NOT NULL,
-  `num_doc` int(11) NOT NULL,
-  `email` varchar(200) NOT NULL,
-  `contrasenia` int(11) NOT NULL,
-  `cod_tipo_usuario` int(11) NOT NULL,
-  `cod_estado_usuario` int(11) NOT NULL,
-  `cod_nivel_vuelo` int(11) NOT NULL
+CREATE TABLE usuario (
+  id_usuario int(11) NOT NULL,
+  nombre varchar(100) NOT NULL,
+  apellido varchar(100) NOT NULL,
+  cod_tipo_doc int(11) NOT NULL,
+  num_doc int(11) NOT NULL,
+  email varchar(200) NOT NULL,
+  contrasenia int(11) NOT NULL,
+  cod_tipo_usuario int(11) NOT NULL,
+  cod_estado_usuario int(11) NOT NULL,
+  cod_nivel_vuelo int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
-CREATE TABLE `viaje` (
-  `id_viaje` int(11) NOT NULL,
-  `cod_vuelo` int(11) NOT NULL
+CREATE TABLE viaje (
+  id_viaje int(11) NOT NULL,
+  cod_vuelo int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
-CREATE TABLE `vuelo` (
-  `id_vuelo` int(11) NOT NULL,
-  `duracion` double DEFAULT NULL,
-  `fecha` date DEFAULT NULL,
-  `cod_equipo` int(11) NOT NULL,
-  `cod_tipo_vuelo` int(11) NOT NULL,
-  `cod_trayecto` int(11) NOT NULL,
-  `cod_estado` int(11) NOT NULL
+CREATE TABLE vuelo (
+  id_vuelo int(11) NOT NULL,
+  duracion double DEFAULT NULL,
+  fecha date DEFAULT NULL,
+  cod_equipo int(11) NOT NULL,
+  cod_tipo_vuelo int(11) NOT NULL,
+  cod_trayecto int(11) NOT NULL,
+  cod_estado int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
-CREATE TABLE `vuelo_trayecto` (
-  `id_escala` int(11) NOT NULL,
-  `cod_vuelo` int(11) NOT NULL,
-  `cod_trayecto` int(11) NOT NULL,
-`cod_asiento` int(11) NOT NULL
+CREATE TABLE vuelo_trayecto (
+  id_escala int(11) NOT NULL,
+  cod_vuelo int(11) NOT NULL,
+  cod_trayecto int(11) NOT NULL,
+cod_asiento int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -234,95 +251,95 @@ CREATE TABLE `vuelo_trayecto` (
 --
 -- Indices de la tabla `asiento`
 --
-ALTER TABLE `asiento`
-  ADD PRIMARY KEY (`id_asiento`),
-  ADD KEY `cod_equipo` (`cod_equipo`),
-  ADD KEY `cod_cabina` (`cod_equipo`);
+ALTER TABLE asiento
+  ADD PRIMARY KEY (id_asiento),
+  ADD KEY cod_equipo (cod_equipo),
+  ADD KEY cod_cabina (cod_equipo);
 
 --
 -- Indices de la tabla `cabina`
 --
-ALTER TABLE `cabina`
-  ADD PRIMARY KEY (`id_cabina`);
+ALTER TABLE cabina
+  ADD PRIMARY KEY (id_cabina);
 
 --
 -- Indices de la tabla `centro_medico`
 --
-ALTER TABLE `centro_medico`
-  ADD PRIMARY KEY (`id_centro_medico`);
+ALTER TABLE centro_medico
+  ADD PRIMARY KEY (id_centro_medico);
 
 --
 -- Indices de la tabla `equipo`
 --
-ALTER TABLE `equipo`
-  ADD PRIMARY KEY (`id_equipo`);
+ALTER TABLE equipo
+  ADD PRIMARY KEY (id_equipo);
 
 --
 -- Indices de la tabla `estacion`
 --
-ALTER TABLE `estacion`
-  ADD PRIMARY KEY (`id_estacion`);
+ALTER TABLE estacion
+  ADD PRIMARY KEY (id_estacion);
 
 --
 -- Indices de la tabla `estado`
 --
-ALTER TABLE `estado`
-  ADD PRIMARY KEY (`id_estado`);
+ALTER TABLE estado
+  ADD PRIMARY KEY (id_estado);
 
 --
 -- Indices de la tabla `nivel_vuelo`
 --
-ALTER TABLE `nivel_vuelo`
-  ADD PRIMARY KEY (`id_nivel_vuelo`);
+ALTER TABLE nivel_vuelo
+  ADD PRIMARY KEY (id_nivel_vuelo);
 
 --
 -- Indices de la tabla `reserva`
 --
 alter table estado_reserva 
-  ADD PRIMARY KEY (`id_estado_reserva`);
+  ADD PRIMARY KEY (id_estado_reserva);
   
   
 
-/*ALTER TABLE `reserva`
+ALTER TABLE `reserva`
   ADD PRIMARY KEY (`id_reserva`),
   ADD KEY `cod_cabina` (`cod_cabina`),
   ADD KEY `cod_vuelo` (`cod_vuelo`),
   ADD KEY `cod_usuario` (`cod_usuario`),
 ADD KEY `cod_estado_reserva` (`cod_estado_reserva`);
-*/
-ALTER TABLE `reserva`
+
+/*ALTER TABLE reserva
   ADD PRIMARY KEY (cod_codigo_reserva,cod_usuario),
-  ADD KEY `cod_cabina` (`cod_cabina`),
-  ADD KEY `cod_vuelo` (`cod_vuelo`);
+  ADD KEY cod_cabina (cod_cabina),
+  ADD KEY cod_vuelo (cod_vuelo);
  -- ADD KEY `cod_usuario` (`cod_usuario`),
--- ADD KEY `cod_estado_reserva` (`cod_estado_reserva`);
+-- ADD KEY `cod_estado_reserva` (`cod_estado_reserva`);*/
 
 --
 -- Indices de la tabla `tipo_documento`
 --
-ALTER TABLE `tipo_documento`
-  ADD PRIMARY KEY (`id_tipo_documento`);
+ALTER TABLE tipo_documento
+  ADD PRIMARY KEY (id_tipo_documento);
 
 --
 -- Indices de la tabla `tipo_usuario`
 --
-ALTER TABLE `tipo_usuario`
-  ADD PRIMARY KEY (`id_tipo_usuario`) USING BTREE;
+ALTER TABLE tipo_usuario
+  ADD PRIMARY KEY (id_tipo_usuario) USING BTREE;
 
 --
 -- Indices de la tabla `tipo_vuelo`
 --
-ALTER TABLE `tipo_vuelo`
-  ADD PRIMARY KEY (`id_tipo_vuelo`);
+ALTER TABLE tipo_vuelo
+  ADD PRIMARY KEY (id_tipo_vuelo);
 
 --
 -- Indices de la tabla `trayecto`
 -- Indices de la tabla `trayecto`
 --
-ALTER TABLE `trayecto`
-  ADD PRIMARY KEY (`id_trayecto`),
-  ADD KEY `cod_estacion_origen` (`cod_estacion_origen`),
-  ADD KEY `cod_estacion_destino` (`cod_estacion_destino`);
+ALTER TABLE trayecto
+  ADD PRIMARY KEY (id_trayecto),
+  ADD KEY cod_estacion_origen (cod_estacion_origen),
+  ADD KEY cod_estacion_destino (cod_estacion_destino);
 
 --
 -- Indices de la tabla `turno`
@@ -473,10 +490,10 @@ ALTER TABLE `vuelo_trayecto`
   MODIFY `id_escala` int(11) NOT NULL AUTO_INCREMENT;
   
   --
--- AUTO_INCREMENT de la tabla `asiento`
+-- AUTO_INCREMENT de la tabla asiento
 --
-ALTER TABLE `asiento`
-  MODIFY `id_asiento` int(11) NOT NULL AUTO_INCREMENT;
+ALTER TABLE asiento
+  MODIFY id_asiento int(11) NOT NULL AUTO_INCREMENT;
 --
 -- Restricciones para tablas volcadas
 --

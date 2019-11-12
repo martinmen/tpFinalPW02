@@ -204,15 +204,17 @@ insert into estado_reserva(descripcion)
 values 
 ('pendiente de pago'),
 ('pagada'),
-('check-in');
+('check-in'),
+('vencida');
 select * from reserva;
-INSERT INTO `reserva` (`cod_usuario`,`cod_asiento`,`cod_cabina`,`cod_estado_reserva`,`cod_vuelo`,`cod_codigo_reserva`) VALUES
-(1,2,1,1,1,'reserva4'),
-(2,2,1,1,1,'reserva1'),
-(3,3,1,1,1,'reserva1'),
-(4,3,1,1,2,'reserva2'),
-(1,2,1,2,2,'reserva2');
-
+truncate    reserva;
+INSERT INTO reserva (cod_usuario,cod_asiento,cod_cabina,cod_estado_reserva,cod_vuelo,importe,cod_codigo_reserva,) VALUES
+(1,2,1,1,1,500.00,'reserva4'),
+(2,2,1,1,1,1000.50,'reserva1'),
+(3,3,1,1,1,55000.90,'reserva1'),
+(4,3,1,1,2,80000.56,'reserva2'),
+(1,2,1,2,2,100000.56,'reserva2');
+select * from reserva;
 insert into vuelo_trayecto (cod_vuelo, cod_trayecto) values 
 (1,2);
 

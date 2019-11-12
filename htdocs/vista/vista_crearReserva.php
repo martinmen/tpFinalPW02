@@ -1,6 +1,6 @@
 <?php
 include_once ("../header.php");
-include("../controlador/controlador_crearReserva.php");
+include_once("../controlador/controlador_crearReserva.php");
 ?>
 <!--<link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">-->
 <!--<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>-->
@@ -8,95 +8,113 @@ include("../controlador/controlador_crearReserva.php");
 <script>
     $(document).ready(function () {
         var counter = 1;
-        var cantCard = 0;
+        $('#addCard').on("click", function(){
+            //Crear elemento div
+            var div1 = $(document.createElement('div'));
+            div1.addClass('card-body newCard');
+            div1.attr('id',counter);
 
+            //Añadir divs al principal
+            var card = '<span class="close" style="float:right;">X</span><br>'+
+                '<div class="row">' +
+                '<div class="col-md-6">' +
+                '<div class="form-group">' +
+                '<label>Nombres</label>' +
+                '<input type="text" class="form-control" name="nombres'+counter+'" placeholder="Ingrese Nombres">' +
+                '</div>' +
+                '</div>' +
+                '<div class="col-md-6">' +
+                '<div class="form-group">' +
+                '<label>Apellido</label>' +
+                '<input type="text" class="form-control" name="apellido'+counter+'" placeholder="Ingrese Apellido">' +
+                '</div>' +
+                '</div>' +
+                '</div>' +
+                '<div class="row">' +
+                '<div class="col-md-6">' +
+                '<div class="form-group">' +
+                '<label>Tipo Documento</label>' +
+                '<select class="form-control" name="tipo_doc'+counter+'">' +
+                '<option value="">Seleccione...</option> <?php;?> </select>' +
+                '</div>' +
+                '</div>' +
+                '<div class="col-md-6">' +
+                '<div class="form-group">' +
+                '<label>Nro. Documento</label>' +
+                '<input type="text" class="form-control" name="nro_doc'+ counter +'" placeholder="Ingrese Nro. Documento">' +
+                '</div>' +
+                '</div>' +
+                '</div>' +
+                '<div class="row">' +
+                '<div class="col-md-6">' +
+                '<div class="form-group">' +
+                '<label>Email</label>' +
+                '<input type="email" class="form-control" name="email'+ counter +'" placeholder="aaa@aaa.com">' +
+                '</div>' +
+                '</div>' +
+                '</div>' +
+                '<div class="row">' +
+                '                <div class="col-md-6 offset-3">' +
+                '                    <div class="separador"></div>' +
+                '                </div>' +
+                '            </div>' +
+                '            <p class="card-description vuelo-disabled">Vuelo: <?php echo $vueloId;?></p>' +
+                '            <div class="row">' +
+                '                <div class="col-md-6">' +
+                '                    <div class="form-group">' +
+                '                        <label>Tipo de Cabina</label>' +
+                '                        <select class="form-control" name="tipo_cabina">' +
+                '                            <option value="">Seleccione...</option>' +
+                '                            <?php ; ?>' +
+                '                        </select>' +
+                '                    </div>' +
+                '                </div>' +
+                '                <div class="col-6">' +
+                '                    <div class="form-group">' +
+                '                        <label>Importe</label>' +
+                '                        <p class="form-control" name="importe" > $<?php echo $importe?></p>' +
+                '                    </div>' +
+                '                </div>' +
+                '            </div>';
+            counter++;
+            // $(div1).append(div2);
+            $(div1).append(card);
+            //Añado el card
+            $('.card').append('<br>',div1);
 
-        //Crear elemento div
-        var div1 = $(document.createElement('div')).addClass('card shadow mb-4');
-        var div2 = $(document.createElement('div')).addClass('card-body');
-
-        //Añadir divs al principal
-        var card = 'Vuelo: <?php echo $x;?>'+counter;
-
-        $(div1).append(div2);
-        $(div2).append(card);
-        //$(div2).append('Vuelo: '+'--- <div class="row"><div class="col-md-6">\n' +
-        //    '                    <div class="form-group">\n' +
-        //    '                        <label>Nombres</label>\n' +
-        //    '                        <input type="text" class="form-control" name="nombres'+ counter +'" placeholder="Ingrese Nombres">\n' +
-        //    '                    </div>\n' +
-        //    '                </div>\n' +
-        //    '                <div class="col-md-6">\n' +
-        //    '                    <div class="form-group">\n' +
-        //    '                        <label>Apellido</label>\n' +
-        //    '                        <input type="text" class="form-control" name="apellido'+ counter +'" placeholder="Ingrese Apellido">\n' +
-        //    '                    </div>\n' +
-        //    '                </div>\n' +
-        //    '            </div>\n' +
-        //    '            <div class="row">\n' +
-        //    '                <div class="col-md-6">\n' +
-        //    '                    <div class="form-group">\n' +
-        //    '                        <label>Tipo Documento</label>\n' +
-        //    '                        <select class="form-control" name="tipo_doc'+ counter +'">\n' +
-        //    '                            <option value="">Seleccione...</option>\n' +
-        //    '                            <?php //?>// + \n'+
-        //    '                        </select>\n' +
-        //    '                    </div>\n' +
-        //    '                </div>\n' +
-        //    '                <div class="col-md-6">\n' +
-        //    '                    <div class="form-group">\n' +
-        //    '                        <label>Nro. Documento</label>\n' +
-        //    '                        <input type="text" class="form-control" name="nro_doc'+ counter +'" placeholder="Ingrese Nro. Documento">\n' +
-        //    '                    </div>\n' +
-        //    '                </div>\n' +
-        //    '            </div>\n' +
-        //    '            <div class="row">\n' +
-        //    '                <div class="col-md-6">\n' +
-        //    '                    <div class="form-group">\n' +
-        //    '                        <label>Email</label>\n' +
-        //    '                        <input type="email" class="form-control" name="email'+ counter +'" placeholder="aaa@aaa.com">\n' +
-        //    '                    </div>\n' +
-        //    '                </div>\n' +
-        //    '            </div>');
-
-
-        $('#addCard').click(function(){
-            if(cantCard <= 3) {
-                cantCard = cantCard +1;
-                //Añado el card
-                var cards = document.getElementById('Cards');
-                $(cards).append(div1);
+            if(counter > 2){
+                $('#addCard').css('display', 'none');
             }
         });
 
 
-        $("table.order-list").on("click", ".ibtnDel", function (event) {
-            $(this).closest("tr").remove();
+        //Elimino el card
+        $("#form").delegate(".close", "click", function (event) {
+            $(this).closest('.newCard').remove();
             counter -= 1
+            if(counter < 3){
+                $('#addCard').css('display', 'inline');
+            }
         });
 
     });
-
-    function calculateRow(row) {
-        var price = +row.find('input[name^="price"]').val();
-
-    }
-
-    function calculateGrandTotal() {
-        var grandTotal = 0;
-        $("table.order-list").find('input[name^="price"]').each(function () {
-            grandTotal += +$(this).val();
-        });
-        $("#grandtotal").text(grandTotal.toFixed(2));
-    }
 </script>
-<div class="d-sm-flex align-items-center justify-content-between mb-4">
-    <h1 class="h3 mb-0 text-gray-800">Datos de usuarios para nueva reserva</h1>
+<div class="row page-title-header">
+    <div class="col-12">
+        <div class="page-header">
+            <h4 class="page-title">Reserva</h4>
+        </div>
+    </div>
 </div>
-<form class="form-sample" method="post" action="../controlador/controlador_crearReserva.php">
+<div class="row">
+    <div class="col-md-12">
+        <div class="separador"></div>
+    </div>
+</div>
+<br>
+<form class="form-sample" method="post" action="../controlador/controlador_crearReserva.php" id="form">
     <div class="card shadow mb-4">
         <div class="card-body">
-            <p class="card-description">Vuelo: ----</p>
             <div class="row">
                 <div class="col-md-6">
                     <div class="form-group">
@@ -136,11 +154,48 @@ include("../controlador/controlador_crearReserva.php");
                     </div>
                 </div>
             </div>
+            <div class="row">
+                <div class="col-md-6 offset-3">
+                    <div class="separador"></div>
+                </div>
+            </div>
+            <p class="card-description vuelo-disabled">Vuelo: <?php echo $vueloId;?></p>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label>Tipo de Cabina</label>
+                        <select class="form-control" name="tipo_cabina">
+                            <option value="">Seleccione...</option>
+                            <?php ; ?>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="form-group">
+                        <label>Importe</label>
+                        <p class="form-control" name="importe" > $<?php echo $importe?></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-2 offset-md-10">
+            <input type="button" class="btn btn-primary" id="addCard" style="float:right"  value="Agregar Usuario" data-toggle="tooltip" data-placement="top" title="Puede agregar otro usuario a su reserva"/>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-2 offset-4">
+            <button type="button" class="btn btn-danger btn-rounded btn-fw" style="float:right;"><a style="color:white!important" href="../controlador/controlador_cliente.php">Cancelar</a></button>
+        </div>
+        <div class="col-md-2">
+<!--            <button name="submit" type="submit" class="btn btn-success btn-rounded btn-fw" style="float:left">Ir al pago</button>-->
+            <button name="submit" class="btn btn-success btn-rounded btn-fw" style="float:left"><a style="color:white!important" href="vista_pago.php">Ir al pago</a></button>
         </div>
     </div>
 </form>
-<div id="Cards"></div>
-<input type="button" class="btn btn-primary" style="float:right" id="addCard" value="Agregar Usuario" />
+
+
 <?php
 include("../footer.php");
 ?>
