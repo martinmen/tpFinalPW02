@@ -1,4 +1,4 @@
-
+use tpfinal;
 -- Lista trayectos
 select eo.nombre origen,  ed.nombre destino
 from trayecto t join estacion eo on t.cod_estacion_origen = eo.id_estacion
@@ -25,7 +25,7 @@ update usuario
 /* validar antes de ingresar una reserva que no esxita un usuario y cod de reserva repetido
 si trae resultado es porque existe entonces sedebe mostrar un error
  si no trae restados se ejecuta el insert de la tabla reservas
- */
+ **/
 select * 
 from reserva r 
 where r.cod_codigo_reserva = 'reserva1' and r.cod_usuario = 1; 
