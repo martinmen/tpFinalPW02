@@ -1,6 +1,6 @@
 <?php
 include_once ("../header.php");
-include("../modelo/modelo_imprimirReporte.php");
+include("../modelo/modelo_generarReporte.php");
 
 $cabina = $_GET["reporte"];
 switch($cabina){

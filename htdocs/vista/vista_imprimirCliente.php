@@ -78,6 +78,9 @@ $cantidadVendida=mysqli_query($conn,$sql);
             </div>  
         </div>
     </form>
+    <form action="vistaAdmin.php">
+  <br> <button type="submit" class="btn btn-danger btn-xs">Regresar</button>
+  </form>
 </body>
  </html>
  <script>
