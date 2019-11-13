@@ -242,3 +242,25 @@ body {
     padding: 5px;
     width: 80px;
 }
+
+.totalPagar{
+    padding: 5px;
+    BACKGROUND-COLOR: #36445a9c;
+    border-radius: 10px;
+    font-weight: bold;
+    color: white;
+}
+
+.labelInputGroup{
+    font-size: 14px;
+    margin: auto;
+    color: grey;
+}
+
+.table thead th{
+    border-bottom: 1px solid #4c58809e!important;
+}
+
+.table th{
+    border-top: 1px solid #4c58809e!important;
+}

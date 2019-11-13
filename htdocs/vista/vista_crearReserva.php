@@ -186,7 +186,7 @@ include_once("../controlador/controlador_crearReserva.php");
     </div>
     <div class="row">
         <div class="col-md-2 offset-4">
-            <button type="button" class="btn btn-danger btn-rounded btn-fw" style="float:right;"><a style="color:white!important" href="../controlador/controlador_cliente.php">Cancelar</a></button>
+            <button type="button" class="btn btn-danger btn-rounded btn-fw" style="float:right;"><a style="color:white!important" onclick="confimarCancelacion()">Cancelar</a></button>
         </div>
         <div class="col-md-2">
 <!--            <button name="submit" type="submit" class="btn btn-success btn-rounded btn-fw" style="float:left">Ir al pago</button>-->
@@ -194,7 +194,14 @@ include_once("../controlador/controlador_crearReserva.php");
         </div>
     </div>
 </form>
-
+    <script>
+        function confimarCancelacion(){
+            var ask = confirm("¿Seguro quiere cancelar la reserva?");
+            if (ask) {
+                window.location.href="../vista/vista_cliente.php";
+            }
+        }
+    </script>
 
 <?php
 include("../footer.php");

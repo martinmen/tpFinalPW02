@@ -16,8 +16,8 @@ if(isset($_GET["submit"])){
     $vuelos = getVuelos();
 }
 
-
-
-include_once ("../header.php");
-include("../vista/vista_cliente.php");
-include_once ("../footer.php");
+//
+//
+//include_once ("../header.php");
+//include("../vista/vista_cliente.php");
+//include_once ("../footer.php");
