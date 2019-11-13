@@ -1,4 +1,5 @@
-    <table class="table">
+<?php ?>
+<table class="table">
         <thead>
         <tr>
             <th>Nro Vuelo</th>

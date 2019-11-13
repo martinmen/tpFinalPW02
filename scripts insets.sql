@@ -121,12 +121,9 @@ INSERT INTO `centro_medico` (`id_centro_medico`, `descripcion`, `turnos_diarios`
 (2, 'shanghai', 210),
 (3, 'Ankara', 200);
 
-insert into estado_usuario (descripcion) values
+insert into `estado_usuario` (descripcion) values
 ('pendiente'),
 ('confirmado');
-select * from estado_usuario;
-
-
 INSERT INTO `usuario` (`nombre`, `apellido`, `cod_tipo_doc`, `num_doc`, `email`, `contrasenia`, `cod_tipo_usuario`,`cod_estado_usuario`, `cod_nivel_vuelo`) VALUES
 ('martin', '', 0, 0, 'mmendez@gmail.com', 123, 2,2, 0),
 ('Mica', 'Vandoni', 1, 12345678, 'mica@gmail.com', 123, 2,2, 0),
@@ -180,7 +177,7 @@ INSERT INTO `equipo` (`modelo`, `matricula`, `cod_tipo_equipo`, `capacidad_total
 ('Zorzal', 'BA1', 'BA', 100, 50, 50, 0),
 ('Zorzal', 'BA2', 'BA', 100, 50, 50, 0),
 ('Zorzal', 'BA3', 'BA', 100, 50, 50, 0);
-INSERT INTO ASIENTO (cod_equipo, cod_cabina, cod_estado ) values
+INSERT INTO `ASIENTO` (cod_equipo, cod_cabina, cod_estado ) values
 (1,1,1),
 (1,1,1),
 (1,1,1),
@@ -200,22 +197,17 @@ INSERT INTO `vuelo` (`duracion`, `fecha`, `cod_equipo`, `cod_tipo_vuelo`,`cod_tr
 (8, '2019-10-04', 4, 1,2,2),
 (8, '2019-11-04', 5, 1,2,1);
 
-insert into estado_reserva(descripcion)
+insert into `estado_reserva`(descripcion)
 values 
 ('pendiente de pago'),
 ('pagada'),
 ('check-in'),
 ('vencida');
-select * from reserva;
-truncate    reserva;
-INSERT INTO reserva (cod_usuario,cod_asiento,cod_cabina,cod_estado_reserva,cod_vuelo,importe,cod_codigo_reserva,) VALUES
-(1,2,1,1,1,500.00,'reserva4'),
-(2,2,1,1,1,1000.50,'reserva1'),
-(3,3,1,1,1,55000.90,'reserva1'),
-(4,3,1,1,2,80000.56,'reserva2'),
-(1,2,1,2,2,100000.56,'reserva2');
-select * from reserva;
-insert into vuelo_trayecto (cod_vuelo, cod_trayecto) values 
+
+insert into `reserva`(cod_usuario, cod_cabina, cod_asiento, cod_vuelo, importe, cod_estado_reserva, cod_codigo_reserva, fecha_alta_reserva, fecha_baja_reserva, fecha_modificacion_reserva)
+			values(2, 1, 5, 1, 15000.00, 2, '9DICJA', now(), null, null); 
+        
+insert into `vuelo_trayecto` (cod_vuelo, cod_trayecto) values 
 (1,2);
 
 
