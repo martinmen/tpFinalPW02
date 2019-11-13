@@ -1,10 +1,5 @@
-    <input type="button" class="btn btn-primary" style="float:right" id="addCard" value="Imprimir Reporte"/>
-    
-    
-    
-    
-    
-    <table class="table">
+<?php ?>
+<table class="table">
         <thead>
         <tr>
             <th>Nro Vuelo</th>

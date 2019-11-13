@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns="http://www.w3.org/1999/html">
 <head>
 
     <meta charset="utf-8">
@@ -23,7 +23,7 @@
                             <h3 class="login-heading mb-4">Bienvenido!</h3>
 
                         </div>
-                        <form class="col-md-12" action='controlador/controlador_session.php' method='POST'>
+                        <form class="col-md-12" action='index.php' method="POST">
                             <div class="form-label-group">
                                 <input type="email" id="inputEmail" class="form-control" placeholder="Ingrese Email" name="emailUsuario" required autofocus>
                                 <label for="inputEmail">Email</label>
@@ -43,7 +43,7 @@
 //                                echo "<p style='color:red; font-weight: bold'>El email y/o contraseña no son correctos</p>";
 //                            }
 //                            ?>
-                            <button class="btn btn-lg btn-primary btn-block btn-login text-uppercase font-weight-bold mb-2" type="submit" value="Iniciar Sesión">Ingresar</button>
+                            <button class="btn btn-lg btn-primary btn-block btn-login text-uppercase font-weight-bold mb-2" name="submit" type="submit" value="Iniciar Sesión">Ingresar</button>
                             <a class="btn btn-lg btn-primary btn-block btn-login text-uppercase font-weight-bold mb-2" href="vista/vista_registrar.php" value="Registrarme">Registrar</a>
                         </form>
                     </div>
