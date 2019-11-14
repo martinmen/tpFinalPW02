@@ -12,23 +12,17 @@ if(isset($_POST['submit'])){
     include("modelo/modelo_session.php");
     $email = $_POST["emailUsuario"];
     $pass = $_POST['passUsuario'];
+    session_start();
 
     $rol = validaSession($email, $pass);
 
-    session_start();
-    $_SESSION["email"] = $email;
     if ($rol == 1){
-
-        $_SESSION["rol"] = "administrador";
         Header('location:vista/vista_admin.php');
 
     }else if ($rol == 2){
-        $_SESSION["rol"] = "cliente";
-
         Header('location:vista/vista_cliente.php');
 
     } else if($rol == 3){
-        $_SESSION["rol"] = "interesado";
 
     }
 

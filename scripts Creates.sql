@@ -204,10 +204,11 @@ CREATE TABLE turno (
   fecha_turno date not null,
   fecha_alta_turno datetime DEFAULT now(),
   fecha_baja_turno datetime DEFAULT null,
-  fecha_modificacion_turno datetime DEFAULT null,
-  cod_nivel_vuelo int(11) NOT NULL
+  fecha_modificacion_turno datetime DEFAULT null
+  -- cod_nivel_vuelo int(11) NOT NULL
   
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
 
 CREATE TABLE usuario (
   id_usuario int(11) NOT NULL,
@@ -347,12 +348,12 @@ ALTER TABLE trayecto
 ALTER TABLE `turno`
   ADD PRIMARY KEY (`id_turno_medico`),
   ADD KEY `cod_usuario` (`cod_usuario`),
-  ADD KEY `cod_centro_medico` (`cod_centro_medico`),
-  ADD KEY `cod_nivel_vuelo` (`cod_nivel_vuelo`);
+  ADD KEY `cod_centro_medico` (`cod_centro_medico`);
+  -- ADD KEY `cod_nivel_vuelo` (`cod_nivel_vuelo`);
 
 
-alter table estado_usuario
-add primary key (id_estado_usuario);
+alter table `estado_usuario`
+add primary key (`id_estado_usuario`);
 --
 -- Indices de la tabla `usuario`
 --
@@ -518,7 +519,7 @@ ALTER TABLE `reserva`
 -- Filtros para la tabla `turno`
 --
 ALTER TABLE `turno`
-  ADD CONSTRAINT `turno_ibfk_1` FOREIGN KEY (`cod_nivel_vuelo`) REFERENCES `nivel_vuelo` (`id_nivel_vuelo`),
+  -- ADD CONSTRAINT `turno_ibfk_1` FOREIGN KEY (`cod_nivel_vuelo`) REFERENCES `nivel_vuelo` (`id_nivel_vuelo`),
   ADD CONSTRAINT `turno_ibfk_2` FOREIGN KEY (`cod_usuario`) REFERENCES `usuario` (`id_usuario`),
   ADD CONSTRAINT `turno_ibfk_3` FOREIGN KEY (`cod_centro_medico`) REFERENCES `centro_medico` (`id_centro_medico`);
 

@@ -71,9 +71,9 @@ if($_SESSION["email"]){
         <!-- Nav Item - Pages Collapse Menu -->
         <li class="nav-item">
             <a class="nav-link"  href="<?php if(isset($_SESSION["rol"])){
-                if($_SESSION["rol"] == 'administrador'){
+                if($_SESSION["rol"] == 1){
                     $vista = 'vista_admin.php';
-                } else if($_SESSION["rol"] == 'cliente'){
+                } else if($_SESSION["rol"] == 2){
                     $vista = 'vista_cliente.php';
                 }
                 echo $vista;
@@ -121,7 +121,7 @@ if($_SESSION["email"]){
                         </a>
                         <!-- Dropdown - User Information -->
                         <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
-                            <a class="dropdown-item" <?php echo "href='vista_perfil.php?id=".$email."'>" ?>
+                            <a class="dropdown-item" href='vista_perfil.php' >
                                 <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                                 Perfil
                             </a>

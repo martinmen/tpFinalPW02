@@ -1,25 +1,6 @@
 <?php
 require_once("../Conexion.php");
 
-function getDatosUsuario($email){
-
-    $conn = getConexion();
-    $sql="SELECT * from usuario where email ='$email'";
-    $result=mysqli_query($conn,$sql);
-    $usuario = [];
-
-    if($row = mysqli_fetch_array($result))
-    {
-        $usuario[0] = $row['id_usuario'];
-        $usuario[1] = $row['nombre'];
-        $usuario[2] = $row['apellido'];
-        $usuario[3] = $row['num_doc'];
-    }
-
-    mysqli_close($conn);
-    return $usuario;
-
-}
 
 function getReservas($email){
     $conn = getConexion();
@@ -56,3 +37,47 @@ function getReservas($email){
     return $reservas;
 
 }
+
+function getTurnoMedico($email){
+
+    $conn = getConexion();
+    $sql="select t.id_turno_medico, t.fecha_turno, ce.descripcion from turno as t 
+		join centro_medico as ce on ce.id_centro_medico = t.cod_centro_medico
+        join usuario as u on u.id_usuario = t.cod_usuario
+        where u.email = '$email';";
+    $result=mysqli_query($conn,$sql);
+//    $turno_medico = false;
+    $turno_medico = [];
+
+    if($row = mysqli_fetch_array($result))
+    {
+        $turno_medico[0] = true;
+        $turno_medico[1] = $row['fecha_turno'];
+        $turno_medico[2] = $row['descripcion'];
+    } else{
+        $turno_medico[0] = false;
+    }
+
+    mysqli_close($conn);
+    return $turno_medico;
+}
+
+function bajaTurno($id_usuario){
+
+    $conn = getConexion();
+    $sql  = "DELETE FROM TURNO WHERE cod_usuario = '$id_usuario';";
+    $result = mysqli_query($conn, $sql);
+
+    if($result){
+        echo "<script>alert('Su turno ha sido dado de baja correctamente.'); window.location.href=\"../vista/vista_perfil.php\";</script>";
+        exit;
+    } else{
+        echo "<script>alert('No pudo darse de baja su turno, ponganse en contacto con soporte.'); window.location.href=\"../vista/vista_perfil.php\"</script>";
+    }
+
+
+}
+
+
+
+
