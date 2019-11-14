@@ -194,14 +194,14 @@ include_once("../controlador/controlador_crearReserva.php");
         </div>
     </div>
 </form>
-    <script>
-        function confimarCancelacion(){
-            var ask = confirm("¿Seguro quiere cancelar la reserva?");
-            if (ask) {
-                window.location.href="../vista/vista_cliente.php";
-            }
+<script>
+    function confimarCancelacion(){
+        var ask = confirm("¿Seguro quiere cancelar la reserva?");
+        if (ask) {
+            window.location.href="../vista/vista_cliente.php";
         }
-    </script>
+    }
+</script>
 
 <?php
 include("../footer.php");

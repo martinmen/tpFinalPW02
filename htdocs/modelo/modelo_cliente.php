@@ -35,7 +35,7 @@ function getVuelosConFecha($fdesde, $fhasta){
 function getVuelos(){
 
     $conn = getConexion();
-    $sql="SELECT v.fecha, v.duracion, t.descripcion, q.modelo, e.descripcion, v.id_vuelo FROM vuelo v, estado e,tipo_vuelo t,equipo q where v.cod_estado = e.id_estado AND v.cod_tipo_vuelo=t.id_tipo_vuelo AND v.cod_equipo = q.id_equipo";
+    $sql="SELECT v.fecha, v.duracion, t.descripcion as tipo_vuelo, q.modelo, e.descripcion, v.id_vuelo FROM vuelo v, estado e,tipo_vuelo t,equipo q where v.cod_estado = e.id_estado AND v.cod_tipo_vuelo=t.id_tipo_vuelo AND v.cod_equipo = q.id_equipo";
     $result=mysqli_query($conn,$sql);
     $vuelos = Array();
 
@@ -46,7 +46,7 @@ function getVuelos(){
             $vuelo = Array();
             $vuelo['fecha'] = $row["fecha"];
             $vuelo['duracion'] = $row["duracion"];
-            $vuelo['tipo_vuelo'] = $row["descripcion"];
+            $vuelo['tipo_vuelo'] = $row["tipo_vuelo"];
             $vuelo['modelo'] = $row["modelo"];
             $vuelo['descripcion'] = $row["descripcion"];
             $vuelo['id'] = $row["id_vuelo"];
