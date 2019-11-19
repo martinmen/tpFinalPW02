@@ -21,6 +21,8 @@ function validaSession($email, $pass)
                 $rol = 2;
             } elseif ($row['cod_tipo_usuario'] == 3) {
                 $rol = 3;
+            }elseif ($row['cod_tipo_usuario'] == 4) {
+                $rol = 4;
             }
         }
     } else {

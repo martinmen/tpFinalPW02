@@ -1,9 +1,14 @@
 <?php
-include_once ("../header.php");
-//include_once("../controlador/controlador_medico.php");
+
+include("../header.php");
+include("../controlador/controlador_medico.php");
+if($_SESSION["email"]) {
+  $email =  $_SESSION["email"];
+}
+
 ?>
 <h1> Centro Médico </h1>
-<form class="form-inline" method="get" action='../controlador/controlador_medico.php?fecha=".$turno["fecha"]."'>
+<form class="form-inline" method="get" action='../vista/vista_medico.php?fecha=".$turno["fecha"]."'>
     Fecha:<input class="form-control mr-sm-3" type="date" name="fecha" placeholder="Fecha desde" id="datepickerDesde">
     <input  type="submit" value="Filtrar">
     
@@ -29,7 +34,7 @@ include_once ("../header.php");
                           <td>".$turno['fecha']."</td>
                           <td>".$turno['usuario']."</td>
                           <td>".$turno['nivel']."</td>    
-                          <td><a style='color: #2a3b57; font-weight: bold;' href='../controlador/controlador_modificarNivelVuelo.php?usuario=".$turno["usuario"]."'>Modificar nivel</a></td>                         
+                          <td><a style='color: #2a3b57; font-weight: bold;' href='../vista/vista_modificar_nivel_vuelo.php?usuario=".$turno["usuario"]."'>Modificar nivel</a></td>                         
                           </tr>";
                      }
                 ?>

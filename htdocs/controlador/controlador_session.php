@@ -20,17 +20,17 @@ if ($rol == 1){
 }else if ($rol == 2){
     $_SESSION["rol"] = "cliente";
 
-    include_once("../header.php");
-    include_once("../controlador/controlador_cliente.php");
-    include_once("../vista/vista_cliente.php");
-    include_once("../footer.php");
+    
 
 } else if($rol == 3){
     $_SESSION["rol"] = "interesado";
+   
 
-} else if($rol == 0) {
-    Header('location:../login.php');
-//    $error = false;
+} else if($rol == 4) {
+    $_SESSION["rol"] = "medico";
+
+
+  
 }
 
 

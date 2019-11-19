@@ -22,14 +22,19 @@ if(isset($_POST['submit'])){
         $_SESSION["rol"] = "administrador";
         Header('location:vista/vista_admin.php');
 
-    }else if ($rol == 2){
+    } else if($rol == 2){
         $_SESSION["rol"] = "cliente";
 
         Header('location:vista/vista_cliente.php');
 
     } else if($rol == 3){
         $_SESSION["rol"] = "interesado";
+        Header('location:vista/vista_interesado.php');
 
+    } else if($rol == 4){
+        $_SESSION["rol"] = "medico";
+
+        Header('location:vista/vista_medico.php');
     }
 
 }
