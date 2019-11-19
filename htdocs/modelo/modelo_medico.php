@@ -1,24 +1,39 @@
 <?php
 require_once("../Conexion.php");
+
 function getTurnosFecha($fecha){
     $conn= getConexion();
     $turnos = Array();
-
     if($fecha == null){
-    
-       // $turnos=getTurnos();
+    $sql = "SELECT * from turno";
+    $result = mysql_query($conn, $sql);
     }else {
-        $sql= "SELECT t.id_turno_medico as nro, u.apellido as usuario , cm.descripcion as centro, t.fecha_turno as fecha, n.descripcion as nivel FROM turno t, usuario u, centro_medico cm, nivel_vuelo n WHERE t.cod_usuario = u.id_usuario AND t.cod_centro_medico = cm.id_centro_medico AND u.cod_nivel_vuelo = n.id_nivel_vuelo AND t.fecha_turno = '$fecha'";
-        $result=mysqli_query($conn,$sql );
+        $sql = "SELECT * from turno where fecha_turno = '$fecha'";
+        $result = mysqli_query($conn, $sql);
     }
+
+        // $sql= "SELECT t.id_turno_medico as nro, u.apellido as usuario , cm.descripcion as centro, t.fecha_turno as fecha, n.descripcion as nivel FROM turno t, usuario u, centro_medico cm, nivel_vuelo n WHERE t.cod_usuario = u.id_usuario AND t.cod_centro_medico = cm.id_centro_medico AND u.cod_nivel_vuelo = n.id_nivel_vuelo AND t.fecha_turno = '$fecha'";
+        // $result=mysqli_query($conn,$sql );
+       
+    
     if(mysqli_num_rows($result)> 0) {
+        // while ($row = mysqli_fetch_assoc($result)) {
+        //     $turno = Array();
+        //     $turno['centro'] = $row["centro"];
+        //     $turno['nro'] = $row["nro"];
+        //     $turno['fecha'] = $row["fecha"];
+        //     $turno['usuario'] = $row["usuario"];
+        //     $turno['nivel'] = $row["nivel"];
+        //     $turnos[] = $turno;
+
+        // }
         while ($row = mysqli_fetch_assoc($result)) {
             $turno = Array();
-            $turno['centro'] = $row["centro"];
-            $turno['nro'] = $row["nro"];
-            $turno['fecha'] = $row["fecha"];
-            $turno['usuario'] = $row["usuario"];
-            $turno['nivel'] = $row["nivel"];
+            $turno['nro'] = $row["id_turno_medico"];
+            $turno['centro'] = $row["cod_centro_medico"];
+            $turno['fecha'] = $row["fecha_turno"];
+            $turno['usuario'] = $row["cod_usuario"];
+            $turno['nivel'] = $row["cod_nivel_vuelo"];
             $turnos[] = $turno;
 
         }

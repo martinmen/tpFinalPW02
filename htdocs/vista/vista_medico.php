@@ -8,7 +8,7 @@ if($_SESSION["email"]) {
 
 ?>
 <h1> Centro Médico </h1>
-<form class="form-inline" method="get" action='../vista/vista_medico.php?fecha=".$turno["fecha"]."'>
+<form class="form-inline" method="get" action='vista_medico.php?fecha=".$turno["fecha"]."'>
     Fecha:<input class="form-control mr-sm-3" type="date" name="fecha" placeholder="Fecha desde" id="datepickerDesde">
     <input  type="submit" value="Filtrar">
     

@@ -1,15 +1,14 @@
 <?php
 include("../modelo/modelo_medico.php");
 
-if(!isset($_GET["submit"])){
+
+
+if(isset($_GET["fecha"])){
+    
     $fecha = $_GET['fecha'];
-    if(isset($fecha)){
-        echo "fecha vacia";
-        $turnos = getTurnos();
-    }else {  
-        $turnos = getTurnosFecha($fecha);
-    }
-}else{
+    $turnos = getTurnosFecha($fecha);
+} else {
+    
     $turnos = getTurnos();
 }
 
