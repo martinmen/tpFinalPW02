@@ -1,5 +1,7 @@
 <?php
 
+use http\Header;
+
 include("../modelo/modelo_cliente.php");
 $tipo_vuelo = getTiposDeVuelos();
 $duracion = getDuraciones();
@@ -11,9 +13,11 @@ if(isset($_GET["submit"])){
     $fhasta = $_GET['fhasta'];
 
     $vuelos = getVuelosConFecha($fdesde, $fhasta);
+    include("../vista/vista_cliente.php");
 
 }else {
     $vuelos = getVuelos();
+
 }
 
 //

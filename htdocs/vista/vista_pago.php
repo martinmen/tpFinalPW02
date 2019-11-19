@@ -127,7 +127,7 @@ include_once("../controlador/controlador_pago.php");
     function confimarCancelacion(){
         var ask = confirm("¿Seguro quiere cancelar el pago?");
         if (ask) {
-            window.location.href ="../controlador/controlador_cliente.php";
+            window.location.href ="../vista/vista_cliente.php";
         }
     }
 </script>

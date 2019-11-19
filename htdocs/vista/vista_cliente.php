@@ -1,11 +1,20 @@
 <?php
 include("../header.php");
-include("../controlador/controlador_cliente.php");
-if($_SESSION["email"]) {
+if(!isset($_GET['submit'])){
+    include("../controlador/controlador_cliente.php");
+}
+if(isset($_SESSION["email"])) {
   $email =  $_SESSION["email"];
+} else{
+    echo "<div class=\"card shadow mb-4\">
+    <div class=\"card-header py-3\">
+        <h6 style=\"font-weight: bold;\">Para poder reservar algún vuelo, debe iniciar sesión o registrarse.</h6>
+    </div>
+</div>";
 }
 
 ?>
+
 <div class="row page-title-header">
     <div class="col-12">
         <div class="page-header">
@@ -101,6 +110,12 @@ if($_SESSION["email"]) {
                 <tbody>
                 <?php
                     foreach ($vuelos as $vuelo){
+                        if(isset($email)){
+                            $reserva = "<a style='color: #2a3b57; font-weight: bold;' href='../vista/vista_CrearReserva.php?vuelo=".$vuelo['id']."'>Reservar</a>";
+                        }
+                        else{
+                            $reserva = "";
+                        }
                         echo "<tr>
                              <td>".$vuelo['id']."</td>                             
                              <td>".$vuelo['fecha']."</td>
@@ -108,15 +123,85 @@ if($_SESSION["email"]) {
                              <td>".$vuelo['tipo_vuelo']."</td>
                              <td>".$vuelo['modelo']."</td>
                              <td>".$vuelo['descripcion']."</td>    
-                             <td><a style='color: #2a3b57; font-weight: bold;' href='../vista/vista_CrearReserva.php?vuelo=".$vuelo['id']."'>Reservar</a></td>                         
+                             <td>".$reserva."</td>                         
                          </tr>";
                     }
                 ?>
                 </tbody>
             </table>
         </div>
+
+        <?php
+
+        $conexion = mysqli_connect("127.0.0.1","root","admin","tpfinal");
+        $sql = "SELECT * FROM tipo_vuelo;";
+        $resultado = mysqli_query($conexion, $sql);
+        echo "<select name='tipo_vuelo' onchange='vistaSegunTipoDeVuelo(this.value)'>";
+        while($fila = mysqli_fetch_assoc($resultado)){
+            echo "<option value='"  . $fila["id"] . "'>" . $fila["descripcion"] . "</option>";
+        }
+        echo "</select><br />";
+        echo "<select id='camposTipoVuelo'></select>";
+        ?>
+
+        <?php
+        $tipo_vuelo = $_GET["tipo_vuelo"];
+        $conexion = mysqli_connect("127.0.0.1","root","admin","tpfinal");
+        $sql = "SELECT descripcion FROM tipo_vuelo WHERE id_tipo_vuelo = " . $tipo_vuelo;
+        $resultado = mysqli_query($conexion, $sql);
+
+
+
+
+//        while($fila = mysqli_fetch_assoc($resultado)){
+//            echo "<option value='" . $fila["id"] . "'>" . $fila["ciudad_nombre"] . "</option>";
+//        }
+        ?>
+
     </div>
 </div>
+<script type="text/javascript">
+
+    function getXMLHTTP(){
+        var xmlhttp = false;
+        try {
+            xmlhttp = new XMLHttpRequest();
+        }
+        catch (e) {
+            try{
+                xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+            }
+            catch (e) {
+                try {
+                    xmlhttp = new ActiveXObject("Msxml2.XMLHTTP");
+                }
+                catch (e) {
+                    xmlhttp = false;
+                }
+            }
+        }
+        return xmlhttp;
+    }
+
+    function vistaSegunTipoDeVuelo(  ){
+        var strURL = "vista_cliente.php?tipo_vuelo="+tipo_vuelo;
+        var req = getXMLHTTP();
+        if(req){
+            req.onreadystatechange = function (){
+                if (req.readyState == 4){
+                    if (req.status == 200){
+                        document.getElementById('tipo_vuelo').innerHTML = req.responseText;
+                    } else {
+                        alert("Hay un problema cuando se usa XMLHTTP: "+ req.statusText);
+                    }
+                }
+            }
+            req.open("GET", strURL, true);
+            req.send(null);
+        }
+    }
+
+</script>
 <?php
 include_once("../footer.php");
 ?>

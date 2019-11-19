@@ -56,9 +56,8 @@
                                 <label for="inputConfirmPassword">Confirme contraseña</label>
                             </div>
                             <?php
-
-                            if($error==true){
-                                echo "<p style='color:red; font-weight: bold;'>Las contraseñas no coinciden</p>";
+                            if(isset($error)){
+                                echo $error;
                             }
 
                             ?>

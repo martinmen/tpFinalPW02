@@ -272,3 +272,31 @@ body {
     border-radius: 5px;
     width: 190px;
 }
+
+.btnRegistrar{
+    border: 1px solid #2a3b57!important;
+    color: #2a3b57!important;
+    font-weight: bold;
+}
+
+.btnRegistrar:hover{
+    border: 1px solid white;
+    color: white!important;
+    background-color: #2a3b57!important;
+}
+
+.btnIngresar{
+    font-weight: bold;
+    color: #2a3b57;
+}
+
+.btnIngresar:hover{
+    color: #2a3b57!important;
+    text-decoration: underline!important;
+}
+
+.btnInvitado{
+    color: #2a3b57!important;
+    background: white!important;
+}
+
