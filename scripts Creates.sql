@@ -35,8 +35,8 @@ create table factura(
  cod_reserva int(11) not null,
  cod_metodo_pogo int (11) not null,
  fecha_alta_factura datetime DEFAULT NOW(),
- fecha_baja_factura date DEFAULT NULL,
- fecha_modificacion_factura date DEFAULT NULL
+ fecha_baja_factura datetime DEFAULT NULL,
+ fecha_modificacion_factura datetime DEFAULT NULL
 );
 
 CREATE TABLE asiento (
@@ -201,7 +201,7 @@ CREATE TABLE turno (
   id_turno_medico int(11) NOT NULL,
   cod_usuario int(11) NOT NULL,
   cod_centro_medico int(11) NOT NULL,
-  fecha_turno date not null,
+  fecha_turno datetime not null,
   fecha_alta_turno datetime DEFAULT now(),
   fecha_baja_turno datetime DEFAULT null,
   fecha_modificacion_turno datetime DEFAULT null
@@ -231,7 +231,7 @@ CREATE TABLE viaje (
 CREATE TABLE vuelo (
   id_vuelo int(11) NOT NULL,
   duracion double DEFAULT NULL,
-  fecha date DEFAULT NULL,
+  fecha datetime DEFAULT NULL,
   cod_equipo int(11) NOT NULL,
   cod_tipo_vuelo int(11) NOT NULL,
   cod_trayecto int(11) NOT NULL,

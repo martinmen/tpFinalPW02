@@ -31,7 +31,7 @@ INSERT INTO `usuario` (id_usuario,`nombre`, `apellido`, `cod_tipo_doc`, `num_doc
 
 INSERT INTO `tipo_vuelo` (`id_tipo_vuelo`, `descripcion`) VALUES
 (1, 'Suborbitales'),
-(2, 'Tour'),
+(2, 'Orbitales'),
 (3, 'Entre destinos');
 
 INSERT INTO `estacion` (`id_estacion`, `nombre`) VALUES
@@ -43,21 +43,24 @@ INSERT INTO `estacion` (`id_estacion`, `nombre`) VALUES
 (6, 'Europa'),
 (7, 'Io'),
 (8, 'Encendalo'),
-(9, 'Titan');
+(9, 'Titan'),
+(10, 'Buenos Aires'),
+(11, 'Ankara'),
+(12, 'Shangai');
 
 INSERT INTO `trayecto` (id_trayecto, `cod_estacion_origen`, `cod_estacion_destino`) VALUES 
-(1,1,1),
-(2,1,2), 
-(3,1,3), 
-(4,1,4), 
-(5,1,5), 
-(6,1,6), 
-(7,1,7), 
-(8,1,8), 
-(9,1,9),
-(10,2,1),
-(11,2,2),  
-(12,2,3), 
+(1,1,2), -- EEI a Orbitel Hotel / 1hora
+(2,1,3),  -- EEI a Luna / 17horas
+(3,1,4), -- EEI a Marte / 43 horas 
+(4,10,1), -- Bs As a EEI  / 4horas
+(5,10,2), -- Bs as a Orbitel Hotel / 5hs
+(6,10,3), -- Buenos Aires a Luna / 21hs 
+(7,10,4), -- BA a Marte / 47 
+(8,11,1),  -- AK a EEi / 4hs
+(9,11,2), -- AK a Orbitael Hotel / 5hs
+(10,11,3), -- AK a Luna / 21
+(11,11,4),  -- AK a Marte / 47 
+(12,2,21), 
 (13,2,4), 
 (14,2,5), 
 (15,2,6), 
