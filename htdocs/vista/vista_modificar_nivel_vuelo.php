@@ -3,6 +3,7 @@ include_once ("../header.php");
 include_once("../controlador/controlador_modificarNivelVuelo.php");
 ?>
 <h1> Centro Médico </h1>
+<br>
 <div class="table-responsive">
     <form action="vista_modificar_nivel_vuelo.php" method='post'>
         <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
@@ -36,9 +37,10 @@ include_once("../controlador/controlador_modificarNivelVuelo.php");
             <?php 
             echo $mensaje;
             ?>
+        <br>
         <div class="col-md-2 offset-4">
             <button type="button" class="btn btn-danger btn-rounded btn-fw" style="float:right;">
-                <a style="color:white!important" href="">Cancelar</a>
+                <a style="color:white!important" href="vista_medico.php">Cancelar</a>
             </button>
         </div>
         <div class="col-md-2">

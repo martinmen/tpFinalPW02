@@ -42,9 +42,7 @@ if($_SESSION["email"]) {
                 ?>
                 </tbody>
             </table>
-        <div class="col-md-2 offset-4">
-            <button type="button" class="btn btn-danger btn-rounded btn-fw" style="float:right;"><a style="color:white!important" href="">Salir</a></button>
-        </div>
+        
         
         </div>
 <?php

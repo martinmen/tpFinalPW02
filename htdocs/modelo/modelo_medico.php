@@ -91,10 +91,10 @@ function getUsuario($cod_usuario){
     return $datos;
 
 }
-function modificarNivelUsuario( $codnvo){
+function modificarNivelUsuario( $nivelNvo, $codnvo){
     $conn= getConexion();
     $datos = Array();
-    $sql= "UPDATE usuario set cod_nivel_vuelo= 1 where id_usuario = '$codnvo'";
+    $sql= "UPDATE usuario set cod_nivel_vuelo= '$nivelNvo' where id_usuario = '$codnvo'";
     $result=mysqli_query($conn,$sql);
     return "Se ha modificado correctamente" ;
 } 

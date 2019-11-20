@@ -14,6 +14,6 @@ $accion = isset($_POST["accion"]);
 $mensaje = $cod_usuario;
 if ($accion == "realizar_modificacion"){
     
-    $mensaje = modificarNivelUsuario( $codnvo);
+    $mensaje = modificarNivelUsuario($nivelNvo, $codnvo);
 }
 ?>
