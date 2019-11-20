@@ -44,7 +44,7 @@ $cantidadVendida=mysqli_query($conn,$sql);
 	
     </head>
 <body>
-    <h1>Reportes</h1> 
+    <h1>Reporte - Tasa </h1> 
    <br>
     <!-- <table class="table">
         <thead>
@@ -72,7 +72,7 @@ $cantidadVendida=mysqli_query($conn,$sql);
         </tbody>
     </table> -->
     <div id="piechart" style="width: 900px; height: 500px;"></div>
-     <form class="form-control row" action="" name="imprimirPdf">
+     <form class="form-control row" action="../controlador/create_pdf.php" name="imprimirPdf">
             <div class="col">
                 <input type="submit" class="btn btn-primary" id="crearPdf" value="Descargar Pdf"/>
             </div>  

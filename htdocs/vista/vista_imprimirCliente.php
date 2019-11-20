@@ -58,7 +58,7 @@ include("../modelo/modelo_generarReporte.php");
       </div>
     </div>
 
-      <form method="post" id="make_pdf" action="create_pdf.php">
+      <form method="post" id="make_pdf" action=../controlador/create_pdf.php>
           <input type="hidden" name="hidden_html" id="hidden_html" />
           <button type="button" name="create_pdf" id="create_pdf" class="btn btn-primary">Crear PDF</button>
       </form>

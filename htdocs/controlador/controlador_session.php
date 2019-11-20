@@ -12,9 +12,9 @@ $_SESSION["email"] = $email;
 if ($rol == 1){
     $_SESSION["rol"] = "administrador";
 
-    include_once("../header.php");
+   include_once("../header.php");
     include_once("../controlador/controlador_admin.php");
-    include_once("../vista/vista_admin.php");
+    include_once("../vista/vistaAdmin.php");
     include_once("../footer.php");
 
 }else if ($rol == 2){

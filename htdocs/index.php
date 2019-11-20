@@ -1,9 +1,8 @@
 <?php
 
 require_once("Conexion.php");
-
-
 include_once("login.php");
+
 if( isset($_GET['pag']) && $_GET['pag'] == 'login.php') {
     include_once("login.php");
 }
@@ -17,7 +16,7 @@ if(isset($_POST['submit'])){
     $rol = validaSession($email, $pass);
 
     if ($rol == 1){
-        Header('location:vista/vista_admin.php');
+        Header('location:vista/vistaAdmin.php');
 
     } else if($rol == 2){
         $_SESSION["rol"] = "cliente";

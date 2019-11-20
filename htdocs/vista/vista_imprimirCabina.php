@@ -23,7 +23,7 @@ include("../modelo/modelo_generarReporte.php");
             ['CABINAS', 'CANT. VENDIDAS'],
             <?php 
           while ($file=mysqli_fetch_assoc($cantidadVendida)){
-              echo "['".$file["descripcion"]."',".$file["cant_vendida"]."],";
+              echo "['".$file["modelo"]."',".$file["cantidad"]."],";
           }
           ?>
         
@@ -48,7 +48,7 @@ include("../modelo/modelo_generarReporte.php");
   <body>
 
     <div class="container" id="testing">  
-                <h3 align="center">Reportes</h3>  
+                <h3 align="center">Reporte - Cabina más vendida</h3>  
                 <br />
       <div class="panel panel-default">
         
@@ -58,7 +58,7 @@ include("../modelo/modelo_generarReporte.php");
       </div>
     </div>
 
-      <form method="post" id="make_pdf" action="create_pdf.php">
+      <form method="post" id="make_pdf" action="../controlador/create_pdf.php">
           <input type="hidden" name="hidden_html" id="hidden_html" />
           <button type="button" name="create_pdf" id="create_pdf" class="btn btn-primary">Crear PDF</button>
       </form>
