@@ -8,7 +8,7 @@ function validaSession($email, $pass)
     $sql = "SELECT * from usuario where email ='$email'";
     $result = mysqli_query($conn, $sql);
     $rol = 0;
-    $_SESSION["email"] = $email;
+
     if ($row = mysqli_fetch_array($result)) {
 
         if ($row['contrasenia'] == $pass) {
