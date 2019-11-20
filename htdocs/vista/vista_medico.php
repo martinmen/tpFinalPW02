@@ -21,6 +21,7 @@ if($_SESSION["email"]) {
                     <th>Turno</th>
                     <th>Fecha</th>
                     <th>Usuario</th>
+                    <th>Código</th>
                     <th>Nivel vuelo</th>
                     <th></th>
                 </tr>
@@ -33,8 +34,9 @@ if($_SESSION["email"]) {
                           <td>".$turno['nro']."</td>                               
                           <td>".$turno['fecha']."</td>
                           <td>".$turno['usuario']."</td>
+                          <td>".$turno['cod_usuario']."</td>
                           <td>".$turno['nivel']."</td>    
-                          <td><a style='color: #2a3b57; font-weight: bold;' href='../vista/vista_modificar_nivel_vuelo.php?usuario=".$turno["usuario"]."'>Modificar nivel</a></td>                         
+                          <td><a style='color: #2a3b57; font-weight: bold;' href='../vista/vista_modificar_nivel_vuelo.php?cod_usuario=".$turno["cod_usuario"]."'>Modificar</a></td>                         
                           </tr>";
                      }
                 ?>

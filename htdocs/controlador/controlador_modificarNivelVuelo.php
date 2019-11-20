@@ -1,11 +1,19 @@
 <?php
 include("../modelo/modelo_medico.php");
-$apellido = $_GET['usuario'];
-$datos = getUsuario($apellido);
-$nivelNvo = $_POST['nivel'];
-//$nivelSeleccionado = modificarNivelUsuario();
+
+
+$cod_usuario = isset($_GET["cod_usuario"]);
+$datos = getUsuario($cod_usuario);
 $niveles = getNiveles();
-if ($_POST['accion'] == "modificacion_nivel"){
-    $mensaje= modificarNivelUsuario($nivelNvo);
+
+
+
+$nivelNvo = isset($_POST["nivel"]);
+$codnvo = isset($_POST["id_usuario"]);
+$accion = isset($_POST["accion"]);
+$mensaje = $cod_usuario;
+if ($accion == "realizar_modificacion"){
+    
+    $mensaje = modificarNivelUsuario( $codnvo);
 }
 ?>
