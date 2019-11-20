@@ -6,7 +6,7 @@
 -- Tiempo de generación: 01-11-2019 a las 16:26:41
 -- Versión del servidor: 10.4.6-MariaDB
 -- Versión de PHP: 7.3.9
-  -- drop database tpfinal;
+-- drop database tpfinal;
  create database tpfinal;
 use tpfinal;
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";

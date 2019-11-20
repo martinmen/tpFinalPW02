@@ -31,8 +31,9 @@ INSERT INTO `usuario` (id_usuario,`nombre`, `apellido`, `cod_tipo_doc`, `num_doc
 
 INSERT INTO `tipo_vuelo` (`id_tipo_vuelo`, `descripcion`) VALUES
 (1, 'Suborbitales'),
-(2, 'Entre destinos/Orbitales'),
-(3, 'Tour');
+(2, 'Orbital/Circuito 1'),
+(3, 'Orbital/Circuito 2'),
+(4, 'Tour');
 
 
 INSERT INTO `estacion` (`id_estacion`, `nombre`, cod_tipo_vuelo) VALUES
@@ -40,11 +41,11 @@ INSERT INTO `estacion` (`id_estacion`, `nombre`, cod_tipo_vuelo) VALUES
 (2, 'Orbitel Hotel', 2),
 (3, 'Luna', 2),
 (4, 'Marte', 2),
-(5, 'Ganimedes', 2),
-(6, 'Europa',2),
-(7, 'Io',2),
-(8, 'Encendalo',2),
-(9, 'Titan',2),
+(5, 'Ganimedes', 3),
+(6, 'Europa',3),
+(7, 'Io',3),
+(8, 'Encendalo',3),
+(9, 'Titan',3),
 (10, 'Buenos Aires',1),
 (11, 'Ankara',1),
 (12, 'Shangai',1);

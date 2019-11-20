@@ -4,6 +4,7 @@ use http\Header;
 
 include("../modelo/modelo_cliente.php");
 $tipo_vuelo = getTiposDeVuelos();
+$fecha_vuelo = getFechaDeVuelos();
 $duracion = getDuraciones();
 $estacionOrigen = getEstaciones();
 $estacionDestino = getEstaciones();
@@ -19,6 +20,7 @@ if(isset($_GET["submit"])){
     $vuelos = getVuelos();
 
 }
+
 
 //
 //
