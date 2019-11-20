@@ -31,22 +31,23 @@ INSERT INTO `usuario` (id_usuario,`nombre`, `apellido`, `cod_tipo_doc`, `num_doc
 
 INSERT INTO `tipo_vuelo` (`id_tipo_vuelo`, `descripcion`) VALUES
 (1, 'Suborbitales'),
-(2, 'Orbitales'),
-(3, 'Entre destinos');
+(2, 'Entre destinos/Orbitales'),
+(3, 'Tour');
 
-INSERT INTO `estacion` (`id_estacion`, `nombre`) VALUES
-(1, 'Estacion Espacial Internacional'),
-(2, 'Orbitel Hotel'),
-(3, 'Luna'),
-(4, 'Marte'),
-(5, 'Ganimedes'),
-(6, 'Europa'),
-(7, 'Io'),
-(8, 'Encendalo'),
-(9, 'Titan'),
-(10, 'Buenos Aires'),
-(11, 'Ankara'),
-(12, 'Shangai');
+
+INSERT INTO `estacion` (`id_estacion`, `nombre`, cod_tipo_vuelo) VALUES
+(1, 'Estacion Espacial Internacional',2),
+(2, 'Orbitel Hotel', 2),
+(3, 'Luna', 2),
+(4, 'Marte', 2),
+(5, 'Ganimedes', 2),
+(6, 'Europa',2),
+(7, 'Io',2),
+(8, 'Encendalo',2),
+(9, 'Titan',2),
+(10, 'Buenos Aires',1),
+(11, 'Ankara',1),
+(12, 'Shangai',1);
 
 INSERT INTO `trayecto` (id_trayecto, `cod_estacion_origen`, `cod_estacion_destino`) VALUES 
 (1,1,2), -- EEI a Orbitel Hotel / 1hora

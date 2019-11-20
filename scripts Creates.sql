@@ -6,7 +6,7 @@
 -- Tiempo de generación: 01-11-2019 a las 16:26:41
 -- Versión del servidor: 10.4.6-MariaDB
 -- Versión de PHP: 7.3.9
- drop database tpfinal;
+  -- drop database tpfinal;
  create database tpfinal;
 use tpfinal;
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
@@ -110,7 +110,8 @@ CREATE TABLE `equipo` (
 
 CREATE TABLE `estacion` (
   `id_estacion` int(11) NOT NULL,
-  `nombre` varchar(200) NOT NULL
+  `nombre` varchar(200) NOT NULL,
+  cod_tipo_vuelo int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -341,6 +342,9 @@ ALTER TABLE trayecto
   ADD PRIMARY KEY (id_trayecto),
   ADD KEY cod_estacion_origen (cod_estacion_origen),
   ADD KEY cod_estacion_destino (cod_estacion_destino);
+  
+ALTER TABLE estacion
+	ADD KEY cod_tipo_vuelo (cod_tipo_vuelo);
 
 --
 -- Indices de la tabla `turno`
@@ -560,6 +564,11 @@ ALTER TABLE `asiento`
 ALTER TABLE `vuelo_trayecto`
   ADD CONSTRAINT `vuelo_trayecto_ibfk_1` FOREIGN KEY (`cod_vuelo`) REFERENCES `vuelo` (`id_vuelo`),
   ADD CONSTRAINT `vuelo_trayecto_ibfk_2` FOREIGN KEY (`cod_trayecto`) REFERENCES `trayecto` (`id_trayecto`);
+  
+ALTER TABLE estacion
+	ADD constraint estacion_ibfk1 FOREIGN KEY (cod_tipo_vuelo) REFERENCES tipo_vuelo (id_tipo_vuelo);
+  
+  
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
