@@ -1,8 +1,11 @@
 <?php
 session_start();
 
-if($_SESSION["email"]){
+if(isset($_SESSION["email"])){
     $email = $_SESSION["email"];
+}
+if(isset($_SESSION["rol"])){
+    $rol = $_SESSION["rol"];
 }
 ?>
 <!DOCTYPE html>
@@ -70,18 +73,33 @@ if($_SESSION["email"]){
 
         <!-- Nav Item - Pages Collapse Menu -->
         <li class="nav-item">
-            <a class="nav-link"  href="<?php if(isset($_SESSION["rol"])){
-                if($_SESSION["rol"] == 1){
-                    $vista = 'vista_admin.php';
-                } else if($_SESSION["rol"] == 2){
-                    $vista = 'vista_cliente.php';
+            <a class="nav-link"  href="<?php
+                if(isset($rol)){
+                    if($rol == 1){
+                        $vista = '../vista/vista_admin.php';
+                    } else if($_SESSION["rol"] == 2){
+                        $vista = '../vista/vista_cliente.php';
+                    }
+                    echo $vista;
                 }
-                echo $vista;
-            }
+
             ?>">
-                <i class="fas fa-fw fa-chart-area"></i>
+                <i class="fas fa-plane-departure"></i>
                 <span>Viajes</span></a>
         </li>
+        <?php
+        if(isset($rol)){
+            if($rol== 1) {
+                echo "<li class=\"nav-item\" href=''>
+                    <a class=\"nav-link\" >
+                        <i class=\"far fa-file-alt\"></i>
+                        <span>Reportes</span>
+                    </a>                               
+                </li>";
+            }
+        }
+
+        ?>
 
         <!-- Divider -->
         <hr class="sidebar-divider d-none d-md-block">
@@ -112,24 +130,38 @@ if($_SESSION["email"]){
                         </a>
                     </li>
 
-                    <div class="topbar-divider d-none d-sm-block"></div>
-                    <!-- Nav Item - User Information -->
-                    <li class="nav-item dropdown no-arrow">
-                        <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <span class="mr-2 d-none d-lg-inline text-gray-600 small"></span>
-                            <img class="img-profile rounded-circle" src="https://source.unsplash.com/QAB-WJcbgJk/60x60">
-                        </a>
-                        <!-- Dropdown - User Information -->
-                        <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
-                            <a class="dropdown-item" href='vista_perfil.php' >
-                                <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
-                                Perfil
+
+                    <!-- Nav Item - Perfil -->
+                    <?php
+                    if(isset($rol)) {
+                        echo "
+                        <div class=\"topbar-divider d-none d-sm-block\"></div>
+                        <li class=\"nav-item dropdown no-arrow\">
+                            <a class=\"nav-link dropdown-toggle\" href=\"#\" id=\"userDropdown\" role=\"button\" data-toggle=\"dropdown\" aria-haspopup=\"true\" aria-expanded=\"false\">
+                                <span class=\"mr-2 d-none d-lg-inline text-gray-600 small\"></span>
+                                <img class=\"img-profile rounded-circle\" src=\"https://source.unsplash.com/QAB-WJcbgJk/60x60\">
                             </a>
-                            <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="../CerrarSession.php"><i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
-                                Cerrar sesión</a>
-                        </div>
-                    </li>
+                            <!-- Dropdown - Perfil -->
+                            
+                            <div class=\"dropdown-menu dropdown-menu-right shadow animated--grow-in\" aria-labelledby=\"userDropdown\">
+                                <a class=\"dropdown-item\" href='vista_perfil.php' >
+                                    <i class=\"fas fa-user fa-sm fa-fw mr-2 text-gray-400\"></i>
+                                    Perfil
+                                </a>
+                                <div class=\"dropdown-divider\"></div>
+                                <a class=\"dropdown-item\" href=\"../CerrarSession.php\"><i class=\"fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400\"></i>
+                                    Cerrar sesión</a>
+                            </div>
+                        </li>";
+                    } else{
+                        echo "<ul class=\"navbar-nav\">
+                                <li class=\"nav-item font-weight-semibold d-none d-lg-block\"><a class='btn btnIngresar' href='../login.php'>Ingresar</a></li>
+                                <div class=\"topbar-divider d-none d-sm-block\"></div>
+                                <li class=\"nav-item font-weight-semibold d-none d-lg-block\"><a class='btn btnRegistrar' href='vista_registrar.php'>Registrarse</a></li>
+                              </ul>";
+                    }
+                    ?>
+
                 </ul>
             </nav>
             <!-- End of Topbar -->

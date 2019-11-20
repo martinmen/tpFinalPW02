@@ -1,3 +1,6 @@
+<?php
+//include("controlador/controlador_session.php");
+?>
 <!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/html">
 <head>
@@ -38,14 +41,17 @@
                                 <input type="checkbox" class="custom-control-input" id="customCheck1">
                                 <label class="custom-control-label" for="customCheck1">Recordar contraseña</label>
                             </div>
-<!--                            --><?php
-//                            if($error == false){
-//                                echo "<p style='color:red; font-weight: bold'>El email y/o contraseña no son correctos</p>";
-//                            }
-//                            ?>
                             <button class="btn btn-lg btn-primary btn-block btn-login text-uppercase font-weight-bold mb-2" name="submit" type="submit" value="Iniciar Sesión">Ingresar</button>
                             <a class="btn btn-lg btn-primary btn-block btn-login text-uppercase font-weight-bold mb-2" href="vista/vista_registrar.php" value="Registrarme">Registrar</a>
                         </form>
+                    </div>
+                    <br>
+                    <div class="separador"></div>
+                    <br>
+                    <div class="row">
+                        <div class="col-12">
+                            <a class="btn btn-lg btn-primary btn-block btn-login text-uppercase font-weight-bold btnInvitado" href="vista/vista_cliente.php">Ingresar como invitado</a>
+                        </div>
                     </div>
                 </div>
             </div>
