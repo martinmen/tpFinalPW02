@@ -48,7 +48,7 @@ CREATE TABLE asiento (
   id_asiento int(11) NOT NULL,
   cod_equipo int(11) NOT NULL,
   cod_cabina int(11) NOT NULL,
-  cod_estado_asiento int(11) NOT NULL
+  cant_asientos int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -191,6 +191,7 @@ CREATE TABLE vuelo (
   cod_equipo int(11) NOT NULL,
   cod_tipo_vuelo int(11) NOT NULL,
   cod_trayecto int(11) NOT NULL,
+  costo double (20,2) NOT null,
   cod_estado int(11) 
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 --
@@ -207,10 +208,8 @@ ALTER TABLE estado_asiento
 ALTER TABLE asiento
   ADD PRIMARY KEY (id_asiento),
   ADD KEY cod_equipo (cod_equipo),
-  ADD KEY cod_cabina (cod_equipo),
-  ADD KEY n_fila (cod_equipo),
-  ADD KEY n_columna (cod_equipo),
-  ADD KEY cod_estado_asiento (cod_equipo);
+  ADD KEY cod_cabina (cod_equipo),  
+  ADD KEY cant_asientos (cod_equipo);
 --
  -- ---------------------------------- Add PK ----------------------------------------------------------------
 ALTER TABLE cabina
@@ -367,7 +366,7 @@ ALTER TABLE `vuelo`
 ALTER TABLE asiento
  /* ADD CONSTRAINT `vuelo_ibfk_1` FOREIGN KEY (`cod_tipo_vuelo`) REFERENCES `tipo_vuelo` (`id_tipo_vuelo`),*/
   ADD CONSTRAINT asiento_ibfk_2 FOREIGN KEY (cod_cabina) REFERENCES cabina (id_cabina),
-  ADD CONSTRAINT asiento_ibfk_3 FOREIGN KEY (cod_estado_asiento) REFERENCES estado_asiento (id_estado_asiento),
+  -- ADD CONSTRAINT asiento_ibfk_3 FOREIGN KEY (cant_asientos) REFERENCES estado_asiento (id_estado_asiento),
   ADD CONSTRAINT asiento_ibfk_4 FOREIGN KEY (cod_equipo) REFERENCES equipo (id_equipo);
 --
 ALTER TABLE `vuelo_trayecto`
