@@ -14,6 +14,9 @@ include_once("../controlador/controlador_crearReserva.php");
             div1.addClass('card-body newCard');
             div1.attr('id',counter);
 
+            var first = document.getElementById('docTypes');
+            var docType = first.innerHTML;
+
             //Añadir divs al principal
             var card = '<span class="close" style="float:right;">X</span><br>'+
                 '<div class="row">' +
@@ -34,8 +37,8 @@ include_once("../controlador/controlador_crearReserva.php");
                 '<div class="col-md-6">' +
                 '<div class="form-group">' +
                 '<label>Tipo Documento</label>' +
-                '<select class="form-control" name="tipo_doc'+counter+'">' +
-                '<option value="">Seleccione...</option> <?php;?> </select>' +
+                '<select class="form-control" name="tipo_doc'+counter+'">' + docType +
+                '</select>' +
                 '</div>' +
                 '</div>' +
                 '<div class="col-md-6">' +
@@ -133,7 +136,7 @@ include_once("../controlador/controlador_crearReserva.php");
                 <div class="col-md-6">
                     <div class="form-group">
                         <label>Tipo Documento</label>
-                        <select class="form-control" name="tipo_doc">
+                        <select class="form-control" name="tipo_doc" id="docTypes">
                             <option value="">Seleccione...</option>
                             <?php  echo $tipo_doc; ?>
                         </select>

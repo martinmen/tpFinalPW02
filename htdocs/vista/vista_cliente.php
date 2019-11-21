@@ -178,7 +178,7 @@ if(isset($_SESSION["email"])) {
                             $reserva = "";
                         }
                         echo "<tr>
-                             <td>".$vuelo['id']."</td>                             
+                             <td>".$vuelo['matricula']."</td>                             
                              <td>".$vuelo['fecha']."</td>
                              <td>".$vuelo['duracion']."</td>
                              <td>".$vuelo['tipo_vuelo']."</td>

@@ -5,8 +5,8 @@
 -- Servidor: 127.0.0.1
 -- Tiempo de generación: 01-11-2019 a las 16:26:41
 -- Versión del servidor: 10.4.6-MariaDB
--- Versión de PHP: 7.3.9
--- drop database tpfinal;
+-- Versión de PHP: 7.3.9                              
+drop database tpfinal;
  create database tpfinal;
 use tpfinal;
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
@@ -236,7 +236,7 @@ CREATE TABLE vuelo (
   cod_equipo int(11) NOT NULL,
   cod_tipo_vuelo int(11) NOT NULL,
   cod_trayecto int(11) NOT NULL,
-  cod_estado int(11) NOT NULL
+  cod_estado int(11) 
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 CREATE TABLE vuelo_trayecto (
@@ -379,7 +379,6 @@ ALTER TABLE `viaje`
 --
 ALTER TABLE `vuelo`
   ADD PRIMARY KEY (`id_vuelo`),
-  ADD KEY `cod_estado` (`cod_estado`),
   ADD KEY `cod_tipo_vuelo` (`cod_tipo_vuelo`),
   ADD KEY `cod_equipo` (`cod_equipo`),
   ADD KEY `cod_trayecto` (`cod_trayecto`);
@@ -545,7 +544,6 @@ ALTER TABLE `viaje`
 --
 ALTER TABLE `vuelo`
  /* ADD CONSTRAINT `vuelo_ibfk_1` FOREIGN KEY (`cod_tipo_vuelo`) REFERENCES `tipo_vuelo` (`id_tipo_vuelo`),*/
-  ADD CONSTRAINT `vuelo_ibfk_2` FOREIGN KEY (`cod_estado`) REFERENCES `estado` (`id_estado`),
   ADD CONSTRAINT `vuelo_ibfk_3` FOREIGN KEY (`cod_trayecto`) REFERENCES `trayecto` (`id_trayecto`),
   ADD CONSTRAINT `vuelo_ibfk_4` FOREIGN KEY (`cod_equipo`) REFERENCES `equipo` (`id_equipo`);
 
