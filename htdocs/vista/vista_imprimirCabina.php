@@ -87,9 +87,9 @@ include("../modelo/modelo_generarReporte.php");
           <input type="hidden" name="hidden_html" id="hidden_html" />
           <button type="button" name="create_pdf" id="create_pdf" class="btn btn-primary">Crear PDF</button>
       </form>
-      <form action="vistaAdmin.php">
-          <br> <button type="submit" class="btn btn-danger">Regresar</button>
-      </form>
+      <a class="btn btn-danger" href="../vista/vistaAdmin.php" role="button">Regresar</a>
+   
+      
 
   </body>
   

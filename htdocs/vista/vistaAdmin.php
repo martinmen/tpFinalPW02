@@ -41,11 +41,7 @@ include("../controlador/controlador_admin.php");
                 </tbody>
             </table>
                 <input type="hidden" name="reporte" value="mensual">
-                <button type="submit" class="btn btn-lg btn-block btn-outline-primary" id="crearPdf">Ver Gráfico</button>
-                <form method="post" id="make_pdf" action="../controlador/create_pdf.php">
-                <input type="hidden" name="hidden_html" id="hidden_html" />
-                <button type="button" name="create_pdf" id="create_pdf" class="btn btn-lg btn-block btn-outline-primary">Crear PDF</button>
-            </form>
+                <button type="submit" class="btn btn-lg btn-block btn-outline-primary" id="crearPdf">Ver Detalle</button>
             </div>
         </form>
     </div>
@@ -80,11 +76,7 @@ include("../controlador/controlador_admin.php");
                 </tbody>
             </table>
             <input type="hidden" name="reporte" value="cliente">
-            <button type="submit" class="btn btn-lg btn-block btn-outline-primary" id="crearPdf">Ver Gráfico</button>
-            <form method="post" id="make_pdf" action="../controlador/create_pdf.php">
-                <input type="hidden" name="hidden_html" id="hidden_html" />
-                <button type="button" name="create_pdf" id="create_pdf" class="btn btn-lg btn-block btn-outline-primary">Crear PDF</button>
-            </form>
+            <button type="submit" class="btn btn-lg btn-block btn-outline-primary" id="crearPdf">Ver Detalle</button>
       </div>
       </form>
     </div>
@@ -122,8 +114,7 @@ include("../controlador/controlador_admin.php");
                 </tbody>
             </table>
             <input type="hidden" name="reporte" value="cabina">
-            <button type="submit" class="btn btn-lg btn-block btn-outline-primary" id="crearPdf">Ver Detalle</button>
-            
+            <button type="submit" class="btn btn-lg btn-block btn-outline-primary" id="crearPdf">Ver Detalle</button>           
         </div>
       </form>
     </div>
@@ -158,12 +149,8 @@ include("../controlador/controlador_admin.php");
                 </tbody>
             </table>
             <input type="hidden" name="reporte" value="tasa">
-            <button type="submit" class="btn btn-lg btn-block btn-outline-primary" id="crearPdf">Ver Gráfico</button>
-            <form method="post" id="make_pdf" action="../controlador/create_pdf.php">
-                <input type="hidden" name="hidden_html" id="hidden_html" />
-                <button type="button" name="create_pdf" id="create_pdf" class="btn btn-lg btn-block btn-outline-primary">Crear PDF</button>
-            </form>
-            <!-- <button type="submit" class="btn btn-lg btn-block btn-outline-primary" id="crearPdf">Crear Pdf</button> -->
+            <button type="submit" class="btn btn-lg btn-block btn-outline-primary" id="crearPdf">Ver Detalle</button>
+           
         </div>
       </form>
     </div>
