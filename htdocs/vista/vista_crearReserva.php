@@ -162,7 +162,7 @@ include_once("../controlador/controlador_crearReserva.php");
                     <div class="separador"></div>
                 </div>
             </div>
-            <p class="card-description vuelo-disabled">Vuelo: <?php echo $vueloId;?></p>
+            <p class="card-description vuelo-disabled">Vuelo: <?php echo $matricula;?></p>
             <div class="row">
                 <div class="col-md-6">
                     <div class="form-group">
@@ -192,7 +192,6 @@ include_once("../controlador/controlador_crearReserva.php");
             <button type="button" class="btn btn-danger btn-rounded btn-fw" style="float:right;"><a style="color:white!important" onclick="confimarCancelacion()">Cancelar</a></button>
         </div>
         <div class="col-md-2">
-<!--            <button name="submit" type="submit" class="btn btn-success btn-rounded btn-fw" style="float:left">Ir al pago</button>-->
             <button name="submit" class="btn btn-success btn-rounded btn-fw" style="float:left"><a style="color:white!important" href="vista_pago.php">Ir al pago</a></button>
         </div>
     </div>

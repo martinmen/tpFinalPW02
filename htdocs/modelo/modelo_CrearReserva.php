@@ -31,7 +31,7 @@ function getTipoDeCabinas($vueloId){
 
     if(mysqli_num_rows($result) > 0){
         while ($row=mysqli_fetch_assoc($result)){
-            $tipo_doc .= "<option value='".$row['']."'>".$row['descripcion']."</option>";
+            $tipo_doc .= "<option value=''>".$row['descripcion']."</option>";
         }
     }else {
         $tipo_doc="<option>NO HAY DATOS</option>";

@@ -4,7 +4,8 @@ include ("../modelo/modelo_CrearReserva.php");
 
 $tipo_doc = getTipoDocumentos();
 $vueloId = $_GET["vuelo"];
-//$tipo_cabina = getTipoDeCabinas($vueloId);
+$matricula = $_GET["matricula"];
+$tipo_cabina = getTipoDeCabinas($vueloId);
 $importe= 5000;
 
 if(isset($_POST["submit"])){

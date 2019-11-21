@@ -172,7 +172,7 @@ if(isset($_SESSION["email"])) {
                 <?php
                     foreach ($vuelos as $vuelo){
                         if(isset($email)){
-                            $reserva = "<a style='color: #2a3b57; font-weight: bold;' href='../vista/vista_CrearReserva.php?vuelo=".$vuelo['id']."'>Reservar</a>";
+                            $reserva = "<a style='color: #2a3b57; font-weight: bold;' href='../vista/vista_CrearReserva.php?vuelo=".$vuelo['id']."&matricula=".$vuelo['matricula'] ."'>Reservar</a>";
                         }
                         else{
                             $reserva = "";
