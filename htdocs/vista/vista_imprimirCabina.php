@@ -1,5 +1,6 @@
 <?php 
 include("../modelo/modelo_generarReporte.php");
+
 ?>
 <!DOCTYPE html> 
 <html> 
@@ -50,6 +51,30 @@ include("../modelo/modelo_generarReporte.php");
     <div class="container" id="testing">  
                 <h3 align="center">Reporte - Cabina más vendida</h3>  
                 <br />
+                <table class="table" id="testing">
+                <thead class="thead-dark">
+                    <tr>
+                    <th scope="col">Tipo Cabina</th>
+                    <th scope="col">%</th>
+                    </tr>
+                </thead>
+                <tbody>
+                <?php
+                    // foreach ($meses as $mes){
+                    //     echo "<tr>
+                    //     <td scope="row">".$mes['mes']."</td>                             
+                    //     <td>".$mes['total']."</td>
+                    //     </tr>";
+                    // }
+                    foreach ($cabinas as $cabina){
+                        echo "<tr>
+                        <td scope='row'>".$cabina['modelo']."</td>                             
+                        <td>".$cabina['cantidad']."</td>
+                        </tr>";
+                    }
+                ?>
+                </tbody>
+            </table>
       <div class="panel panel-default">
         
         <div class="panel-body" align="center">

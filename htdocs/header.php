@@ -1,9 +1,9 @@
 <?php
-session_start();
+// session_start();
 
-if($_SESSION["email"]){
-    $email = $_SESSION["email"];
-}
+// if($_SESSION['email']){
+//     $email = $_SESSION['email'];
+// }
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -136,8 +136,7 @@ if($_SESSION["email"]){
                         <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
                             <a class="dropdown-item" href='vista_perfil.php' >
                                 <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
-                                Perfil
-                            </a>
+                                Perfil</a>
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item" href="../CerrarSession.php"><i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
                                 Cerrar sesión</a>

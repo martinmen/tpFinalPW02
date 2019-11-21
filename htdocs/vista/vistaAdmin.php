@@ -5,25 +5,171 @@ include("../controlador/controlador_admin.php");
 ?>
 <body>
     <h1>Bienvenido Administrador</h1>
-
-    
-    <form class="form-control row" action="../controlador/controlador_imprimir.php" name="imprimirPdf">
-        
-             <div class="col-md-4">
-                <select class="browser-default custom-select" name="reporte">
-                    <option value="">Seleccione reporte...</option>
-                    <option value="tasa">Tasa de ocupación por viaje y destino</option>
-                    <option value="mensual">Facturación mensual</option>
-                    <option value="cabina">Cabina mas vendida</option>
-                    <option value="cliente">Facturación por Cliente</option>
-                </select> 
-            </div> </div>
-           <div class="col">
-                <input type="submit" class="btn btn-primary" id="crearPdf" value="Ver gráfico"/>
-            </div>  
-        
-    </form>
-
+<br>
+<br>
+<div class="container">
+<!-- primero -->
+  <div class="card-deck mb-3 text-center">
+    <div class="card mb-6 shadow-sm">
+        <form action="../controlador/controlador_imprimir.php" name="imprimirPdf">
+            <div class="card-header">
+                <h4 class="my-0 font-weight-normal">Facturación mensual</h4>
+            </div>
+            <div class="card-body">
+            <table class="table">
+                <thead class="thead-dark">
+                    <tr>
+                    <th scope="col">Mes</th>
+                    <th scope="col">Total facturado</th>
+                    </tr>
+                </thead>
+                <tbody>
+                <?php
+                    // foreach ($meses as $mes){
+                    //     echo "<tr>
+                    //     <td scope="row">".$mes['mes']."</td>                             
+                    //     <td>".$mes['total']."</td>
+                    //     </tr>";
+                    // }
+                    foreach ($meses as $mes){
+                        echo "<tr>
+                        <td scope='row'>".$mes['modelo']."</td>                             
+                        <td>".$mes['cantidad']."</td>
+                        </tr>";
+                    }
+                ?>
+                </tbody>
+            </table>
+                <input type="hidden" name="reporte" value="mensual">
+                <button type="submit" class="btn btn-lg btn-block btn-outline-primary" id="crearPdf">Ver Gráfico</button>
+                <form method="post" id="make_pdf" action="../controlador/create_pdf.php">
+                <input type="hidden" name="hidden_html" id="hidden_html" />
+                <button type="button" name="create_pdf" id="create_pdf" class="btn btn-lg btn-block btn-outline-primary">Crear PDF</button>
+            </form>
+            </div>
+        </form>
+    </div>
+    <div class="card mb-6 shadow-sm">
+      <form action="../controlador/controlador_imprimir.php" name="imprimirPdf">
+      <div class="card-header">
+        <h4 class="my-0 font-weight-normal">Facturacion por Cliente</h4>
+      </div>
+      <div class="card-body">
+      <table class="table">
+                <thead class="thead-dark">
+                    <tr>
+                    <th scope="col">Cliente</th>
+                    <th scope="col">Total facturado</th>
+                    </tr>
+                </thead>
+                <tbody>
+                <?php
+                    // foreach ($meses as $mes){
+                    //     echo "<tr>
+                    //     <td scope="row">".$mes['mes']."</td>                             
+                    //     <td>".$mes['total']."</td>
+                    //     </tr>";
+                    // }
+                    foreach ($meses as $mes){
+                        echo "<tr>
+                        <td scope='row'>".$mes['modelo']."</td>                             
+                        <td>".$mes['cantidad']."</td>
+                        </tr>";
+                    }
+                ?>
+                </tbody>
+            </table>
+            <input type="hidden" name="reporte" value="cliente">
+            <button type="submit" class="btn btn-lg btn-block btn-outline-primary" id="crearPdf">Ver Gráfico</button>
+            <form method="post" id="make_pdf" action="../controlador/create_pdf.php">
+                <input type="hidden" name="hidden_html" id="hidden_html" />
+                <button type="button" name="create_pdf" id="create_pdf" class="btn btn-lg btn-block btn-outline-primary">Crear PDF</button>
+            </form>
+      </div>
+      </form>
+    </div>
+  </div>
+  <!-- sdo -->
+  <div class="card-deck mb-3 text-center">
+    <div class="card mb-6 shadow-sm">
+      <form action="../controlador/controlador_imprimir.php" name="imprimirPdf">
+        <div class="card-header">
+            <h4 class="my-0 font-weight-normal">Cabina más vendida (%)</h4>
+        </div>
+        <div class="card-body">
+        <table class="table" id="testing">
+                <thead class="thead-dark">
+                    <tr>
+                    <th scope="col">Tipo Cabina</th>
+                    <th scope="col">%</th>
+                    </tr>
+                </thead>
+                <tbody>
+                <?php
+                    // foreach ($meses as $mes){
+                    //     echo "<tr>
+                    //     <td scope="row">".$mes['mes']."</td>                             
+                    //     <td>".$mes['total']."</td>
+                    //     </tr>";
+                    // }
+                    foreach ($meses as $mes){
+                        echo "<tr>
+                        <td scope='row'>".$mes['modelo']."</td>                             
+                        <td>".$mes['cantidad']."</td>
+                        </tr>";
+                    }
+                ?>
+                </tbody>
+            </table>
+            <input type="hidden" name="reporte" value="cabina">
+            <button type="submit" class="btn btn-lg btn-block btn-outline-primary" id="crearPdf">Ver Detalle</button>
+            
+        </div>
+      </form>
+    </div>
+    <div class="card mb-6 shadow-sm">
+      <form action="../controlador/controlador_imprimir.php" name="imprimirPdf">
+        <div class="card-header">
+            <h4 class="my-0 font-weight-normal">Tasas</h4>
+        </div>
+        <div class="card-body">
+        <table class="table">
+                <thead class="thead-dark">
+                    <tr>
+                    <th scope="col">Mes</th>
+                    <th scope="col">Total facturado</th>
+                    </tr>
+                </thead>
+                <tbody>
+                <?php
+                    // foreach ($meses as $mes){
+                    //     echo "<tr>
+                    //     <td scope="row">".$mes['mes']."</td>                             
+                    //     <td>".$mes['total']."</td>
+                    //     </tr>";
+                    // }
+                    foreach ($meses as $mes){
+                        echo "<tr>
+                        <td scope='row'>".$mes['modelo']."</td>                             
+                        <td>".$mes['cantidad']."</td>
+                        </tr>";
+                    }
+                ?>
+                </tbody>
+            </table>
+            <input type="hidden" name="reporte" value="tasa">
+            <button type="submit" class="btn btn-lg btn-block btn-outline-primary" id="crearPdf">Ver Gráfico</button>
+            <form method="post" id="make_pdf" action="../controlador/create_pdf.php">
+                <input type="hidden" name="hidden_html" id="hidden_html" />
+                <button type="button" name="create_pdf" id="create_pdf" class="btn btn-lg btn-block btn-outline-primary">Crear PDF</button>
+            </form>
+            <!-- <button type="submit" class="btn btn-lg btn-block btn-outline-primary" id="crearPdf">Crear Pdf</button> -->
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+<!-- fin cards -->
     </body>  
 
  <script>
@@ -35,5 +181,4 @@ include("../controlador/controlador_admin.php");
 										});
 		 
 	  });
-	  
 	  </script>
