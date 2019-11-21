@@ -17,6 +17,9 @@ include_once("../controlador/controlador_crearReserva.php");
             var first = document.getElementById('docTypes');
             var docType = first.innerHTML;
 
+            var first2 = document.getElementById('docTypes2');
+            var docType2 = first2.innerHTML;
+
             //Añadir divs al principal
             var card = '<span class="close" style="float:right;">X</span><br>'+
                 '<div class="row">' +
@@ -66,16 +69,14 @@ include_once("../controlador/controlador_crearReserva.php");
                 '                <div class="col-md-6">' +
                 '                    <div class="form-group">' +
                 '                        <label>Tipo de Cabina</label>' +
-                '                        <select class="form-control" name="tipo_cabina">' +
-                '                            <option value="">Seleccione...</option>' +
-                '                            <?php ; ?>' +
+                '                        <select class="form-control" name="tipo_cabina" id="cabina'+counter+'" onchange="calcularImporte'+counter+'()">' + docType2 +
                 '                        </select>' +
                 '                    </div>' +
                 '                </div>' +
                 '                <div class="col-6">' +
                 '                    <div class="form-group">' +
                 '                        <label>Importe</label>' +
-                '                        <p class="form-control" name="importe" > $<?php echo $importe?></p>' +
+                '                        <p class="form-control" name="importe" id="importe'+counter+'"></p>' +
                 '                    </div>' +
                 '                </div>' +
                 '            </div>';
@@ -115,7 +116,7 @@ include_once("../controlador/controlador_crearReserva.php");
     </div>
 </div>
 <br>
-<form class="form-sample" method="post" action="../controlador/controlador_crearReserva.php" id="form">
+<form class="form-sample" method="post" action="../controlador/controlador_crearReserva.php" id="form" name="form">
     <div class="card shadow mb-4">
         <div class="card-body">
             <div class="row">
@@ -167,18 +168,21 @@ include_once("../controlador/controlador_crearReserva.php");
                 <div class="col-md-6">
                     <div class="form-group">
                         <label>Tipo de Cabina</label>
-                        <select class="form-control" name="tipo_cabina">
+                        <select class="form-control" name="tipo_cabina" id="docTypes2" onchange="calcularImporte()">
                             <option value="">Seleccione...</option>
-                            <?php ; ?>
+                            <?php echo $tipo_cabina ; ?>
                         </select>
                     </div>
                 </div>
                 <div class="col-6">
                     <div class="form-group">
                         <label>Importe</label>
-                        <p class="form-control" name="importe" > $<?php echo $importe?></p>
+                        <p class="form-control" name="importe" id="importe"></p>
                     </div>
                 </div>
+            </div>
+            <div class="row">
+                <p style="visibility: hidden;" id="costo"> <?php echo $costo?></p>
             </div>
         </div>
     </div>
@@ -202,6 +206,57 @@ include_once("../controlador/controlador_crearReserva.php");
         if (ask) {
             window.location.href="../vista/vista_cliente.php";
         }
+    }
+
+    function calcularImporte(){
+
+
+        var selectCabina = document.getElementById('docTypes2');
+        var cabina = selectCabina.options[selectCabina.selectedIndex].id;
+        var costoText = document.getElementById('costo').innerHTML;
+
+        var costo = parseFloat(costoText);
+
+        if(cabina == 2){
+            document.getElementById('importe').innerHTML = (costo + (costo*0.25)).toString() + ".00";
+        } else if (cabina == 3){
+            document.getElementById('importe').innerHTML = (costo + (costo*0.50)).toString()+ ".00";
+        } else
+            document.getElementById('importe').innerHTML = (costo).toString()+ ".00";
+
+
+
+    }
+
+    function calcularImporte1(){
+        var selectCabina1 = document.getElementById('cabina1');
+        var cabina1 = selectCabina1.options[selectCabina1.selectedIndex].id;
+        var costoText = document.getElementById('costo').innerHTML;
+
+        var costo = parseFloat(costoText);
+
+        if(cabina1 == 2){
+            document.getElementById('importe1').innerHTML = (costo + (costo*0.25)).toString() + ".00";
+        } else if (cabina1 == 3){
+            document.getElementById('importe1').innerHTML = (costo + (costo*0.50)).toString()+ ".00";
+        } else
+            document.getElementById('importe1').innerHTML = (costo).toString()+ ".00";
+    }
+
+    function calcularImporte2(){
+        var selectCabina2 = document.getElementById('cabina2');
+        var cabina2 = selectCabina2.options[selectCabina2.selectedIndex].id;
+
+        var costoText = document.getElementById('costo').innerHTML;
+
+        var costo = parseFloat(costoText);
+
+        if(cabina2 == 2){
+            document.getElementById('importe2').innerHTML = (costo + (costo*0.25)).toString() + ".00";
+        } else if (cabina2 == 3){
+            document.getElementById('importe2').innerHTML = (costo + (costo*0.50)).toString()+ ".00";
+        } else
+            document.getElementById('importe2').innerHTML = (costo).toString()+ ".00";
     }
 </script>
 

@@ -6,7 +6,7 @@ $tipo_doc = getTipoDocumentos();
 $vueloId = $_GET["vuelo"];
 $matricula = $_GET["matricula"];
 $tipo_cabina = getTipoDeCabinas($vueloId);
-$importe= 5000;
+$costo= getCosto($vueloId);
 
 if(isset($_POST["submit"])){
     $nombres = $_POST['nombres'];
