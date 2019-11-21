@@ -54,9 +54,8 @@ function getVuelosConFecha($fdesde, $fhasta){
 function getVuelos(){
 
     $conn = getConexion();
-    $sql="SELECT v.fecha, v.duracion, t.descripcion as tipo_vuelo, estO.nombre origen,  estD.nombre destino, q.modelo, e.descripcion, v.id_vuelo, q.cod_tipo_equipo as tipo_aceleracion
+    $sql="SELECT v.id_vuelo, v.fecha, v.duracion, t.descripcion as tipo_vuelo, estO.nombre origen,  estD.nombre destino, q.modelo, q.matricula, q.cod_tipo_equipo as tipo_aceleracion
  FROM vuelo v 
-	JOIN estado e on e.id_estado = v.cod_estado
     JOIN tipo_vuelo t on t.id_tipo_vuelo = v.cod_tipo_vuelo
     JOIN equipo q on q.id_equipo = v.cod_equipo
     JOIN trayecto tra on tra.id_trayecto = v.cod_trayecto
@@ -70,6 +69,7 @@ function getVuelos(){
         while ($row=mysqli_fetch_assoc($result))
         {
             $vuelo = Array();
+            $vuelo['matricula'] = $row["matricula"];
             $vuelo['fecha'] = $row["fecha"];
             $vuelo['duracion'] = $row["duracion"];
             $vuelo['tipo_vuelo'] = $row["tipo_vuelo"];

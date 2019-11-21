@@ -5,7 +5,7 @@
 -- Servidor: 127.0.0.1
 -- Tiempo de generación: 01-11-2019 a las 16:26:41
 -- Versión del servidor: 10.4.6-MariaDB
--- Versión de PHP: 7.3.9
+-- Versión de PHP: 7.3.9                              
  drop database tpfinal;
  create database tpfinal;
 use tpfinal;
@@ -35,8 +35,8 @@ create table factura(
  cod_reserva int(11) not null,
  cod_metodo_pogo int (11) not null,
  fecha_alta_factura datetime DEFAULT NOW(),
- fecha_baja_factura date DEFAULT NULL,
- fecha_modificacion_factura date DEFAULT NULL
+ fecha_baja_factura datetime DEFAULT NULL,
+ fecha_modificacion_factura datetime DEFAULT NULL
 );
 
 CREATE TABLE estado_asiento (
@@ -71,7 +71,12 @@ CREATE TABLE cabina (
 (2, 'familiar'),
 (3, 'suite');*/
 
--- Estructura de tablas 
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `centro_medico`
+--
+
 CREATE TABLE `centro_medico` (
   `id_centro_medico` int(4) NOT NULL,
   `descripcion` varchar(150) NOT NULL,
@@ -91,7 +96,8 @@ CREATE TABLE equipo (
 
 CREATE TABLE `estacion` (
   `id_estacion` int(11) NOT NULL,
-  `nombre` varchar(200) NOT NULL
+  `nombre` varchar(200) NOT NULL,
+  cod_tipo_vuelo int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 --
 CREATE TABLE `estado` (
@@ -181,11 +187,11 @@ CREATE TABLE usuario (
 CREATE TABLE vuelo (
   id_vuelo int(11) NOT NULL,
   duracion double DEFAULT NULL,
-  fecha date DEFAULT NULL,
+  fecha datetime DEFAULT NULL,
   cod_equipo int(11) NOT NULL,
   cod_tipo_vuelo int(11) NOT NULL,
- -- cod_vuelo_trayecto int(11) NOT NULL,
-  cod_estado int(11) NOT NULL
+  cod_trayecto int(11) NOT NULL,
+  cod_estado int(11) 
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 --
 CREATE TABLE vuelo_trayecto (
@@ -273,7 +279,6 @@ ADD KEY `cod_estado_usuario` (`cod_estado_usuario`);
 --
 ALTER TABLE `vuelo`
   ADD PRIMARY KEY (`id_vuelo`),
-  ADD KEY `cod_estado` (`cod_estado`),
   ADD KEY `cod_tipo_vuelo` (`cod_tipo_vuelo`),
   ADD KEY `cod_equipo` (`cod_equipo`);
 --
@@ -353,9 +358,11 @@ ALTER TABLE `usuario`
 --
 ALTER TABLE `vuelo`
   ADD CONSTRAINT `vuelo_ibfk_1` FOREIGN KEY (cod_tipo_vuelo) REFERENCES tipo_vuelo (id_tipo_vuelo),
-  ADD CONSTRAINT `vuelo_ibfk_2` FOREIGN KEY (cod_estado) REFERENCES estado (id_estado),
-  -- ADD CONSTRAINT `vuelo_ibfk_4` FOREIGN KEY (cod_vuelo_trayecto) REFERENCES vuelo_trayecto (id_escala),
-  ADD CONSTRAINT `vuelo_ibfk_3` FOREIGN KEY (cod_equipo) REFERENCES equipo (id_equipo);
+  ADD CONSTRAINT `vuelo_ibfk_3` FOREIGN KEY (`cod_trayecto`) REFERENCES `trayecto` (`id_trayecto`),
+  ADD CONSTRAINT `vuelo_ibfk_4` FOREIGN KEY (`cod_equipo`) REFERENCES `equipo` (`id_equipo`);
+
+
+-- Filtros para la tabla `asiento`
 --
 ALTER TABLE asiento
  /* ADD CONSTRAINT `vuelo_ibfk_1` FOREIGN KEY (`cod_tipo_vuelo`) REFERENCES `tipo_vuelo` (`id_tipo_vuelo`),*/
