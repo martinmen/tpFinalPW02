@@ -64,7 +64,7 @@ include_once("../controlador/controlador_crearReserva.php");
                 '                    <div class="separador"></div>' +
                 '                </div>' +
                 '            </div>' +
-                '            <p class="card-description vuelo-disabled">Vuelo: <?php echo $vueloId;?></p>' +
+                '            <p class="card-description vuelo-disabled">Vuelo: <?php echo $matricula;?></p>' +
                 '            <div class="row">' +
                 '                <div class="col-md-6">' +
                 '                    <div class="form-group">' +
