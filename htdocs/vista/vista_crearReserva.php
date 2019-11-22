@@ -6,7 +6,11 @@ include_once("../controlador/controlador_crearReserva.php");
 <!--<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>-->
 <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
 <script>
-    $(document).ready(function () {
+
+        $(document).ready(function () {
+
+
+
         var counter = 1;
         $('#addCard').on("click", function(){
             //Crear elemento div
@@ -121,14 +125,27 @@ include_once("../controlador/controlador_crearReserva.php");
             <div class="row">
                 <div class="col-md-6">
                     <div class="form-group">
+                        <label>Email</label>
+                        <input type="email" class="form-control" name="email" onBlur='validaEmail(this.value);' placeholder="aaa@aaa.com">
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-6">
+                    <p id="okEmail" style="color:red;"> </p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
                         <label>Nombres</label>
-                        <input type="text" class="form-control" name="nombres" placeholder="Ingrese Nombres">
+                        <input type="text" class="form-control" name="nombres" placeholder="Ingrese Nombres" id="nombre">
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="form-group">
                         <label>Apellido</label>
-                        <input type="text" class="form-control" name="apellido" placeholder="Ingrese Apellido">
+                        <input type="text" class="form-control" name="apellido" placeholder="Ingrese Apellido" id="apellido">
                     </div>
                 </div>
             </div>
@@ -145,18 +162,11 @@ include_once("../controlador/controlador_crearReserva.php");
                 <div class="col-md-6">
                     <div class="form-group">
                         <label>Nro. Documento</label>
-                        <input type="text" class="form-control" name="nro_doc" placeholder="Ingrese Nro. Documento">
+                        <input type="text" class="form-control" name="nro_doc" placeholder="Ingrese Nro. Documento" id="numDoc">
                     </div>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-md-6">
-                    <div class="form-group">
-                        <label>Email</label>
-                        <input type="email" class="form-control" name="email" placeholder="aaa@aaa.com">
-                    </div>
-                </div>
-            </div>
+
             <div class="row">
                 <div class="col-md-6 offset-3">
                     <div class="separador"></div>
@@ -192,16 +202,82 @@ include_once("../controlador/controlador_crearReserva.php");
             <button type="button" class="btn btn-danger btn-rounded btn-fw" style="float:right;"><a style="color:white!important" onclick="confimarCancelacion()">Cancelar</a></button>
         </div>
         <div class="col-md-2">
-            <button name="submit" class="btn btn-success btn-rounded btn-fw" style="float:left"><a style="color:white!important" href="vista_pago.php">Ir al pago</a></button>
+            <button name="submit" class="btn btn-success btn-rounded btn-fw" style="float:left"><a style="color:white!important" href="vista_pago.php?reservaId=$.">Ir al pago</a></button>
         </div>
     </div>
 </form>
 <script>
+
+    window.onload=function () {
+        document.getElementById("nombre").disabled = true;
+        document.getElementById("apellido").disabled = true;
+        document.getElementById("docTypes").disabled = true;
+        document.getElementById("numDoc").disabled = true;
+
+    }
+
     function confimarCancelacion(){
         var ask = confirm("¿Seguro quiere cancelar la reserva?");
         if (ask) {
             window.location.href="../vista/vista_cliente.php";
         }
+    }
+
+
+
+    function getXMLHTTP() {
+        var xmlhttp=false;
+        try{
+            xmlhttp=new XMLHttpRequest();
+        }
+        catch(e)	{
+            try{
+                xmlhttp= new ActiveXObject("Microsoft.XMLHTTP");
+            }
+            catch(e){
+                try{
+                    xmlhttp = new ActiveXObject("Msxml2.XMLHTTP");
+                }
+                catch(e){
+                    xmlhttp=false;
+                }
+            }
+        }
+        return xmlhttp;
+    }
+
+
+    function validaEmail(email) {
+        var strURL="../ajax/mails.php?email="+email;
+        var req = getXMLHTTP();
+        if (req) {
+            req.onreadystatechange = function() {
+                if (req.readyState == 4) {
+                    // only if "OK"
+                    if (req.status == 200) {
+                        document.getElementById('okEmail').innerHTML = req.responseText;
+                        if(req.responseText == "mail existente"){
+                            document.getElementById("nombre").disabled = true;
+                            document.getElementById("apellido").disabled = true;
+                            document.getElementById("docTypes").disabled = true;
+                            document.getElementById("numDoc").disabled = true;
+
+                        }else {
+                            document.getElementById("nombre").disabled = false;
+                            document.getElementById("apellido").disabled = false;
+                            document.getElementById("docTypes").disabled = false;
+                            document.getElementById("numDoc").disabled = false;
+                        }
+                        //alert("Ok: "+ req.responseText);
+                    } else {
+                        alert("There was a problem while using XMLHTTP:\n" + req.statusText);
+                    }
+                }
+            }
+            req.open("GET", strURL, true);
+            req.send(null);
+        }
+
     }
 </script>
 

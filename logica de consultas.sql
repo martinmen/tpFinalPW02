@@ -1,4 +1,17 @@
 use tpfinal;
+-- Disponibilidad de asientos en el vuelo por cabina
+     
+    -- dipobibilidad de asientos Generales (diferencia entre la capacidad del equipo asignado en el vuelo y la cantidad de reservas realizadas en la tabla reserva(por tipo cabina y cod_vuelo)
+			-- disponibilidad asientos General
+     select  ((select e.capacidad_cabinaG as capacidad_equipo from vuelo v join equipo e on v.cod_equipo = e.id_equipo and id_vuelo = 1) - 
+             (select count(*) as reservas_g from reserva r where r.cod_cabina = 1 and cod_vuelo= 48)) as disponibles_general,
+			-- disponibilidad asientos Familiar
+                          ((select e.capacidad_cabinaF as capacidad_equipo from vuelo v join equipo e on v.cod_equipo = e.id_equipo and id_vuelo = 1)-
+								 (select count(*) as reservas_f from reserva r where r.cod_cabina = 2 and cod_vuelo= 48)) as disponibles_familiar,
+			-- disponibilidad asientos Suit
+             ((select e.capacidad_cabinaS as capacidad_equipo from vuelo v join equipo e on v.cod_equipo = e.id_equipo and id_vuelo = 1)-
+					(select count(*) as reservas_s from reserva r where r.cod_cabina = 3 and cod_vuelo= 48))as disponibles_suit;
+-- ------------------------------------------------------------------------------------------------------------------------------------------------------------------
 -- Lista trayectos
 select eo.nombre origen,  ed.nombre destino
 from trayecto t join estacion eo on t.cod_estacion_origen = eo.id_estacion
