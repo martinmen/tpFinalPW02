@@ -123,7 +123,7 @@ create table estado_reserva (
 CREATE TABLE reserva (
   id_reserva int(11) NOT NULL,
   cod_usuario int(11) NOT NULL,
---  cod_cabina int(11) NOT NULL,
+  cod_cabina int(11) NOT NULL,
 --  cod_asiento int(11) NOT NULL,
   cod_vuelo int(11) NOT NULL,
   importe float (10.2), 
@@ -201,6 +201,18 @@ CREATE TABLE vuelo_trayecto (
   cod_trayecto int(11) NOT NULL,
 cod_asiento int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+
+create table reserva_trayecto (
+id_reserva_trayecto int(11) not null,
+cod_reserva int(11) not null,
+cod_vuelo int(11) not null,
+cod_estacion_escala int(11) not null -- estaciones que involucra la reserva
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+
+
+
 --
 ALTER TABLE estado_asiento
   ADD PRIMARY KEY (id_estado_asiento);
@@ -210,6 +222,12 @@ ALTER TABLE asiento
   ADD KEY cod_equipo (cod_equipo),
   ADD KEY cod_cabina (cod_equipo),  
   ADD KEY cant_asientos (cod_equipo);
+  
+  ALTER TABLE reserva_trayecto
+  ADD PRIMARY KEY (id_reserva_trayecto),
+  ADD KEY cod_reserva (cod_reserva),
+  ADD KEY cod_vuelo (cod_vuelo),  
+  ADD KEY cod_estacion_escala (cod_estacion_escala);
 --
  -- ---------------------------------- Add PK ----------------------------------------------------------------
 ALTER TABLE cabina
@@ -233,12 +251,12 @@ ALTER TABLE nivel_vuelo
 alter table estado_reserva 
   ADD PRIMARY KEY (id_estado_reserva);
 --
-ALTER TABLE `reserva`
-  ADD PRIMARY KEY (`id_reserva`),
---  ADD KEY `cod_cabina` (`cod_cabina`),
-  ADD KEY `cod_vuelo` (`cod_vuelo`),
-  ADD KEY `cod_usuario` (`cod_usuario`),
-ADD KEY `cod_estado_reserva` (`cod_estado_reserva`);
+ALTER TABLE reserva
+  ADD PRIMARY KEY (id_reserva),
+  ADD KEY cod_cabina (cod_cabina),
+  ADD KEY cod_vuelo (cod_vuelo),
+  ADD KEY cod_usuario (cod_usuario),
+ADD KEY cod_estado_reserva (cod_estado_reserva);
 
 /*ALTER TABLE reserva
   ADD PRIMARY KEY (cod_codigo_reserva,cod_usuario),
@@ -270,24 +288,30 @@ ALTER TABLE turno
 alter table estado_usuario
 add primary key (id_estado_usuario);
 --
-ALTER TABLE `usuario`
-  ADD PRIMARY KEY (`id_usuario`,`num_doc`),
-  ADD KEY `cod_tipo_doc` (`cod_tipo_doc`),
-  ADD KEY `cod_tipo_usuario` (`cod_tipo_usuario`),
-ADD KEY `cod_estado_usuario` (`cod_estado_usuario`);
+ALTER TABLE usuario
+  ADD PRIMARY KEY (id_usuario,num_doc),
+  ADD KEY cod_tipo_doc (cod_tipo_doc),
+  ADD KEY cod_tipo_usuario (cod_tipo_usuario),
+ADD KEY cod_estado_usuario (cod_estado_usuario);
 --
-ALTER TABLE `vuelo`
-  ADD PRIMARY KEY (`id_vuelo`),
-  ADD KEY `cod_tipo_vuelo` (`cod_tipo_vuelo`),
-  ADD KEY `cod_equipo` (`cod_equipo`);
+ALTER TABLE vuelo
+  ADD PRIMARY KEY (id_vuelo),
+  ADD KEY cod_tipo_vuelo (cod_tipo_vuelo),
+  ADD KEY cod_equipo (cod_equipo);
 --
-ALTER TABLE `vuelo_trayecto`
-  ADD PRIMARY KEY (`id_escala`),
-  ADD KEY `cod_vuelo` (`cod_vuelo`),
-  ADD KEY `cod_trayecto` (`cod_trayecto`);
+ALTER TABLE vuelo_trayecto
+  ADD PRIMARY KEY (id_escala),
+  ADD KEY cod_vuelo (cod_vuelo),
+  ADD KEY cod_trayecto (cod_trayecto);
 -- ----------------------------AUTO INCREMENT
+
+
+  
 ALTER TABLE estado_asiento
   MODIFY id_estado_asiento int(4) NOT NULL AUTO_INCREMENT;
+  
+  ALTER TABLE reserva_trayecto
+  MODIFY id_reserva_trayecto int(11) NOT NULL AUTO_INCREMENT;
 --
 ALTER TABLE estado_reserva
   MODIFY id_estado_reserva int(4) NOT NULL AUTO_INCREMENT;
@@ -298,8 +322,8 @@ ALTER TABLE cabina
 ALTER TABLE centro_medico
   MODIFY id_centro_medico int(4) NOT NULL AUTO_INCREMENT;
 --
-ALTER TABLE `equipo`
-  MODIFY `id_equipo` int(11) NOT NULL AUTO_INCREMENT;
+ALTER TABLE equipo
+  MODIFY id_equipo int(11) NOT NULL AUTO_INCREMENT;
 --
 ALTER TABLE `estacion`
   MODIFY `id_estacion` int(11) NOT NULL AUTO_INCREMENT;
@@ -342,10 +366,15 @@ ALTER TABLE asiento
 --
 ALTER TABLE `reserva`
   ADD CONSTRAINT `reserva_ibfk_1` FOREIGN KEY (cod_usuario) REFERENCES usuario (id_usuario),
- -- ADD CONSTRAINT `reserva_ibfk_2` FOREIGN KEY (cod_cabina) REFERENCES cabina (id_cabina),
-  ADD CONSTRAINT `reserva_ibfk_2` FOREIGN KEY (cod_vuelo) REFERENCES vuelo (id_vuelo),
-  ADD CONSTRAINT `reserva_ibfk_3` FOREIGN KEY (cod_estado_reserva) REFERENCES estado_reserva (id_estado_reserva);
+  ADD CONSTRAINT `reserva_ibfk_2` FOREIGN KEY (cod_cabina) REFERENCES cabina (id_cabina),
+  ADD CONSTRAINT `reserva_ibfk_3` FOREIGN KEY (cod_vuelo) REFERENCES vuelo (id_vuelo),
+  ADD CONSTRAINT `reserva_ibfk_4` FOREIGN KEY (cod_estado_reserva) REFERENCES estado_reserva (id_estado_reserva);
 --
+ ALTER TABLE reserva_trayecto
+  ADD constraint `reserva_trayecto_ibfk_1` foreign key (cod_reserva) references reserva (id_reserva),
+  ADD constraint`reserva_trayecto_ibfk_2` foreign key (cod_vuelo) references vuelo (id_vuelo),  
+  ADD constraint`reserva_trayecto_ibfk_3` foreign key (cod_estacion_escala) references estacion (id_estacion);
+
 ALTER TABLE `turno`
   ADD CONSTRAINT `turno_ibfk_1` FOREIGN KEY (`cod_nivel_vuelo`) REFERENCES `nivel_vuelo` (`id_nivel_vuelo`),
   ADD CONSTRAINT `turno_ibfk_2` FOREIGN KEY (`cod_usuario`) REFERENCES `usuario` (`id_usuario`),
