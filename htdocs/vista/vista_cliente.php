@@ -64,18 +64,26 @@ if(isset($_SESSION["email"])) {
         if(x == 0){ //seleccione...
             document.getElementById('fecha').style.display = 'none';
             document.getElementById('estacion').style.display = 'none';
+            document.getElementById('circuito1').style.display = 'none';
+            document.getElementById('circuito2').style.display = 'none';
         }
         else if(x == 1){ //Suborbitales
             document.getElementById('fecha').style.display = 'block';
             document.getElementById('estacion').style.display = 'block';
+            document.getElementById('circuito1').style.display = 'none';
+            document.getElementById('circuito2').style.display = 'none';
         } else if (x == 2){ //Orbital/Cirucito 1
             document.getElementById('fecha').style.display = 'block';
             document.getElementById('estacion').style.display = 'block';
+            document.getElementById('circuito1').style.display = 'block';
+            document.getElementById('circuito2').style.display = 'none';
 
         } else if(x == 3){
             //Orbital/Cirucito 2
             document.getElementById('fecha').style.display = 'block';
             document.getElementById('estacion').style.display = 'block';
+            document.getElementById('circuito2').style.display = 'block';
+            document.getElementById('circuito1').style.display = 'none';
         }
         else { // Tour
             document.getElementById('estacion').style.display = 'none';
@@ -153,6 +161,33 @@ if(isset($_SESSION["email"])) {
             </div>
         </div>
         <br>
+        <!--WIZARD-->
+        <div class="row">
+            <div class="col-12" id="circuito1">
+                <p style="text-align: center;text-decoration: underline black;">Escalas a tener en cuenta para llegar a su destino</p>
+                <ul class="progress-indicator">
+                    <li> <span class="bubble"></span> Buenos Aires/Ankara </li>
+                    <li> <span class="bubble"></span> Estacion Espacial Internacional </li>
+                    <li> <span class="bubble"></span> Orbital Hotel </li>
+                    <li> <span class="bubble"></span> Luna </li>
+                    <li> <span class="bubble"></span> Marte </li>
+                </ul>
+            </div>
+            <div class="col-12" id="circuito2">
+                <p style="text-align: center;text-decoration: underline black;">Escalas a tener en cuenta para llegar a su destino</p>
+                <ul class="progress-indicator" >
+                    <li> <span class="bubble"></span> Buenos Aires/Ankara </li>
+                    <li> <span class="bubble"></span> Estacion Espacial Internacional </li>
+                    <li> <span class="bubble"></span> Luna </li>
+                    <li> <span class="bubble"></span> Ganimides </li>
+                    <li> <span class="bubble"></span> Europa </li>
+                    <li> <span class="bubble"></span> Io </li>
+                    <li> <span class="bubble"></span> Encendalo </li>
+                    <li> <span class="bubble"></span> Titan </li>
+                </ul>
+            </div>
+        </div>
+        <br>
         <div class="table-responsive">
             <table class="table table-striped" id="dataTable" width="100%" cellspacing="0">
                 <thead>
@@ -193,16 +228,14 @@ if(isset($_SESSION["email"])) {
                 </tbody>
             </table>
         </div>
-
-
-
-
     </div>
 </div>
 <script type="text/javascript">
     window.onload=function() {
         document.getElementById('fecha').style.display = 'none';
         document.getElementById('estacion').style.display = 'none';
+        document.getElementById('circuito1').style.display = 'none';
+        document.getElementById('circuito2').style.display = 'none';
     }
 
 
