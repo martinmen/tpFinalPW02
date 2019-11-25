@@ -3,17 +3,22 @@ require_once ("../Conexion.php");
 
 function registroUsuario($nombre, $apellido, $email, $pass, $documento){
     $conn = getConexion();
-    $usuarioOk = false;
+    $error = false;
 
-    $sql = "INSERT INTO usuario (nombre, apellido, email, contrasenia, tipo_usaurio, ndocumento)
-                        values   ('$nombre', '$apellido', '$email', '$pass', 2, '$documento')";
+    $sql = "SELECT * from usuario where email = '$email';";
     $result = mysqli_query($conn, $sql);
 
-    if(!($result)){
-        $usuarioOk = false;
+    if($row = mysqli_fetch_array($result)){
+        $error = true;
     } else{
-        $usuarioOk = true;
+        $sql2 = "INSERT INTO usuario (nombre, apellido, email, contrasenia, tipo_usaurio, ndocumento)
+                        values   ('$nombre', '$apellido', '$email', '$pass', 2, '$documento')";
+        $result2 = mysqli_query($conn, $sql2);
+
+        if($result2) {
+            $error = false;
+        }
     }
 
-    return $usuarioOk;
+    return $error;
 }

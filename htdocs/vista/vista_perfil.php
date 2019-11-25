@@ -93,7 +93,6 @@ include_once("../controlador/controlador_perfil.php");
                         <th>Vuelo</th>
                         <th>Fecha</th>
                         <th>Cabina</th>
-                        <th>Asiento</th>
                         <th>Importe</th>
                         <th>Estado de Reserva</th>
                     </tr>
@@ -103,10 +102,10 @@ include_once("../controlador/controlador_perfil.php");
                         foreach ($reservas as $reserva){
                             echo "<tr>
                                  <td>".$reserva['cod_reserva']."</td>                             
-                                 <td>".$reserva['vuelo']."</td>
+                                 <td style='display: none'>".$reserva['vuelo']."</td>
+                                 <td>".$reserva['matricula']."</td>
                                  <td>".$reserva['fechaVuelo']."</td>
                                  <td>".$reserva['cabina']."</td>
-                                 <td>".$reserva['asiento']."</td>
                                  <td>".$reserva['importe']."</td>    
                                  <td><a style='color: #2a3b57; font-weight: bold;'>".$reserva['estado_reserva']."</a></td>                         
                              </tr>";

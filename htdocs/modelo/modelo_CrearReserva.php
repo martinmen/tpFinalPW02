@@ -21,24 +21,50 @@ function getTipoDocumentos(){
 
 function getTipoDeCabinas($vueloId){
     $conn = getConexion();
-    $sql="select concat('Familiar: ',e.capacidad_cabinaF) as descripcion from vuelo as v join equipo as e on v.cod_equipo = e.id_equipo where v.id_vuelo = $vueloId
-            UNION ALL 
-            select concat('General: ', e.capacidad_cabinaG) from vuelo as v join equipo as e on v.cod_equipo = e.id_equipo where v.id_vuelo = $vueloId
-            UNION ALL 
-            select concat('Suite: ', e.capacidad_cabinaS) from vuelo as v join equipo as e on v.cod_equipo = e.id_equipo where v.id_vuelo = $vueloId;";
+    $sql="SELECT c.id_cabina, a.id_asiento, E.ID_EQUIPO, C.DESCRIPCION as descripcion, A.CANT_ASIENTOS
+	FROM ASIENTO AS A 
+		JOIN EQUIPO AS E ON E.ID_EQUIPO = A.COD_EQUIPO
+        JOIN CABINA AS C ON C.ID_CABINA = A.COD_CABINA
+        JOIN VUELO AS V ON V.COD_EQUIPO = E.ID_EQUIPO
+       WHERE V.ID_VUELO = $vueloId;";
     $result=mysqli_query($conn,$sql);
-    $tipo_doc = "";
+    $tipo_cabina = "";
 
     if(mysqli_num_rows($result) > 0){
         while ($row=mysqli_fetch_assoc($result)){
-            $tipo_doc .= "<option value='".$row['']."'>".$row['descripcion']."</option>";
+            $tipo_cabina .= "<option value='".$row['id_asiento']."' id='".$row['id_cabina']."'>".$row['descripcion']." / ".$row['CANT_ASIENTOS']." libres </option>";
         }
     }else {
-        $tipo_doc="<option>NO HAY DATOS</option>";
+        $tipo_cabina="<option>NO HAY DATOS</option>";
     }
 
-    return $tipo_doc;
+    return $tipo_cabina;
 }
+
+function getCosto($vueloId){
+
+    $conn = getConexion();
+    $sql="select costo 
+	from vuelo  
+    where id_vuelo = $vueloId;";
+    $result=mysqli_query($conn,$sql);
+    $costo = "";
+
+    if($row = mysqli_fetch_array($result))
+    {
+        $costo = $row['costo'];
+
+    } else{
+        $costo = "Sin costo";
+    }
+
+    return $costo;
+
+
+}
+
+
+
 
 //function crearReserva($nombre, $apellido, $email, $pass, $vuelo){
 //

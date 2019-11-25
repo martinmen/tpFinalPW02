@@ -1,7 +1,7 @@
 <?php
 include("../modelo/modelo_registrar.php");
 
-$error = false;
+$error = "";
 $a= "";
 
 if(isset($_POST["submit"])){
@@ -15,14 +15,20 @@ if(isset($_POST["submit"])){
         $pass = $_POST["contraseña"];
         $documento = $_POST["documento"];
 
-        $usuarioOk = registroUsuario($nombre, $apellido, $email, $pass, $documento);
-        if ( $usuarioOk == true){
-            Header('location:../login.php');
+
+
+        $error = registroUsuario($nombre, $apellido, $email, $pass, $documento);
+        if ( $error == true){
+            $error= "<p style='color:red; font-weight: bold;'>El email ya se encuentra registrado.</p>";
+            include("../vista/vista_registrar.php");
         } else {
-            Header('location: ../vista/vista_registrar.php');
+            $error= "<p style='color:yellowgreen; font-weight: bold;'>Se ha registrado correctamente. Puede ingresar.</p>";
+            include("../vista/vista_registrar.php");
         }
     } else{
-        $error=true;
+
+        $error= "<p style='color:red; font-weight: bold;'>Las contraseñas no coinciden</p>";
+        include("../vista/vista_registrar.php");
     }
 }
 

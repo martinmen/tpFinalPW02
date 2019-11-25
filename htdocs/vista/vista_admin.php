@@ -1,26 +1,40 @@
-<?php ?>
-<table class="table">
-        <thead>
-        <tr>
-            <th>Nro Vuelo</th>
-            <th>Fecha</th>
-            <th>Duración</th>
-            <th>Tipo Vuelo</th>
-            <th>Equipo</th>
-        </tr>
-        </thead>
-        <tbody>
-        <?php
-            foreach ($vuelos as $vuelo){
-                echo "<tr>
-                        <td>". $vuelo['id'] . "</td>
-                        <td>". $vuelo['fecha'] . "</td>   
-                        <td>". $vuelo['duracion'] . "</td>  
-                        <td>". $vuelo['tipo_vuelo'] . "</td>  
-                        <td>". $vuelo['equipo'] . "</td>
-                      </tr>";
-            }
-        ?>
+<?php
+include("../header.php");
+include("../controlador/controlador_admin.php");
+?>
+<div class="row page-title-header">
+    <div class="col-12">
+        <div class="page-header">
+            <h4 class="page-title">Reportes Administrativos </h4>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <div class="separador"></div>
+    </div>
+</div>
+<br>
+<div class="card shadow mb-4">
+    <div class="card-body">
+        <div class="card-header py-3">
+            <form method="get" action="../controlador/controlador_admin.php">
+                <div class="row">
 
-        </tbody>
-    </table>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+<?php
+include_once("../footer.php");
+?>
