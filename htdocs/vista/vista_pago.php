@@ -117,7 +117,7 @@ include_once("../controlador/controlador_pago.php");
                 </div>
                 <div class="col-md-2">
                     <!--            <button name="submit" type="submit" class="btn btn-success btn-rounded btn-fw" style="float:left">Ir al pago</button>-->
-                    <button name="submit" class="btn btn-success btn-rounded btn-fw" style="float:left"><a style="color:white!important" href="vista_pago.php">Confimar Pago</a></button>
+                    <button name="submit" class="btn btn-success btn-rounded btn-fw" style="float:left"><a style="color:white!important" href="vista_comprobante.php">Confimar Pago</a></button>
                 </div>
             </div>
         </div>
