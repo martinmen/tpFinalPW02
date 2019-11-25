@@ -18,7 +18,7 @@ if(isset($_GET["submit"])){
     if($tipoVuelo != 0){
         if($origen == $destino){
             echo "<script>alert('El destino de la estación no puede ser igual a la de origen.');window.location.href=\"../vista/vista_cliente.php\"</script>";
-        } else if(($origen == 10 || 11) && ($destino == 10 || 11)){
+        } else if($tipoVuelo == 2 || $tipoVuelo == 3 && ($origen == 10 || 11) && ($destino == 10 || 11)){
             echo "<script>alert('Si eligió Bs As o Ankara el destino no puede ser una estación de la Tierra');window.location.href=\"../vista/vista_cliente.php\"</script>";
         }
         $vuelos = getVuelosConFiltro($tipoVuelo, $fdesde, $fhasta, $origen, $destino);

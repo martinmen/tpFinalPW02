@@ -122,6 +122,14 @@ include_once("../controlador/controlador_crearReserva.php");
             <div class="row">
                 <div class="col-md-6">
                     <div class="form-group">
+                        <label>Email</label>
+                        <input type="email" class="form-control" name="email" placeholder="aaa@aaa.com">
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
                         <label>Nombres</label>
                         <input type="text" class="form-control" name="nombres" placeholder="Ingrese Nombres">
                     </div>
@@ -150,14 +158,7 @@ include_once("../controlador/controlador_crearReserva.php");
                     </div>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-md-6">
-                    <div class="form-group">
-                        <label>Email</label>
-                        <input type="email" class="form-control" name="email" placeholder="aaa@aaa.com">
-                    </div>
-                </div>
-            </div>
+
             <div class="row">
                 <div class="col-md-6 offset-3">
                     <div class="separador"></div>
