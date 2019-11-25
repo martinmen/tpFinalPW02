@@ -11,9 +11,9 @@ if(isset($_GET['email'])){
     $resultado = mysqli_query($conexion, $sql);
 
     if(mysqli_num_rows($resultado)){
-      echo "mail existente";
+      echo "Email existente, no es necesario completar los datos";
     } else{
-        echo "No existe email, complete los datos";
+        echo "No existe Email, complete los datos para continuar con la reserva";
     }
 
 

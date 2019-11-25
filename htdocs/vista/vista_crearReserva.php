@@ -30,13 +30,13 @@ include_once("../controlador/controlador_crearReserva.php");
                 '<div class="col-md-6">' +
                 '<div class="form-group">' +
                 '<label>Nombres</label>' +
-                '<input type="text" class="form-control" name="nombres'+counter+'" placeholder="Ingrese Nombres">' +
+                '<input type="text" class="form-control" name="nombres'+counter+'" placeholder="Ingrese Nombres" id="nombre'+counter+'">' +
                 '</div>' +
                 '</div>' +
                 '<div class="col-md-6">' +
                 '<div class="form-group">' +
                 '<label>Apellido</label>' +
-                '<input type="text" class="form-control" name="apellido'+counter+'" placeholder="Ingrese Apellido">' +
+                '<input type="text" class="form-control" name="apellido'+counter+'" placeholder="Ingrese Apellido" id="apellido'+counter+'">' +
                 '</div>' +
                 '</div>' +
                 '</div>' +
@@ -51,7 +51,7 @@ include_once("../controlador/controlador_crearReserva.php");
                 '<div class="col-md-6">' +
                 '<div class="form-group">' +
                 '<label>Nro. Documento</label>' +
-                '<input type="text" class="form-control" name="nro_doc'+ counter +'" placeholder="Ingrese Nro. Documento">' +
+                '<input type="text" class="form-control" name="nro_doc'+ counter +'" placeholder="Ingrese Nro. Documento" id="numDoc'+counter+'">' +
                 '</div>' +
                 '</div>' +
                 '</div>' +
@@ -127,46 +127,50 @@ include_once("../controlador/controlador_crearReserva.php");
                 <div class="col-md-6">
                     <div class="form-group">
                         <label>Email</label>
-                        <input type="email" class="form-control" name="email" onBlur='validaEmail(this.value);' placeholder="aaa@aaa.com">
+                        <input type="email" id="email" class="form-control" name="email" onBlur='validaEmail(this.value);' placeholder="aaa@aaa.com">
                     </div>
                 </div>
             </div>
             <div class="row">
                 <div class="col-6">
-                    <p id="okEmail" style="color:red;"> </p>
+                    <p id="okEmail" > </p>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-md-6">
-                    <div class="form-group">
-                        <label>Nombres</label>
-                        <input type="text" class="form-control" name="nombres" placeholder="Ingrese Nombres" id="nombre">
+            <div id="datosCompletar">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>Nombres</label>
+                            <input type="text" class="form-control" name="nombres" placeholder="Ingrese Nombres" id="nombre">
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>Apellido</label>
+                            <input type="text" class="form-control" name="apellido" placeholder="Ingrese Apellido" id="apellido">
+                        </div>
                     </div>
                 </div>
-                <div class="col-md-6">
-                    <div class="form-group">
-                        <label>Apellido</label>
-                        <input type="text" class="form-control" name="apellido" placeholder="Ingrese Apellido" id="apellido">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>Tipo Documento</label>
+                            <select class="form-control" name="tipo_doc" id="docTypes">
+                                <option value="">Seleccione...</option>
+                                <?php  echo $tipo_doc; ?>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>Nro. Documento</label>
+                            <input type="text" class="form-control" name="nro_doc" placeholder="Ingrese Nro. Documento" id="numDoc">
+                        </div>
                     </div>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-md-6">
-                    <div class="form-group">
-                        <label>Tipo Documento</label>
-                        <select class="form-control" name="tipo_doc" id="docTypes">
-                            <option value="">Seleccione...</option>
-                            <?php  echo $tipo_doc; ?>
-                        </select>
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="form-group">
-                        <label>Nro. Documento</label>
-                        <input type="text" class="form-control" name="nro_doc" placeholder="Ingrese Nro. Documento" id="numDoc">
-                    </div>
-                </div>
-            </div>
+
+
 
             <div class="row">
                 <div class="col-md-6 offset-3">
@@ -206,17 +210,19 @@ include_once("../controlador/controlador_crearReserva.php");
             <button type="button" class="btn btn-danger btn-rounded btn-fw" style="float:right;"><a style="color:white!important" onclick="confimarCancelacion()">Cancelar</a></button>
         </div>
         <div class="col-md-2">
-            <button name="submit" class="btn btn-success btn-rounded btn-fw" style="float:left"><a style="color:white!important" href="vista_pago.php?reservaId=$.">Ir al pago</a></button>
+<!--            <button name="submit" class="btn btn-success btn-rounded btn-fw" style="float:left"><a style="color:white!important" href="vista_pago.php?reservaId=$.">Ir al pago</a></button>-->
+               <input type="button" class="btn btn-primary" onclick="pasarParametros()" id="Datos" style="float:right"  value="pasarDatos" data-toggle="tooltip" data-placement="top" title="Puede agregar otro usuario a su reserva"/>
+
+
         </div>
     </div>
 </form>
 <script>
 
     window.onload=function () {
-        document.getElementById("nombre").disabled = true;
-        document.getElementById("apellido").disabled = true;
-        document.getElementById("docTypes").disabled = true;
-        document.getElementById("numDoc").disabled = true;
+
+
+        document.getElementById("datosCompletar").style.display = "none";
 
     }
 
@@ -306,17 +312,15 @@ var selectCabina = document.getElementById('docTypes2');
                     // only if "OK"
                     if (req.status == 200) {
                         document.getElementById('okEmail').innerHTML = req.responseText;
-                        if(req.responseText == "mail existente"){
-                            document.getElementById("nombre").disabled = true;
-                            document.getElementById("apellido").disabled = true;
-                            document.getElementById("docTypes").disabled = true;
-                            document.getElementById("numDoc").disabled = true;
+                        if(req.responseText == "Email existente, no es necesario completar los datos"){
+
+                            document.getElementById("datosCompletar").style.display = "none";
+                            document.getElementById('okEmail').style.color = "green";
+
 
                         }else {
-                            document.getElementById("nombre").disabled = false;
-                            document.getElementById("apellido").disabled = false;
-                            document.getElementById("docTypes").disabled = false;
-                            document.getElementById("numDoc").disabled = false;
+                            document.getElementById("datosCompletar").style.display = "block";
+                            document.getElementById('okEmail').style.color = "red";
                         }
                         //alert("Ok: "+ req.responseText);
                     } else {
@@ -327,6 +331,14 @@ var selectCabina = document.getElementById('docTypes2');
             req.open("GET", strURL, true);
             req.send(null);
         }
+
+    }
+
+    function pasarParametros() {
+        var email=document.getElementById("email");
+
+      //  var apellido=document.getElementById("apellido").checked;
+
 
     }
 </script>
