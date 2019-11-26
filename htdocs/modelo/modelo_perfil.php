@@ -31,7 +31,7 @@ function getReservas($email){
 
         }
     } else{
-        echo "SIN DATOS";
+        echo "";
     }
     mysqli_close($conn);
 
@@ -42,7 +42,8 @@ function getReservas($email){
 function getTurnoMedico($email){
 
     $conn = getConexion();
-    $sql="select t.id_turno_medico, t.fecha_turno, ce.descripcion from turno as t 
+    $sql="select t.id_turno_medico, t.fecha_turno, ce.descripcion, t.fecha_baja_turno
+        from turno as t 
 		join centro_medico as ce on ce.id_centro_medico = t.cod_centro_medico
         join usuario as u on u.id_usuario = t.cod_usuario
         where u.email = '$email';";
@@ -55,6 +56,7 @@ function getTurnoMedico($email){
         $turno_medico[0] = true;
         $turno_medico[1] = $row['fecha_turno'];
         $turno_medico[2] = $row['descripcion'];
+        $turno_medico[3] = $row['fecha_baja_turno'];
     } else{
         $turno_medico[0] = false;
     }
@@ -75,7 +77,21 @@ function bajaTurno($id_usuario){
     } else{
         echo "<script>alert('No pudo darse de baja su turno, ponganse en contacto con soporte.'); window.location.href=\"../vista/vista_perfil.php\"</script>";
     }
+}
 
+function getNivelVuelo($id_usuario){
+    $conn = getConexion();
+    $sql  = "SELECT nv.id_nivel_vuelo, nv.descripcion 
+                FROM usuario as u 
+                join nivel_vuelo as nv on nv.id_nivel_vuelo = u.cod_nivel_vuelo
+                WHERE u.id_usuario = '$id_usuario';";
+    $result = mysqli_query($conn, $sql);
+
+    if($row = mysqli_fetch_array($result)){
+        $nivel_vuelo = $row['descripcion'];
+    }
+
+    return $nivel_vuelo;
 
 }
 

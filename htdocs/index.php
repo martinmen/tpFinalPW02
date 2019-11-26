@@ -1,4 +1,7 @@
 <?php
+
+use FontLib\Header;
+
 include("login.php");
 //Header('location:vista/vista_cliente.php');
 require_once("Conexion.php");
@@ -6,11 +9,6 @@ include_once("login.php");
 
 include("modelo/modelo_session.php");
 
-
-//if( isset($_GET['pag']) && $_GET['pag'] == 'login.php') {
-//    include_once("login.php");
-//
-//}
 
 if(isset($_POST['submit'])){
 
@@ -21,13 +19,15 @@ if(isset($_POST['submit'])){
     $rol = validaSession($email, $pass);
 
     if ($rol == 1){
+        $_SESSION["rol"] = "1"; //administrador
         Header('location:vista/vistaAdmin.php');
 
     } else if($rol == 2){
-        $_SESSION["rol"] = "cliente";
-
+        $_SESSION["rol"] = "2";//cliente
         Header('location:vista/vista_cliente.php');
-
+    } else if($rol == 3){
+        $_SESSION["rol"] = "3";//medico
+        Header('location:vista/vista_medico.php');
     }
 
 }

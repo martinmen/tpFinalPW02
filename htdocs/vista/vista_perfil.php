@@ -3,6 +3,7 @@ include_once ("../header.php");
 include_once("../controlador/controlador_perfil.php");
 
 //$email = $_SESSION["email"];
+//$rol = $_SESSION["rol"];
 ?>
 
 <div class="row page-title-header">
@@ -45,74 +46,86 @@ include_once("../controlador/controlador_perfil.php");
                         </div>
                     </div>
                 </div>
-                <br>
-                <h5 style="border-bottom: 1px solid">Mi turno médico</h5>
-                <br>
                 <div class="row">
-                    <div class="col-6">
+                    <div class="col-4">
                         <div class="form-group">
-                            <?php
-                            if($tiene_turno_medico == true){
-                                echo "<p class='turnoAsignado'><b>Ya tiene turno asignado.</b></p> <div class=\"row\">
-                                        <div class=\"col-4\">
-                                            <div class=\"form-group\">
-                                                <label>Se atiende en</label>
-                                                <p class=\"form-control\">" . $centro_medico ."</p>
-                                            </div>
-                                        </div>
-                                        <div class=\"col-4\">
-                                            <div class=\"form-group\">
-                                                <label>El día</label>
-                                                <p class=\"form-control\">" . $fecha_turno ."</p>
-                                            </div>
-                                        </div>
-                                        <div class='col-4'>
-                                            <div class='form-group'>
-                                                <label style='color:white'>asd</label>
-                                                <button type='submit' name='submit' class='form-control btn btn-danger btn-rounded btn-fw'>Cancelar turno</button>  
-                                            </div>  
-                                        </div>
-                                    </div>";
-                            } else{
-                                echo "<p style='color:red'>Usted no tiene ningún <b>turno médico</b> asignado.</p>
-                                        <a class='form-control btn btn-success btn-rounded btn-fw col-4' href=\"vista_sacarTurno.php\">Sacar Turno</a>";
-                            }
-
-                            ?>
+                            <label>Nivel de Vuelo</label>
+                            <p class="form-control"><?php echo $nivel_vuelo?></p>
                         </div>
                     </div>
                 </div>
-
-
-                <h5 style="border-bottom: 1px solid">Mis reservas</h5>
                 <br>
-                <table class="table table-striped">
-                    <thead>
-                    <tr>
-                        <th>Cód. Reserva</th>
-                        <th>Vuelo</th>
-                        <th>Fecha</th>
-                        <th>Cabina</th>
-                        <th>Importe</th>
-                        <th>Estado de Reserva</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <?php
-                        foreach ($reservas as $reserva){
-                            echo "<tr>
-                                 <td>".$reserva['cod_reserva']."</td>                             
-                                 <td style='display: none'>".$reserva['vuelo']."</td>
-                                 <td>".$reserva['matricula']."</td>
-                                 <td>".$reserva['fechaVuelo']."</td>
-                                 <td>".$reserva['cabina']."</td>
-                                 <td>".$reserva['importe']."</td>    
-                                 <td><a style='color: #2a3b57; font-weight: bold;'>".$reserva['estado_reserva']."</a></td>                         
-                             </tr>";
-                        }
-                    ?>
-                    </tbody>
-                </table>
+                <?php
+                    if($_SESSION['rol'] != 3){
+                        echo "<h5 style=\"border-bottom: 1px solid\">Mi turno médico</h5>
+                                <br>
+                                <div class=\"row\">
+                                    <div class=\"col-6\">
+                                        <div class=\"form-group\">";
+                                        if($tiene_turno_medico == true){
+                                            if($turnoAtendido == true){
+                                                echo "<p class='turnoConfirmado'><b>Su turno fue confirmado, ya tiene un Nivel de Vuelo.</b></p>";
+                                            }else
+                                            echo "<p class='turnoAsignado'><b>Ya tiene turno asignado.</b></p> <div class=\"row\">
+                                                   <div class=\"col-4\">
+                                                        <div class=\"form-group\">
+                                                            <label>Se atiende en</label>
+                                                            <p class=\"form-control\">" . $centro_medico ."</p>
+                                                        </div>
+                                                    </div>
+                                                    <div class=\"col-4\">
+                                                        <div class=\"form-group\">
+                                                            <label>El día</label>
+                                                            <p class=\"form-control\">" . $fecha_turno ."</p>
+                                                        </div>
+                                                    </div>
+                                                    <div class='col-4'>
+                                                        <div class='form-group'>
+                                                            <label style='color:white'>asd</label>
+                                                            <button type='submit' name='submit' class='form-control btn btn-danger btn-rounded btn-fw'>Cancelar turno</button>  
+                                                        </div>  
+                                                    </div>
+                                        </div>";
+                                        } else{
+                                            echo "<p style='color:red'>Usted no tiene ningún <b>turno médico</b> asignado. </p>
+                                                  <p style='color:red'>Saque uno para tener un Nivel de Vuelo.</p>
+                                        <a class='form-control btn btn-success btn-rounded btn-fw col-4' href=\"vista_sacarTurno.php\">Sacar Turno</a>";
+                                        };
+                                    echo "</div>
+                                </div>
+                        </div>
+                        <h5 style='border-bottom: 1px solid'>Mis reservas</h5>
+                        <br>
+                        <table class=\"table table-striped\">
+                            <thead>
+                                <tr>
+                                    <th>Cód. Reserva</th>
+                                    <th>Vuelo</th>
+                                    <th>Fecha</th>
+                                    <th>Cabina</th>
+                                    <th>Importe</th>
+                                    <th>Estado de Reserva</th>
+                                </tr>
+                            </thead>
+                            <tbody>";
+                            foreach ($reservas as $reserva){
+                                echo '<tr>      
+                                        <td>'.$reserva['cod_reserva'].'</td>                             
+                                     <td style="display: none">'.$reserva['vuelo']."</td>
+                                     <td>".$reserva['matricula']."</td>
+                                     <td>".$reserva['fechaVuelo']."</td>
+                                     <td>".$reserva['cabina']."</td>
+                                     <td>".$reserva['importe']."</td>    
+                                     <td><a style='color: #2a3b57; font-weight: bold;'>".$reserva['estado_reserva']."</a></td>                         
+                                 </tr>";
+                                }
+                            echo "</tbody>
+                                </table>";
+
+
+                    }
+                ?>
+
             </form>
         </div>
     </div>
