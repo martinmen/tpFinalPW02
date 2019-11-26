@@ -475,7 +475,18 @@ values
 --  insert into `vuelo_trayecto` (cod_vuelo, cod_trayecto) values 
 -- (1,2);
 
-insert into `reserva`(id_reserva,cod_usuario, cod_vuelo, importe, cod_estado_reserva, cod_codigo_reserva, fecha_alta_reserva, fecha_baja_reserva, fecha_modificacion_reserva)
-			values(1,2, 1, 15000.00, 2, '9DICJA', now(), null, null); 
+insert into `reserva`(id_reserva,cod_usuario, cod_cabina, cod_vuelo, importe, cod_estado_reserva, cod_codigo_reserva, fecha_alta_reserva, fecha_baja_reserva, fecha_modificacion_reserva)
+			values(1,2,2, 1, 15000.00, 2, '9DICJA', now(), null, null); 
+insert into tipo_usuario(id_tipo_usuario, descripcion)
+			values (3, "Medico");
+INSERT INTO USUARIO(id_usuario, nombre, apellido, cod_tipo_doc, num_doc, email, contrasenia, cod_tipo_usuario, cod_estado_usuario, cod_nivel_vuelo)
+			values (5,"Medico","Gomez",1,79797999,'medico@gmail.com',123, 3, 1,1);
+ 
+ INSERT INTO USUARIO(id_usuario, nombre, apellido, cod_tipo_doc, num_doc, email, contrasenia, cod_tipo_usuario, cod_estado_usuario, cod_nivel_vuelo)
+			values(6, "Admin","Quevedo",1,56565656,'admin@gmail.com',123,1,1,1);
 
+insert into nivel_vuelo(id_nivel_vuelo, descripcion)
+				values(1,'Alta Aceleracion'),
+				      (2, 'Baja Aceleracion'),
+                      (3, 'No tiene');
 

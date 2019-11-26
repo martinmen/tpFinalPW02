@@ -168,7 +168,7 @@ CREATE TABLE turno (
   fecha_alta_turno datetime DEFAULT now(),
   fecha_baja_turno datetime DEFAULT null,
   fecha_modificacion_turno datetime DEFAULT null,
-  cod_nivel_vuelo int(11) NOT NULL
+  cod_nivel_vuelo int(11) 
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 --
 CREATE TABLE usuario (

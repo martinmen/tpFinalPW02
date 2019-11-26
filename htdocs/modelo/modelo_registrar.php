@@ -11,8 +11,8 @@ function registroUsuario($nombre, $apellido, $email, $pass, $documento){
     if($row = mysqli_fetch_array($result)){
         $error = true;
     } else{
-        $sql2 = "INSERT INTO usuario (nombre, apellido, email, contrasenia, tipo_usaurio, ndocumento)
-                        values   ('$nombre', '$apellido', '$email', '$pass', 2, '$documento')";
+        $sql2 = "INSERT INTO usuario (nombre, apellido, email, contrasenia, tipo_usaurio, ndocumento, cod_nivel_vuelo)
+                        values   ('$nombre', '$apellido', '$email', '$pass', 2, '$documento', 3)";
         $result2 = mysqli_query($conn, $sql2);
 
         if($result2) {

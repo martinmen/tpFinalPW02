@@ -172,7 +172,6 @@ include_once("../controlador/controlador_crearReserva.php");
                         </div>
                     </div>
                 </div>
-            </div>
 
 
 

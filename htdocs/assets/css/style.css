@@ -273,6 +273,15 @@ body {
     width: 190px;
 }
 
+.turnoConfirmado{
+    background: #4d5560;
+    color: white;
+    padding: 5px;
+    border-radius: 5px;
+    width: auto;
+    text-align: center;
+}
+
 .btnRegistrar{
     border: 1px solid #2a3b57!important;
     color: #2a3b57!important;

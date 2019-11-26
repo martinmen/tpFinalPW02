@@ -46,8 +46,42 @@ where r.cod_codigo_reserva = 'reserva1' and r.cod_usuario = 1;
 
 insert into reserva (cod_usuario, cod_cabina, cod_asiento, cod_vuelo, cod_codigo_reserva ) 
     values (c_usuario ,c_cabina,c_asiento,c_vuelo,c_codigo_r);
-
+------------------------------------------
 select * from reserva;
+select * from nivel_vuelo;
+select * from usuario;
+select * from estado_usuario;
+select * from turno; -- sacar de esta tabla cod_nivel_vuelo
+
+-- CONSULTA PARA MOSTRAR LOS TURNOS
+SELECT cm.descripcion as Centro_Medico, t.id_turno_medico as Turno, t.fecha_turno as Fecha, concat_ws(', ', u.apellido, u.nombre) as usuario, nv.descripcion as Nivel_vuelo
+		FROM turno as t 
+		join centro_medico as cm on cm.id_centro_medico = t.cod_centro_medico
+        join usuario as u on u.id_usuario = t.cod_usuario
+        join nivel_vuelo as nv on nv.id_nivel_vuelo = u.cod_nivel_vuelo;
+
+-- CONSULTA PARA MOSTRAR DATOS DEL USUARIO A CAMBIAR NIVEL_VUELO
+SELECT u.id_usuario, u.nombre, u.apellido, u.num_doc, u.cod_nivel_vuelo 
+		FROM usuario u
+        where u.id_usuario = $cod_usuario;
+
+
+UPDATE turno set fecha_modificacion_turno = now(), 
+				fecha_baja_turno = now()
+			WHERE cod_usuario = 2;
+
+
+SELECT cm.descripcion as Centro_Medico, t.id_turno_medico as Turno, t.fecha_turno as Fecha, concat_ws(', ', u.apellido, u.nombre) as usuario, nv.descripcion as Nivel_vuelo, t.cod_usuario
+		FROM turno as t 
+		join centro_medico as cm on cm.id_centro_medico = t.cod_centro_medico
+        join usuario as u on u.id_usuario = t.cod_usuario
+        join nivel_vuelo as nv on nv.id_nivel_vuelo = u.cod_nivel_vuelo
+        WHERE t.fecha_baja_turno is null;
+
+
+
+SELECT u.cod_tipo_usuario, u.id_usuario, u.nombre, u.apellido, u.cod_tipo_doc, u.num_doc, nv.descripcion as nivel_vuelo, u.email
+            from usuario as u join nivel_vuelo as nv on nv.id_nivel_vuelo = u.cod_nivel_vuelo 
 
 
 

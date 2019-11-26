@@ -41,8 +41,8 @@ function sacarTurno($id_usuario, $centro_medico, $fechaTurno ){
     }
 
     if($cantTurnosXFecha <  $turnosDiarios){
-        $sql3 = "INSERT INTO turno (cod_usuario, cod_centro_medico, fecha_turno)
-                        values   ('$id_usuario', '$centro_medico', '$fechaTurno')";
+        $sql3 = "INSERT INTO turno (cod_usuario, cod_centro_medico, fecha_turno, cod_nivel_vuelo)
+                        values   ('$id_usuario', '$centro_medico', '$fechaTurno',3)";
         $result3 = mysqli_query($con, $sql3);
         if($result3){
             echo "<script>alert('Su turno se ha tomado correctamente'); window.location.href=\"../vista/vista_perfil.php\";</script>";
