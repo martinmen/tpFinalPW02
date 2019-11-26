@@ -26,7 +26,10 @@ include_once("../controlador/controlador_crearReserva.php");
 
             //Añadir divs al principal
             var card = '<span class="close" style="float:right;">X</span><br>'+
+                '<p name="contador" style= display:none>'+counter +
+                '</p>' +
                 '<div class="row">' +
+
                 '<div class="col-md-6">' +
                 '<div class="form-group">' +
                 '<label>Nombres</label>' +
@@ -89,7 +92,8 @@ include_once("../controlador/controlador_crearReserva.php");
             $(div1).append(card);
             //Añado el card
             $('.card').append('<br>',div1);
-
+            document.getElementById('hola').innerHTML = counter;
+            $('#hola').val(counter);
             if(counter > 2){
                 $('#addCard').css('display', 'none');
             }
@@ -120,7 +124,7 @@ include_once("../controlador/controlador_crearReserva.php");
     </div>
 </div>
 <br>
-<form class="form-sample" method="post" action="../controlador/controlador_crearReserva.php" id="form" name="form">
+<form class="form-sample" method="post" action="../controlador/controlador_pago.php" id="form">
     <div class="card shadow mb-4">
         <div class="card-body">
             <div class="row">
@@ -141,7 +145,7 @@ include_once("../controlador/controlador_crearReserva.php");
                     <div class="col-md-6">
                         <div class="form-group">
                             <label>Nombres</label>
-                            <input type="text" class="form-control" name="nombres" placeholder="Ingrese Nombres" id="nombre">
+                            <input type="text" class="form-control" name="nombre" placeholder="Ingrese Nombres" id="nombre">
                         </div>
                     </div>
                     <div class="col-md-6">
@@ -210,13 +214,15 @@ include_once("../controlador/controlador_crearReserva.php");
             <button type="button" class="btn btn-danger btn-rounded btn-fw" style="float:right;"><a style="color:white!important" onclick="confimarCancelacion()">Cancelar</a></button>
         </div>
         <div class="col-md-2">
-<!--            <button name="submit" class="btn btn-success btn-rounded btn-fw" style="float:left"><a style="color:white!important" href="vista_pago.php?reservaId=$.">Ir al pago</a></button>-->
-               <input type="button" class="btn btn-primary" onclick="pasarParametros()" id="Datos" style="float:right"  value="pasarDatos" data-toggle="tooltip" data-placement="top" title="Puede agregar otro usuario a su reserva"/>
-
-
+          <button name="submit" type="submit" class="btn btn-success btn-rounded btn-fw" style="float:left">Ir al pago</button>
+        <!--   <button name="submit" class="btn btn-success btn-rounded btn-fw" style="float:left"><a style="color:white!important" href="vista_pago.php">Ir al pago</a></button>
+              <input type="button" class="btn btn-primary" onclick="pasarParametros()" id="Datos" style="float:right"  value="pasarDatos" data-toggle="tooltip" data-placement="top" title="Puede agregar otro usuario a su reserva"/>
+-->
+            <input type="text" id="hola"  name="counter" style="display: none">
         </div>
     </div>
 </form>
+
 <script>
 
     window.onload=function () {
@@ -334,13 +340,7 @@ var selectCabina = document.getElementById('docTypes2');
 
     }
 
-    function pasarParametros() {
-        var email=document.getElementById("email");
 
-      //  var apellido=document.getElementById("apellido").checked;
-
-
-    }
 </script>
 
 <?php
