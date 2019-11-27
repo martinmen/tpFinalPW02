@@ -27,72 +27,81 @@ include_once("../controlador/controlador_crearReserva.php");
             //Añadir divs al principal
             var card = '<span class="close" style="float:right;">X</span><br>'+
                 '<div class="row">' +
-                '<div class="col-md-6">' +
-                '<div class="form-group">' +
-                '<label>Nombres</label>' +
-                '<input type="text" class="form-control" name="nombres'+counter+'" placeholder="Ingrese Nombres" id="nombre'+counter+'">' +
-                '</div>' +
-                '</div>' +
-                '<div class="col-md-6">' +
-                '<div class="form-group">' +
-                '<label>Apellido</label>' +
-                '<input type="text" class="form-control" name="apellido'+counter+'" placeholder="Ingrese Apellido" id="apellido'+counter+'">' +
-                '</div>' +
-                '</div>' +
+                '   <div class="col-md-6">' +
+                '       <div class="form-group">' +
+                '           <label>Email</label>' +
+                '           <input type="email" class="form-control" name="email'+ counter +'" placeholder="aaa@aaa.com" onBlur=\'validaEmail'+counter+'(this.value);\'>' +
+                '       </div>' +
+                '   </div>' +
                 '</div>' +
                 '<div class="row">' +
-                '<div class="col-md-6">' +
-                '<div class="form-group">' +
-                '<label>Tipo Documento</label>' +
-                '<select class="form-control" name="tipo_doc'+counter+'">' + docType +
-                '</select>' +
-                '</div>' +
-                '</div>' +
-                '<div class="col-md-6">' +
-                '<div class="form-group">' +
-                '<label>Nro. Documento</label>' +
-                '<input type="text" class="form-control" name="nro_doc'+ counter +'" placeholder="Ingrese Nro. Documento" id="numDoc'+counter+'">' +
-                '</div>' +
-                '</div>' +
-                '</div>' +
+                '   <div class="col-6">' +
+                '       <p id="okEmail'+counter+'">' +
+                '   </div>' +
+                '</div> ' +
+                '<div id="datosCompletar'+counter+'" style="display:none!important">' +
+                '   <div class="row">' +
+                '       <div class="col-md-6">' +
+                '           <div class="form-group">' +
+                '               <label>Nombres</label>' +
+                '               <input type="text" class="form-control" name="nombres'+counter+'" placeholder="Ingrese Nombres" id="nombre'+counter+'">' +
+                '           </div>' +
+                '       </div>' +
+                '       <div class="col-md-6">' +
+                '           <div class="form-group">' +
+                '               <label>Apellido</label>' +
+                '               <input type="text" class="form-control" name="apellido'+counter+'" placeholder="Ingrese Apellido" id="apellido'+counter+'">' +
+                '           </div>' +
+                '       </div>' +
+                '   </div>' +
+                '   <div class="row">' +
+                '       <div class="col-md-6">' +
+                '           <div class="form-group">' +
+                '               <label>Tipo Documento</label>' +
+                '               <select class="form-control" name="tipo_doc'+counter+'">' + docType +
+                '               </select>' +
+                '           </div>' +
+                '       </div>' +
+                '       <div class="col-md-6">' +
+                '           <div class="form-group">' +
+                '               <label>Nro. Documento</label>' +
+                '               <input type="text" class="form-control" name="nro_doc'+ counter +'" placeholder="Ingrese Nro. Documento" id="numDoc'+counter+'">' +
+                '           </div>' +
+                '       </div>' +
+                '   </div>' +
+                '</div>   ' +
                 '<div class="row">' +
-                '<div class="col-md-6">' +
-                '<div class="form-group">' +
-                '<label>Email</label>' +
-                '<input type="email" class="form-control" name="email'+ counter +'" placeholder="aaa@aaa.com">' +
+                '   <div class="col-md-6 offset-3">' +
+                '       <div class="separador"></div>' +
+                '   </div>' +
                 '</div>' +
-                '</div>' +
-                '</div>' +
+                '<p class="card-description vuelo-disabled">Vuelo: <?php echo $matricula;?></p>' +
                 '<div class="row">' +
-                '                <div class="col-md-6 offset-3">' +
-                '                    <div class="separador"></div>' +
-                '                </div>' +
-                '            </div>' +
-                '            <p class="card-description vuelo-disabled">Vuelo: <?php echo $matricula;?></p>' +
-                '            <div class="row">' +
-                '                <div class="col-md-6">' +
-                '                    <div class="form-group">' +
-                '                        <label>Tipo de Cabina</label>' +
-                '                        <select class="form-control" name="tipo_cabina" id="cabina'+counter+'" onchange="calcularImporte'+counter+'()">' + docType2 +
-                '                        </select>' +
-                '                    </div>' +
-                '                </div>' +
-                '                <div class="col-6">' +
-                '                    <div class="form-group">' +
-                '                        <label>Importe</label>' +
-                '                        <p class="form-control" name="importe" id="importe'+counter+'"></p>' +
-                '                    </div>' +
-                '                </div>' +
-                '            </div>';
+                '   <div class="col-md-6">' +
+                '       <div class="form-group">' +
+                '           <label>Tipo de Cabina</label>' +
+                '           <select class="form-control" name="tipo_cabina" id="cabina'+counter+'" onchange="calcularImporte'+counter+'()">' + docType2 +
+                '           </select>' +
+                '       </div>' +
+                '   </div>' +
+                '   <div class="col-6">' +
+                '       <div class="form-group">' +
+                '           <label>Importe</label>' +
+                '           <p class="form-control" name="importe" id="importe'+counter+'"></p>' +
+                '       </div>' +
+                '   </div>' +
+                '</div>';
             counter++;
             // $(div1).append(div2);
             $(div1).append(card);
             //Añado el card
             $('.card').append('<br>',div1);
 
+
             if(counter > 2){
                 $('#addCard').css('display', 'none');
             }
+
         });
 
 
@@ -168,8 +177,7 @@ include_once("../controlador/controlador_crearReserva.php");
                         </div>
                     </div>
                 </div>
-
-
+            </div>
 
             <div class="row">
                 <div class="col-md-6 offset-3">
@@ -219,8 +227,6 @@ include_once("../controlador/controlador_crearReserva.php");
 <script>
 
     window.onload=function () {
-
-
         document.getElementById("datosCompletar").style.display = "none";
 
     }
@@ -233,7 +239,7 @@ include_once("../controlador/controlador_crearReserva.php");
     }
 
     function calcularImporte(){
-var selectCabina = document.getElementById('docTypes2');
+        var selectCabina = document.getElementById('docTypes2');
         var cabina = selectCabina.options[selectCabina.selectedIndex].id;
         var costoText = document.getElementById('costo').innerHTML;
 
@@ -245,9 +251,6 @@ var selectCabina = document.getElementById('docTypes2');
             document.getElementById('importe').innerHTML = (costo + (costo*0.50)).toString()+ ".00";
         } else
             document.getElementById('importe').innerHTML = (costo).toString()+ ".00";
-
-
-
     }
 
     function calcularImporte1(){
@@ -280,6 +283,7 @@ var selectCabina = document.getElementById('docTypes2');
         } else
             document.getElementById('importe2').innerHTML = (costo).toString()+ ".00";
     }
+
     function getXMLHTTP() {
         var xmlhttp=false;
         try{
@@ -301,7 +305,6 @@ var selectCabina = document.getElementById('docTypes2');
         return xmlhttp;
     }
 
-
     function validaEmail(email) {
         var strURL="../ajax/mails.php?email="+email;
         var req = getXMLHTTP();
@@ -320,6 +323,68 @@ var selectCabina = document.getElementById('docTypes2');
                         }else {
                             document.getElementById("datosCompletar").style.display = "block";
                             document.getElementById('okEmail').style.color = "red";
+                        }
+                        //alert("Ok: "+ req.responseText);
+                    } else {
+                        alert("There was a problem while using XMLHTTP:\n" + req.statusText);
+                    }
+                }
+            }
+            req.open("GET", strURL, true);
+            req.send(null);
+        }
+
+    }
+
+    function validaEmail1(email1) {
+        var strURL="../ajax/mails.php?email="+email1;
+        var req = getXMLHTTP();
+        if (req) {
+            req.onreadystatechange = function() {
+                if (req.readyState == 4) {
+                    // only if "OK"
+                    if (req.status == 200) {
+                        document.getElementById('okEmail1').innerHTML = req.responseText;
+                        if(req.responseText == "Email existente, no es necesario completar los datos"){
+
+                            document.getElementById("datosCompletar1").style.display = "none";
+                            document.getElementById('okEmail1').style.color = "green";
+
+
+                        }else {
+                            document.getElementById("datosCompletar1").style.display = "block";
+                            document.getElementById('okEmail1').style.color = "red";
+                        }
+                        //alert("Ok: "+ req.responseText);
+                    } else {
+                        alert("There was a problem while using XMLHTTP:\n" + req.statusText);
+                    }
+                }
+            }
+            req.open("GET", strURL, true);
+            req.send(null);
+        }
+
+    }
+
+    function validaEmail2(email2) {
+        var strURL="../ajax/mails.php?email="+email2;
+        var req = getXMLHTTP();
+        if (req) {
+            req.onreadystatechange = function() {
+                if (req.readyState == 4) {
+                    // only if "OK"
+                    if (req.status == 200) {
+                        document.getElementById('okEmail2').innerHTML = req.responseText;
+                        if(req.responseText == "Email existente, no es necesario completar los datos"){
+
+                            document.getElementById("datosCompletar2").style.display = "none";
+                            document.getElementById('okEmail2').style.color = "green";
+
+
+                        }else {
+                            document.getElementById("datosCompletar2").style.display = "block";
+                            document.getElementById('okEmail2').style.color = "red";
                         }
                         //alert("Ok: "+ req.responseText);
                     } else {
