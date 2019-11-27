@@ -46,14 +46,18 @@ include_once("../controlador/controlador_perfil.php");
                         </div>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col-4">
-                        <div class="form-group">
+                <?php
+                if($_SESSION['rol'] != 3){
+                    echo "<div class=\"row\">
+                    <div class=\"col-4\">
+                        <div class=\"form-group\">
                             <label>Nivel de Vuelo</label>
-                            <p class="form-control"><?php echo $nivel_vuelo?></p>
+                            <p class=\"form-control\">"; echo $nivel_vuelo . "</p>
                         </div>
                     </div>
-                </div>
+                </div>";
+                }
+                ?>
                 <br>
                 <?php
                     if($_SESSION['rol'] != 3){
