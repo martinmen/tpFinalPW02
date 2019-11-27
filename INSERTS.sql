@@ -1,6 +1,5 @@
 use tpfinal;
 
-
 INSERT INTO `cabina` (`id_cabina`, `descripcion`) VALUES
 (1, 'general'),
 (2, 'familiar'),
@@ -17,17 +16,24 @@ INSERT INTO `tipo_documento` (`id_tipo_documento`, `descripcion`) VALUES
 INSERT INTO `tipo_usuario` (`id_tipo_usuario`, `descripcion`) VALUES
 (1, 'Administrador'),
 (2, 'Cliente'),
-(3, 'Administrador');
+(3, 'Medico');
+
+insert into nivel_vuelo(id_nivel_vuelo, descripcion)
+				values(1,'Alta Aceleracion'),
+				      (2, 'Baja Aceleracion'),
+                      (3, 'No tiene');
 
 insert into `estado_usuario` (id_estado_usuario, descripcion) values
 (1,'pendiente'),
 (2, 'confirmado');
 
 INSERT INTO `usuario` (id_usuario,`nombre`, `apellido`, `cod_tipo_doc`, `num_doc`, `email`, `contrasenia`, `cod_tipo_usuario`,`cod_estado_usuario`, `cod_nivel_vuelo`) VALUES
-(1,'martin', '', 0, 0, 'mmendez@gmail.com', 123, 2,2, 0),
-(2,'Mica', 'Vandoni', 1, 12345678, 'mica@gmail.com', 123, 2,2, 0),
-(3,'Debora', 'Chamorro', 1, 35379016, 'debo@gmail.com', 123, 2,2, 0),
-(4,'Juan', 'Perez', 1, 98745632, 'juan@gmail.com', 123, 2,2, 0);
+(1,'martin', '', 0, 0, 'mmendez@gmail.com', 123, 2,2, 3),
+(2,'Mica', 'Vandoni', 1, 12345678, 'mica@gmail.com', 123, 2,2, 3),
+(3,'Debora', 'Chamorro', 1, 35379016, 'debo@gmail.com', 123, 2,2, 3),
+(4,'Juan', 'Perez', 1, 98745632, 'juan@gmail.com', 123, 2,2, 3),
+(5,"Medico","Gomez",1,79797999,'medico@gmail.com',123, 3, 1,1),
+(6, "Admin","Quevedo",1,56565656,'admin@gmail.com',123,1,1,1);
 
 INSERT INTO `tipo_vuelo` (`id_tipo_vuelo`, `descripcion`) VALUES
 (1, 'Suborbitales'),
@@ -477,16 +483,5 @@ values
 
 insert into `reserva`(id_reserva,cod_usuario, cod_cabina, cod_vuelo, importe, cod_estado_reserva, cod_codigo_reserva, fecha_alta_reserva, fecha_baja_reserva, fecha_modificacion_reserva)
 			values(1,2,2, 1, 15000.00, 2, '9DICJA', now(), null, null); 
-insert into tipo_usuario(id_tipo_usuario, descripcion)
-			values (3, "Medico");
-INSERT INTO USUARIO(id_usuario, nombre, apellido, cod_tipo_doc, num_doc, email, contrasenia, cod_tipo_usuario, cod_estado_usuario, cod_nivel_vuelo)
-			values (5,"Medico","Gomez",1,79797999,'medico@gmail.com',123, 3, 1,1);
- 
- INSERT INTO USUARIO(id_usuario, nombre, apellido, cod_tipo_doc, num_doc, email, contrasenia, cod_tipo_usuario, cod_estado_usuario, cod_nivel_vuelo)
-			values(6, "Admin","Quevedo",1,56565656,'admin@gmail.com',123,1,1,1);
 
-insert into nivel_vuelo(id_nivel_vuelo, descripcion)
-				values(1,'Alta Aceleracion'),
-				      (2, 'Baja Aceleracion'),
-                      (3, 'No tiene');
 

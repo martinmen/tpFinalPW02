@@ -1,16 +1,61 @@
 use tpfinal;
+select * from usuario;     select * from asiento;
+SELECT c.id_cabina, a.id_asiento, E.ID_EQUIPO, C.DESCRIPCION as descripcion, A.CANT_ASIENTOS
+	FROM ASIENTO AS A 
+		JOIN EQUIPO AS E ON E.ID_EQUIPO = A.COD_EQUIPO
+        JOIN CABINA AS C ON C.ID_CABINA = A.COD_CABINA
+        JOIN VUELO AS V ON V.COD_EQUIPO = E.ID_EQUIPO
+       WHERE V.ID_VUELO = 46;
 -- Disponibilidad de asientos en el vuelo por cabina
-     
     -- dipobibilidad de asientos Generales (diferencia entre la capacidad del equipo asignado en el vuelo y la cantidad de reservas realizadas en la tabla reserva(por tipo cabina y cod_vuelo)
 			-- disponibilidad asientos General
-     select  ((select e.capacidad_cabinaG as capacidad_equipo from vuelo v join equipo e on v.cod_equipo = e.id_equipo and id_vuelo = 1) - 
-             (select count(*) as reservas_g from reserva r where r.cod_cabina = 1 and cod_vuelo= 48)) as disponibles_general,
+     select v.id_vuelo as vuelo,/* v.cod_equipo equipo,*/ asi.cod_cabina,  ((select e.capacidad_cabinaG as capacidad_equipo from vuelo v join equipo e on v.cod_equipo = e.id_equipo and id_vuelo = 1) - 
+             (select count(*) as reservas_g from reserva r where r.cod_cabina = 1 and cod_vuelo= 48)) as 'disponibles general',
 			-- disponibilidad asientos Familiar
                           ((select e.capacidad_cabinaF as capacidad_equipo from vuelo v join equipo e on v.cod_equipo = e.id_equipo and id_vuelo = 1)-
-								 (select count(*) as reservas_f from reserva r where r.cod_cabina = 2 and cod_vuelo= 48)) as disponibles_familiar,
+								 (select count(*) as reservas_f from reserva r where r.cod_cabina = 2 and cod_vuelo= 48)) as 'disponibles familiar',
 			-- disponibilidad asientos Suit
              ((select e.capacidad_cabinaS as capacidad_equipo from vuelo v join equipo e on v.cod_equipo = e.id_equipo and id_vuelo = 1)-
-					(select count(*) as reservas_s from reserva r where r.cod_cabina = 3 and cod_vuelo= 48))as disponibles_suit;
+					(select count(*) as reservas_s from reserva r where r.cod_cabina = 3 and cod_vuelo= 48))as 'disponibles suit'
+                    from vuelo v join equipo equi join asiento asi  where id_vuelo = 48
+                    and equi.id_equipo = v.cod_equipo
+                    and equi.id_equipo = asi.cod_equipo
+                    order by asi.cod_cabina; -- variable id_vuelo de la lista getTipoDeCaginas
+                    -- ------------------------------------------------------------
+    
+select v.id_vuelo as vuelo, v.cod_equipo equipo, asi.cod_cabina, ((select e.capacidad_cabinaG as capacidad_equipo from vuelo v join equipo e on v.cod_equipo = e.id_equipo and id_vuelo = 1) - 
+																(select count(*) as reservas_g from reserva r where r.cod_cabina = 1 and cod_vuelo= 48)) as 'disponibles general'
+		from vuelo v join equipo equi join asiento asi 
+			where id_vuelo = 48
+            and asi.cod_cabina = 1
+			and equi.id_equipo = v.cod_equipo
+			and equi.id_equipo = asi.cod_equipo
+							union
+            -- disponibilidad asientos Familiar
+	 select v.id_vuelo as vuelo, v.cod_equipo equipo, asi.cod_cabina,((select e.capacidad_cabinaF as capacidad_equipo from vuelo v join equipo e on v.cod_equipo = e.id_equipo and id_vuelo = 1)-
+																	(select count(*) as reservas_f from reserva r where r.cod_cabina = 2 and cod_vuelo= 48)) as 'disponibles familiar'
+	from vuelo v join equipo equi join asiento asi		
+			where id_vuelo = 48
+            and asi.cod_cabina = 2
+			and equi.id_equipo = v.cod_equipo
+			and equi.id_equipo = asi.cod_equipo
+							union
+            	-- disponibilidad asientos Suit
+ select v.id_vuelo as vuelo, v.cod_equipo equipo, asi.cod_cabina,((select e.capacidad_cabinaS as capacidad_equipo from vuelo v join equipo e on v.cod_equipo = e.id_equipo and id_vuelo = 1)-
+																(select count(*) as reservas_s from reserva r where r.cod_cabina = 3 and cod_vuelo= 48))as 'disponibles suit'
+	from vuelo v join equipo equi join asiento asi 	
+			where id_vuelo = 48
+            and asi.cod_cabina = 3
+			and equi.id_equipo = v.cod_equipo
+			and equi.id_equipo = asi.cod_equipo        
+                    
+                    -- ---------------------------------------------------------
+                select * from reserva ;    
+	insert into reserva (cod_usuario, cod_cabina, cod_asiento, cod_vuelo, cod_codigo_reserva ) 
+    values (c_usuario ,c_cabina,c_vuelo,c_codigo_r);
+    
+    	insert into reserva (cod_usuario, cod_cabina, cod_vuelo,cod_estado_reserva, cod_codigo_reserva ) 
+    values (1,1,48,2,"xxxx");
 -- ------------------------------------------------------------------------------------------------------------------------------------------------------------------
 -- Lista trayectos
 select eo.nombre origen,  ed.nombre destino
@@ -81,8 +126,8 @@ SELECT cm.descripcion as Centro_Medico, t.id_turno_medico as Turno, t.fecha_turn
 
 
 SELECT u.cod_tipo_usuario, u.id_usuario, u.nombre, u.apellido, u.cod_tipo_doc, u.num_doc, nv.descripcion as nivel_vuelo, u.email
-            from usuario as u join nivel_vuelo as nv on nv.id_nivel_vuelo = u.cod_nivel_vuelo 
+            from usuario as u join nivel_vuelo as nv on nv.id_nivel_vuelo = u.cod_nivel_vuelo ;
 
 
-
-
+SELECT u.cod_tipo_usuario, u.id_usuario, u.nombre, u.apellido, u.cod_tipo_doc, u.num_doc, u.email
+            from usuario as u join nivel_vuelo as nv on nv.id_nivel_vuelo = u.cod_nivel_vuelo  where email ='mica@gmail.com' and contrasenia = '123';
