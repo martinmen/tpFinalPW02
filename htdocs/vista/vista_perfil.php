@@ -58,6 +58,40 @@ include_once("../controlador/controlador_perfil.php");
                 </div>";
                 }
                 ?>
+                <div class="row">
+                    <div class="col-4 offset-9">
+                        <div class="form-group">
+                            <a id="cambiarContrasenia" onclick='cambiarContrasenia()' class="btn btn-rounded btn-fw col-8" style="margin-top: 32px;background-color: #444e5e; border-color: #444e5e; color:white!important; cursor:pointer;">Cambiar contraseña
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div id="contraseniaHidden" style="display:none">
+                    <div class="row">
+                        <div class="col-4">
+                            <label type="text" for="passAnterior">Contraseña Anterior</label>
+                            <input class="form-control" name="passAnterior">
+                        </div>
+                        <div class="col-4">
+                            <label type="text" for="passNueva">Contraseña Nueva</label>
+                            <input class="form-control" name="passNueva">
+                        </div>
+                        <div class="col-4">
+                            <label type="text" for="passConfirmar">Confirmar Contraseña</label>
+                            <input class="form-control" name="passConfirmar">
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row">
+                        <div class="col-2 offset-4">
+                            <INPUT type="submit" name="cambiarContrasenia" style="display: none">
+                            <button name="cambiarContrasenia" class="btn btn-success btn-rounded btn-fw" >Confirmar</button>
+                        </div>
+                        <div class="col-2">
+                            <a onclick='cancelarCambioContrasenia()' class="btn btn-danger btn-rounded btn-fw" style="color:white!important; cursor:pointer;">Cancelar</a>
+                        </div>
+                    </div>
+                </div>
                 <br>
                 <?php
                     if($_SESSION['rol'] != 3){
@@ -134,7 +168,21 @@ include_once("../controlador/controlador_perfil.php");
         </div>
     </div>
 </div>
+<script>
+    function cambiarContrasenia(){
 
+        document.getElementById('contraseniaHidden').style.display = 'block';
+        document.getElementById('cambiarContrasenia').style.display = 'none';
+
+    }
+
+    function cancelarCambioContrasenia(){
+        document.getElementById('contraseniaHidden').style.display = 'none';
+        document.getElementById('cambiarContrasenia').style.display = 'block';
+    }
+
+
+</script>
 
 
 

@@ -35,9 +35,17 @@ if(isset($_POST["submit"])){
     $id_usuario = $_POST['id_usuario'];
 
     bajaTurno($id_usuario);
-
 }
 
+if(isset($_POST["cambiarContrasenia"])){
+    $id_usuario = $_POST["id_usuario"];
+    $passAnterior = $_POST["passAnterior"];
+    $passNueva = $_POST["passNueva"];
+    $passConfirmar = $_POST["passConfirmar"];
+
+    cambiarContrasenia($id_usuario, $passAnterior, $passNueva, $passConfirmar);
+
+}
 
 $reservas = getReservas($email);
 

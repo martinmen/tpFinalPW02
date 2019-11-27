@@ -95,6 +95,49 @@ function getNivelVuelo($id_usuario){
 
 }
 
+function getContraseniaAnterior($id_usuario){
+
+
+}
+
+function cambiarContrasenia($id_usuario, $passAnterior, $passNueva, $passConfirmar){
+
+
+    $conn = getConexion();
+    $sql = "SELECT contrasenia FROM usuario WHERE id_usuario = '$id_usuario';";
+
+    $result = mysqli_query($conn, $sql);
+    $contraseniaAnterior = "";
+
+    if($row = mysqli_fetch_array($result)) {
+        $contraseniaAnterior = $row['contrasenia'];
+    }
+
+    if($contraseniaAnterior == $passAnterior){
+        if($passNueva == $passConfirmar){
+
+            $sql1 = "UPDATE usuario 
+                SET contrasenia = '$passNueva'                
+                WHERE id_usuario = '$id_usuario';";
+
+            $result1 = mysqli_query($conn, $sql1);
+
+            if($result1){
+                echo "<script>alert('Se ha cambiado la contraseña correctamente.'); window.location.href=\"../vista/vista_perfil.php\";</script>";
+            } else {
+                echo "<script>alert('Hubo un error al querer cambiar la contraseña, intente de nuevo.'); window.location.href=\"../vista/vista_perfil.php\";</script>";
+            }
+        }
+        else {
+            echo "<script>alert('La contraseña nueva no coincide con la confirmación.'); window.location.href=\"../vista/vista_perfil.php\";</script>";
+        }
+    } else{
+        echo "<script>alert('La contraseña anterior que ingresó es incorrecta.'); window.location.href=\"../vista/vista_perfil.php\";</script>";
+    }
+
+
+}
+
 
 
 

@@ -217,8 +217,8 @@ include_once("../controlador/controlador_crearReserva.php");
             <button type="button" class="btn btn-danger btn-rounded btn-fw" style="float:right;"><a style="color:white!important" onclick="confimarCancelacion()">Cancelar</a></button>
         </div>
         <div class="col-md-2">
-<!--            <button name="submit" class="btn btn-success btn-rounded btn-fw" style="float:left"><a style="color:white!important" href="vista_pago.php?reservaId=$.">Ir al pago</a></button>-->
-               <input type="button" class="btn btn-primary" onclick="pasarParametros()" id="Datos" style="float:right"  value="pasarDatos" data-toggle="tooltip" data-placement="top" title="Puede agregar otro usuario a su reserva"/>
+            <button name="submit" type="submit" class="btn btn-success btn-rounded btn-fw" style="float:left"><a style="color:white!important" >Ir al pago</a></button> <!--href="vista_pago.php?reservaId=$."-->
+<!--               <input type="button" class="btn btn-primary" onclick="pasarParametros()" id="Datos" style="float:right"  value="pasarDatos" data-toggle="tooltip" data-placement="top" title="Puede agregar otro usuario a su reserva"/>-->
 
 
         </div>
