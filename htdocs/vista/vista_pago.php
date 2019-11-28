@@ -19,7 +19,7 @@ include_once("../controlador/controlador_pago.php");
     <div class="card shadow mb-4">
         <div class="card-body">
             <div class="row">
-                <p class="totalPagar">TOTAL A PAGAR POR SU RESERVA: $99999</p>
+                <p class="totalPagar"> <?php echo $ImporteTotal;?></p>
             </div>
             <br>
             <div class="row">

@@ -66,6 +66,138 @@ function getCosto($vueloId){
 
 
 
+
+function getDatosUsuario($email)
+{
+    $conn = getConexion();
+    $sql = "select * from usuario where email = '$email';";
+    $result = mysqli_query($conn, $sql);
+
+    $cliente1 = [];
+    if($row = mysqli_fetch_array($result))
+    {
+        $cliente1 [0] = true;
+        $cliente1 ["id"] = $row["id_usuario"];
+        $cliente1 ["nombre"] = $row["nombre"];
+        $cliente1 ["apellido"] = $row["apellido"];
+        $cliente1 ["tipoDoc"] = $row['cod_tipo_doc'];
+        $cliente1 ["nroDoc"] = $row['num_doc'];
+        $cliente1 ["email"] = $row["email"];
+    } else{
+        $cliente1[0] = false;
+    }
+    return $cliente1;
+
+}
+
+function usuarioNuevoEnReserva($cliente =array() ){
+
+    $conn = getConexion();
+    $sql1 = "INSERT INTO usuario (nombre, apellido,cod_tipo_doc,num_doc,email,cod_tipo_usuario, cod_nivel_vuelo,cod_estado_usuario)
+                    values   ('$cliente[nombre]','$cliente[apellido]',2,'$cliente[nroDoc]','$cliente[email]',2,3,1);";
+            $result1 = mysqli_query($conn, $sql1);
+         // envio de email de confirmacion de usuario
+            if($result1){
+                echo "<script>alert('Usuario creado correctamente'); window.location.href=\"../vista/vista_pago.php\";</script>";
+                return true;
+            } else{
+                echo "<script>alert('Error');window.location.href=\"../vista/vista_crearReserva.php\";</script>";
+                return false;
+            }
+
+        }
+
+
+
+        //Funcion dinamica de varios clientes FALTA DESARROLLAR
+/*function crearReserva($cliente =array() ){
+ $cantidad =count($cliente);
+//SE obtiene por posicion de array el valir del campo
+   $nombre = $cliente[0][nombre];
+
+    $conn = getConexion();
+    $sql1 = "INSERT INTO usuario (nombre, apellido,cod_tipo_doc,num_doc,email,cod_tipo_usuario, cod_nivel_vuelo,cod_estado_usuario)
+                    values   ('$cliente[nombre]','$cliente[apellido]',2,'$cliente[nroDoc]','$cliente[email]',2,3,1);";
+    $result1 = mysqli_query($conn, $sql1);
+
+
+
+    // envio de email de confirmacion de usuario
+    if($result1){
+        echo "<script>alert('Usuario creado correctamente'); window.location.href=\"../vista/vista_pago.php\";</script>";
+        return true;
+    } else{
+        echo "<script>alert('Error');window.location.href=\"../vista/vista_crearReserva.php\";</script>";
+        return false;
+    }
+
+}*/
+function getIdUsuario($email)
+{
+    $conn = getConexion();
+    $sql = "select id_usuario from usuario where email = '$email';";
+    $result = mysqli_query($conn, $sql);
+
+    $cliente1 = [];
+    if($row = mysqli_fetch_array($result))
+    {
+        $cliente1 ["id"] = $row["id_usuario"];
+    }
+    return $cliente1;
+
+}
+
+
+function getTipoCabina($codigoCabina)
+{
+    $conn = getConexion();
+    $sql = "select cod_cabina from asiento a where id_asiento = '$codigoCabina';";
+    $result = mysqli_query($conn, $sql);
+
+    $idTipoCabina = [];
+    if($row = mysqli_fetch_array($result))
+    {
+        $idTipoCabina ["id"] = $row["cod_cabina"];
+    }
+    return $idTipoCabina;
+
+}
+
+
+//function crearReserva($cliente =array(), $codigoReserva ,$importe,$idAsiento,$codVuelo){
+function crearReserva($cliente , $codigoReserva ,$importe,$idAsiento,$codVuelo){
+  //  $idCliente =getIdUsuario($cliente['email']);
+    $idCliente =getIdUsuario($cliente);
+    $idTipoCabina = getTipoCabina($idAsiento);
+    $conn = getConexion();
+    $sql1 = "INSERT INTO reserva (cod_usuario,cod_cabina,cod_vuelo,importe,cod_estado_reserva,cod_codigo_reserva,fecha_alta_reserva,fecha_baja_reserva,fecha_modificacion_reserva)
+            values   ($idCliente[id],$idTipoCabina[id],$codVuelo,$importe,1,'$codigoReserva',now(),null,null);";
+    $result1 = mysqli_query($conn, $sql1);
+
+
+
+    // envio de email de confirmacion de usuario
+    if($result1){
+        echo "<script>alert('Reservas realizadas correctamente. Ir a pago');</script>";
+
+        return true;
+    } else{
+        echo "<script> alert('Error al intentar reservar');</script>";
+        return false;
+    }
+}
+
+    function rediregirAPago($codigoAlfaReserva){
+        echo "<script>; 
+window.location.href='../vista/vista_pago.php?reserva=$codigoAlfaReserva';
+                 
+                    </script>";
+
+}
+//alert('Codigo:$codigoAlfaReserva ');
+
+
+
 //function crearReserva($nombre, $apellido, $email, $pass, $vuelo){
 //
 //
