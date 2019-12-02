@@ -15,11 +15,11 @@ include_once("../controlador/controlador_pago.php");
     </div>
 </div>
 <br>
-<form class="form-sample" method="post" action="" id="form">
+<form class="form-sample" method="post" action="../controlador/controlador_pago.php" id="form">
     <div class="card shadow mb-4">
         <div class="card-body">
             <div class="row">
-                <p class="totalPagar"> <?php echo $ImporteTotal;?></p>
+                <p class="totalPagar">Importe total a pagar: $<?php echo $ImporteTotal;?></p>
             </div>
             <br>
             <div class="row">
@@ -117,7 +117,7 @@ include_once("../controlador/controlador_pago.php");
                 </div>
                 <div class="col-md-2">
                     <!--            <button name="submit" type="submit" class="btn btn-success btn-rounded btn-fw" style="float:left">Ir al pago</button>-->
-                    <button name="submit" class="btn btn-success btn-rounded btn-fw" style="float:left"><a style="color:white!important" href="vista_comprobante.php">Confimar Pago</a></button>
+                    <button name="submit" class="btn btn-success btn-rounded btn-fw" style="float:left"><a style="color:white!important">Confimar Pago</a></button>
                 </div>
             </div>
         </div>
