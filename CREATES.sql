@@ -176,7 +176,7 @@ CREATE TABLE usuario (
   nombre varchar(100) NOT NULL,
   apellido varchar(100) NOT NULL,
   cod_tipo_doc int(11) NOT NULL,
-  num_doc int(11) NOT NULL,
+  num_doc varchar(20) NOT NULL,
   email varchar(200) NOT NULL,
   contrasenia int(11) NOT NULL,
   cod_tipo_usuario int(11) NOT NULL,

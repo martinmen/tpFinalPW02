@@ -47,11 +47,8 @@ where r.cod_codigo_reserva = 'reserva1' and r.cod_usuario = 1;
 insert into reserva (cod_usuario, cod_cabina, cod_asiento, cod_vuelo, cod_codigo_reserva ) 
     values (c_usuario ,c_cabina,c_asiento,c_vuelo,c_codigo_r);
 ------------------------------------------
-select * from reserva;
-select * from nivel_vuelo;
-select * from usuario;
-select * from estado_usuario;
-select * from turno; -- sacar de esta tabla cod_nivel_vuelo
+
+
 
 -- CONSULTA PARA MOSTRAR LOS TURNOS
 SELECT cm.descripcion as Centro_Medico, t.id_turno_medico as Turno, t.fecha_turno as Fecha, concat_ws(', ', u.apellido, u.nombre) as usuario, nv.descripcion as Nivel_vuelo
@@ -66,10 +63,6 @@ SELECT u.id_usuario, u.nombre, u.apellido, u.num_doc, u.cod_nivel_vuelo
         where u.id_usuario = $cod_usuario;
 
 
-UPDATE turno set fecha_modificacion_turno = now(), 
-				fecha_baja_turno = now()
-			WHERE cod_usuario = 2;
-
 
 SELECT cm.descripcion as Centro_Medico, t.id_turno_medico as Turno, t.fecha_turno as Fecha, concat_ws(', ', u.apellido, u.nombre) as usuario, nv.descripcion as Nivel_vuelo, t.cod_usuario
 		FROM turno as t 
@@ -78,11 +71,53 @@ SELECT cm.descripcion as Centro_Medico, t.id_turno_medico as Turno, t.fecha_turn
         join nivel_vuelo as nv on nv.id_nivel_vuelo = u.cod_nivel_vuelo
         WHERE t.fecha_baja_turno is null;
 
+SELECT nv.id_nivel_vuelo, nv.descripcion 
+                FROM usuario as u 
+                join nivel_vuelo as nv on nv.id_nivel_vuelo = u.cod_nivel_vuelo
+                WHERE u.id_usuario = 2;
 
+-- CANTIDAD DE CABINAS COMPRADAS
+SELECT c.descripcion as CABINA, COUNT(*) as CANTIDAD
+	FROM cabina as c
+		join reserva as r on r.cod_cabina = c.id_cabina
+	WHERE r.cod_estado_reserva = 2
+    GROUP BY c.id_cabina;
 
-SELECT u.cod_tipo_usuario, u.id_usuario, u.nombre, u.apellido, u.cod_tipo_doc, u.num_doc, nv.descripcion as nivel_vuelo, u.email
-            from usuario as u join nivel_vuelo as nv on nv.id_nivel_vuelo = u.cod_nivel_vuelo 
+SET lc_time_names = 'es_ES';
+SELECT monthname(fecha_alta_reserva) as mes, SUM( importe) as FACTURACION
+	FROM reserva
+    GROUP BY mes;
 
+SELECT concat(u.apellido, ', ', u.nombre) as Cliente, SUM(r.importe) as facturacion 
+	FROM usuario as u
+		join reserva as r on r.cod_usuario = u.id_usuario
+    WHERE u.cod_tipo_usuario = 2
+    GROUP BY u.id_usuario;
 
-
-
+-- TASA DE OCUPACION POR VIAJE Y EQUIPO
+SELECT r.cod_vuelo, concat(e.modelo, ' ',e.matricula) as equipo, COUNT(r.cod_vuelo) as asientosUsados
+	FROM reserva as r 
+		join vuelo as v on v.id_vuelo = r.cod_vuelo
+        join equipo as e on e.id_equipo = v.cod_equipo
+	GROUP BY e.id_equipo;
+        
+        
+        
+        
+        
+        
+        
+        
+        
+select * from reserva;
+select * from vuelo;
+select * from nivel_vuelo;
+select * from usuario;
+select * from estado_usuario;
+select * from estado_reserva;
+select * from turno; -- sacar de esta tabla cod_nivel_vuelo
+select * from cabina;        
+        
+        
+        
+        

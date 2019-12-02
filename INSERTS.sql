@@ -2,32 +2,35 @@ use tpfinal;
 
 
 INSERT INTO `cabina` (`id_cabina`, `descripcion`) VALUES
-(1, 'general'),
-(2, 'familiar'),
-(3, 'suite');
+(1, 'General'),
+(2, 'Familiar'),
+(3, 'Suite');
 INSERT INTO `estado` (`id_estado`, `descripcion`) VALUES
 (1, 'Libre'),
-(2, 'reserva'),
-(3, 'confirmado');
+(2, 'Reserva'),
+(3, 'Confirmado');
 INSERT INTO `tipo_documento` (`id_tipo_documento`, `descripcion`) VALUES
 (1, 'DNI'),
 (2, 'Pasaporte'),
 (3, 'Libreta Civica');
 
+
 INSERT INTO `tipo_usuario` (`id_tipo_usuario`, `descripcion`) VALUES
 (1, 'Administrador'),
 (2, 'Cliente'),
-(3, 'Administrador');
+(3, 'Medico');
 
 insert into `estado_usuario` (id_estado_usuario, descripcion) values
-(1,'pendiente'),
-(2, 'confirmado');
+(1,'Pendiente'),
+(2, 'Confirmado');
 
 INSERT INTO `usuario` (id_usuario,`nombre`, `apellido`, `cod_tipo_doc`, `num_doc`, `email`, `contrasenia`, `cod_tipo_usuario`,`cod_estado_usuario`, `cod_nivel_vuelo`) VALUES
-(1,'martin', '', 0, 0, 'mmendez@gmail.com', 123, 2,2, 0),
-(2,'Mica', 'Vandoni', 1, 12345678, 'mica@gmail.com', 123, 2,2, 0),
-(3,'Debora', 'Chamorro', 1, 35379016, 'debo@gmail.com', 123, 2,2, 0),
-(4,'Juan', 'Perez', 1, 98745632, 'juan@gmail.com', 123, 2,2, 0);
+(1,'martin', '', 0, '0', 'mmendez@gmail.com', 123, 2,2, 3),
+(2,'Mica', 'Vandoni', 1, '12345678', 'mica@gmail.com', 123, 2,2, 3),
+(3,'Debora', 'Chamorro', 1, '35379016', 'debo@gmail.com', 123, 2,2, 3),
+(4,'Juan', 'Perez', 1, '98745632', 'juan@gmail.com', 123, 2,2, 3),
+(5,"Medico","Gomez",1,79797999,'medico@gmail.com',123, 3, 1,1),
+(6, "Admin","Quevedo",1,56565656,'admin@gmail.com',123,1,1,1);
 
 INSERT INTO `tipo_vuelo` (`id_tipo_vuelo`, `descripcion`) VALUES
 (1, 'Suborbitales'),
@@ -132,8 +135,8 @@ INSERT INTO `trayecto` (id_trayecto, `cod_estacion_origen`, `cod_estacion_destin
 
 
 INSERT INTO `centro_medico` (`id_centro_medico`, `descripcion`, `turnos_diarios`) VALUES
-(1, 'buenos aires', 300),
-(2, 'shanghai', 210),
+(1, 'Buenos Aires', 300),
+(2, 'Shanghai', 210),
 (3, 'Ankara', 200);
 
 
@@ -463,12 +466,11 @@ INSERT INTO VUELO (id_vuelo, duracion, fecha, cod_equipo, cod_tipo_vuelo, cod_tr
                   
                   
                   
-insert into `estado_reserva`(id_estado_reserva,descripcion)
-values 
-(1,'pendiente de pago'),
-(2,'pagada'),
-(3,'check-in'),
-(4,'vencida');
+insert into estado_reserva(id_estado_reserva, descripcion)
+					values(1, 'Pendiente de Pago'),
+						  (2, 'Paga'),
+                          (3, 'Check-in Realizado'),
+                          (4, 'Vencida');
 
 
         
@@ -476,17 +478,56 @@ values
 -- (1,2);
 
 insert into `reserva`(id_reserva,cod_usuario, cod_cabina, cod_vuelo, importe, cod_estado_reserva, cod_codigo_reserva, fecha_alta_reserva, fecha_baja_reserva, fecha_modificacion_reserva)
-			values(1,2,2, 1, 15000.00, 2, '9DICJA', now(), null, null); 
-insert into tipo_usuario(id_tipo_usuario, descripcion)
-			values (3, "Medico");
-INSERT INTO USUARIO(id_usuario, nombre, apellido, cod_tipo_doc, num_doc, email, contrasenia, cod_tipo_usuario, cod_estado_usuario, cod_nivel_vuelo)
-			values (5,"Medico","Gomez",1,79797999,'medico@gmail.com',123, 3, 1,1);
- 
- INSERT INTO USUARIO(id_usuario, nombre, apellido, cod_tipo_doc, num_doc, email, contrasenia, cod_tipo_usuario, cod_estado_usuario, cod_nivel_vuelo)
-			values(6, "Admin","Quevedo",1,56565656,'admin@gmail.com',123,1,1,1);
+			values(1, 2, 2, 1, 15000.00, 2, '9DICJA', now(), null, null), 
+				  (2, 3, 2, 2, 45000.00, 2, 'ASFS', now(), null, null),
+				  (3, 2, 2, 2, 15000.00, 2, 'ASFS', now(), null, null),
+                  (4, 2, 3, 5, 3000.00, 2, 'BABA', now(), null, null),
+                  (5, 3, 1, 5, 15000.00, 2, 'IOIOP', now(), null, null),
+                  (6, 1, 1, 7, 15000.00, 2, 'JHJKHJK', now(), null, null),
+                  (7, 1, 3, 8, 54000.00, 2, 'GHJ', now(), null, null),
+                  (8, 2, 2, 19, 13000.00, 2, 'ASDWW', now(), null, null),
+                  (9, 3, 2, 11, 15000.00, 2, '9DICEJA', now(), null, null),
+                  (10, 4, 1, 11, 15000.00, 2, '9DQWEWSA', now(), null, null),
+                  (11, 4, 3, 11, 54000.00, 2, 'QQQQQ', now(), null, null);
 
 insert into nivel_vuelo(id_nivel_vuelo, descripcion)
 				values(1,'Alta Aceleracion'),
 				      (2, 'Baja Aceleracion'),
                       (3, 'No tiene');
+
+INSERT INTO `trayecto` (id_trayecto, `cod_estacion_origen`, `cod_estacion_destino`) 
+			VALUES -- TOUR
+					(65,10,10); -- BA - Neptuno
+
+
+
+ INSERT INTO VUELO (id_vuelo, duracion, fecha, cod_equipo, cod_tipo_vuelo, cod_trayecto, costo)
+			-- VUELOS DE TOUR
+		   VALUES (149 , 504 , '2019-12-08 08:00:00', 35, 4,65,30000.00), -- GUANACO 
+				  (150 , 504 , '2019-12-08 12:00:00', 36, 4,65,30000.00), -- GUANACO   
+                  (151 , 504 , '2019-12-08 18:00:00', 37, 4,65,30000.00), -- GUANACO  
+                  (152 , 504 , '2019-12-15 08:00:00', 38, 4,65,30000.00), -- GUANACO 
+                  (153 , 504 , '2019-12-15 12:00:00', 35, 4,65,30000.00), -- GUANACO 
+                  (154 , 504 , '2019-12-15 18:00:00', 36, 4,65,30000.00), -- GUANACO 
+                  (155 , 504 , '2019-12-22 08:00:00', 37, 4,65,30000.00), -- GUANACO 
+                  (156 , 504 , '2019-12-22 12:00:00', 38, 4,65,30000.00), -- GUANACO 
+                  (157 , 504 , '2019-12-22 18:00:00', 35, 4,65,30000.00); -- GUANACO 
+                      
+ INSERT INTO `ASIENTO` (id_asiento, cod_equipo, cod_cabina, cant_asientos ) values
+-- general: 1 , familiar: 2, suite: 3 
+
+-- EQUIPO 35
+(55,35,3,100),    
+(56,36,3,100),
+(57,37,3,100),
+(58,38,3,100);                     
+                      
+                      
+                      
+                      
+                      
+                      
+                      
+                      
+                      
 
