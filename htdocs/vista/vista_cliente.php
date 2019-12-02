@@ -66,17 +66,20 @@ if(isset($_SESSION["email"])) {
             document.getElementById('estacion').style.display = 'none';
             document.getElementById('circuito1').style.display = 'none';
             document.getElementById('circuito2').style.display = 'none';
+            document.getElementById('tour').style.display = 'none';
         }
         else if(x == 1){ //Suborbitales
             document.getElementById('fecha').style.display = 'block';
             document.getElementById('estacion').style.display = 'block';
             document.getElementById('circuito1').style.display = 'none';
             document.getElementById('circuito2').style.display = 'none';
+            document.getElementById('tour').style.display = 'none';
         } else if (x == 2){ //Orbital/Cirucito 1
             document.getElementById('fecha').style.display = 'block';
             document.getElementById('estacion').style.display = 'block';
             document.getElementById('circuito1').style.display = 'block';
             document.getElementById('circuito2').style.display = 'none';
+            document.getElementById('tour').style.display = 'none';
 
         } else if(x == 3){
             //Orbital/Cirucito 2
@@ -84,9 +87,13 @@ if(isset($_SESSION["email"])) {
             document.getElementById('estacion').style.display = 'block';
             document.getElementById('circuito2').style.display = 'block';
             document.getElementById('circuito1').style.display = 'none';
+            document.getElementById('tour').style.display = 'none';
         }
         else { // Tour
             document.getElementById('estacion').style.display = 'none';
+            document.getElementById('circuito2').style.display = 'none';
+            document.getElementById('circuito1').style.display = 'none';
+            document.getElementById('tour').style.display = 'block';
         }
     }
 
@@ -186,6 +193,20 @@ if(isset($_SESSION["email"])) {
                     <li> <span class="bubble"></span> Titan </li>
                 </ul>
             </div>
+            <div class="col-12" id="tour">
+                <p style="text-align: center;text-decoration: underline black;">Recorrido del Tour</p>
+                <ul class="progress-indicator" >
+                    <li> <span class="bubble"></span> Buenos Aires </li>
+                    <li> <span class="bubble"></span> Estacion Espacial Internacional </li>
+                    <li> <span class="bubble"></span> Luna </li>
+                    <li> <span class="bubble"></span> Ganimides </li>
+                    <li> <span class="bubble"></span> Europa </li>
+                    <li> <span class="bubble"></span> Io </li>
+                    <li> <span class="bubble"></span> Encendalo </li>
+                    <li> <span class="bubble"></span> Titan </li>
+                    <li> <span class="bubble"></span> Neptuno </li>
+                </ul>
+            </div>
         </div>
         <br>
         <div class="table-responsive">
@@ -194,7 +215,7 @@ if(isset($_SESSION["email"])) {
                 <tr>
                     <th>Nro Vuelo</th>
                     <th>Fecha</th>
-                    <th>Duración</th>
+                    <th>Duración/hs</th>
                     <th>Tipo Vuelo</th>
                     <th>Origen</th>
                     <th>Destino</th>
@@ -212,7 +233,9 @@ if(isset($_SESSION["email"])) {
                         else{
                             $reserva = "";
                         }
-                        echo "<tr>
+                        $hoy = date("Y-m-d H:i:s");
+                        if($hoy < $vuelo['fecha']){
+                            echo "<tr>
                              <td>".$vuelo['matricula']."</td>                             
                              <td>".$vuelo['fecha']."</td>
                              <td>".$vuelo['duracion']."</td>
@@ -223,6 +246,8 @@ if(isset($_SESSION["email"])) {
                              <td>".$vuelo['tipo_aceleracion']."</td>    
                              <td>".$reserva."</td>                         
                          </tr>";
+                        }
+
                     }
                 ?>
                 </tbody>
@@ -236,6 +261,7 @@ if(isset($_SESSION["email"])) {
         document.getElementById('estacion').style.display = 'none';
         document.getElementById('circuito1').style.display = 'none';
         document.getElementById('circuito2').style.display = 'none';
+        document.getElementById('tour').style.display = 'none';
     }
 
 

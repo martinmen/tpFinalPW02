@@ -27,7 +27,7 @@ function sendemail($mail_username,$mail_userpassword,$mail_setFromEmail,$mail_se
     if(!$mail->send()) {
         echo "<script>alert('Error de correo: $mail->ErrorInfo');</script>";
     } else {
-        echo "<script>alert('Se ha enviado un correo para la confirmación de los nuevos usuarios a sus respectivos email's.');</script>";
+        echo "<script>alert('Se ha enviado un correo de parte de Guacho-Rocket.');</script>";
     }
 
 

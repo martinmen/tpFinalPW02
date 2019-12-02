@@ -20,7 +20,7 @@ if(isset($_POST['submit'])){
 
     if ($rol == 1){
         $_SESSION["rol"] = "1"; //administrador
-        Header('location:vista/vistaAdmin.php');
+        Header('location:vista/vista_admin.php');
 
     } else if($rol == 2){
         $_SESSION["rol"] = "2";//cliente

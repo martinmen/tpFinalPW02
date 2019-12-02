@@ -4,7 +4,7 @@ require_once("../Conexion.php");
 
 function getReservas($email){
     $conn = getConexion();
-    $sql= "select r.cod_codigo_reserva as cod_reserva, v.id_vuelo as vuelo, v.fecha as fechaVuelo,
+    $sql= "select r.id_reserva, r.cod_codigo_reserva as cod_reserva, v.id_vuelo as vuelo, v.fecha as fechaVuelo,
            r.importe as importe, er.descripcion as estado_reserva, eq.matricula as matricula
             from reserva as r 
 				 join vuelo as v on v.id_vuelo = r.cod_vuelo
@@ -27,6 +27,7 @@ function getReservas($email){
             $reserva['cabina'] = "";//$row["cabina"];
             $reserva['importe'] = $row["importe"];
             $reserva['estado_reserva'] = $row["estado_reserva"];
+            $reserva['id_reserva'] = $row["id_reserva"];
             $reservas[] = $reserva;
 
         }
@@ -95,11 +96,6 @@ function getNivelVuelo($id_usuario){
 
 }
 
-function getContraseniaAnterior($id_usuario){
-
-
-}
-
 function cambiarContrasenia($id_usuario, $passAnterior, $passNueva, $passConfirmar){
 
 
@@ -117,7 +113,8 @@ function cambiarContrasenia($id_usuario, $passAnterior, $passNueva, $passConfirm
         if($passNueva == $passConfirmar){
 
             $sql1 = "UPDATE usuario 
-                SET contrasenia = '$passNueva'                
+                SET contrasenia = '$passNueva',
+                SET cod_estado_usuario = 2,
                 WHERE id_usuario = '$id_usuario';";
 
             $result1 = mysqli_query($conn, $sql1);

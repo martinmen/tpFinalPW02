@@ -79,13 +79,12 @@ function getEstaciones()
 
 }
 
-
 function getVuelosConFiltro($tipoVuelo, $fdesde, $fhasta, $origen, $destino){
 
     $conn = getConexion();
 
 
-    if($tipoVuelo != 4){ //suborbitales
+    if($tipoVuelo){ //suborbitales
         $sql = "SELECT v.id_vuelo, v.fecha, v.duracion, tv.descripcion as tipo_vuelo, eo.nombre origen,  ed.nombre destino, eq.modelo, eq.matricula, eq.cod_tipo_equipo as tipo_aceleracion
                     FROM trayecto t JOIN estacion eo on t.cod_estacion_origen = eo.id_estacion
                                 JOIN estacion ed on t.cod_estacion_destino = ed.id_estacion 
@@ -93,10 +92,10 @@ function getVuelosConFiltro($tipoVuelo, $fdesde, $fhasta, $origen, $destino){
                                 JOIN tipo_vuelo as tv on tv.id_tipo_vuelo = v.cod_tipo_vuelo
                                 JOIN equipo as eq on eq.id_equipo = v.cod_equipo
                     WHERE v.cod_tipo_vuelo = '$tipoVuelo' ";
-        if($fdesde != null && $fhasta != null){
+        if($tipoVuelo != 4 && $fdesde != null && $fhasta != null){
             $sql .= "AND v.fecha BETWEEN '" .$fdesde . "' AND '". $fhasta ."'";
         }
-        if($origen != null && $destino != null){
+        if($tipoVuelo != 4 && $origen != null && $destino != null){
             $sql .= " AND eo.id_estacion = " .$origen. " AND ed.id_estacion = ".$destino;
         }
 
@@ -131,19 +130,16 @@ function getVuelosConFiltro($tipoVuelo, $fdesde, $fhasta, $origen, $destino){
     return $vuelos;
 }
 
-
-
-
 function getVuelos(){
 
     $conn = getConexion();
     $sql="SELECT v.id_vuelo, v.fecha, v.duracion, t.descripcion as tipo_vuelo, estO.nombre origen,  estD.nombre destino, q.modelo, q.matricula, q.cod_tipo_equipo as tipo_aceleracion
- FROM vuelo v 
-    JOIN tipo_vuelo t on t.id_tipo_vuelo = v.cod_tipo_vuelo
-    JOIN equipo q on q.id_equipo = v.cod_equipo
-    JOIN trayecto tra on tra.id_trayecto = v.cod_trayecto
-    JOIN estacion estO on estO.id_estacion = tra.cod_estacion_origen
-    JOIN estacion estD on estD.id_estacion = tra.cod_estacion_destino;";
+             FROM vuelo v 
+                JOIN tipo_vuelo t on t.id_tipo_vuelo = v.cod_tipo_vuelo
+                JOIN equipo q on q.id_equipo = v.cod_equipo
+                JOIN trayecto tra on tra.id_trayecto = v.cod_trayecto
+                JOIN estacion estO on estO.id_estacion = tra.cod_estacion_origen
+                JOIN estacion estD on estD.id_estacion = tra.cod_estacion_destino;";
     $result=mysqli_query($conn,$sql);
     $vuelos = Array();
 

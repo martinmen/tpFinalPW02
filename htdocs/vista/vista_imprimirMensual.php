@@ -1,93 +1,127 @@
-<?php 
-require_once("../Conexion.php");
-$conn= getConexion();
-$sql="SELECT descripcion, cant_vendida FROM cabina";
-$cantidadVendida=mysqli_query($conn,$sql);
-?>
-<html> 
-<head>
+<?php
+include_once ("../header.php");//
+$conn = getConexion(); //SET lc_time_names = 'es_ES';
+$sql = "SELECT monthname(fecha_alta_reserva) as mes, SUM( importe) as suma
+                FROM reserva
+                GROUP BY mes;";
 
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-        <script type="text/javascript" src="js/loader.js"></script>
-	
-     
-    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-    <script type="text/javascript">
-      google.charts.load('current', {'packages':['corechart']});
-      google.charts.setOnLoadCallback(drawChart);
+$result = mysqli_query($conn, $sql);
+//?>
 
-      function drawChart() {
+<script type="text/javascript">
+    google.charts.load('current', {'packages':['corechart']});
+    google.charts.setOnLoadCallback(drawChart);
+
+    function drawChart() {
 
         var data = google.visualization.arrayToDataTable([
-          ['MES', 'FACTURACIÓN'],
-          <?php 
-         while ($file=mysqli_fetch_assoc($cantidadVendida)){
-             echo "['".$file["descripcion"]."',".$file["cant_vendida"]."],";
-         }
-        ?>
-       
+            ['MES', 'FACTURACIÓN'],
+            <?php
+            while ($file=mysqli_fetch_assoc($result)){
+                echo "['".$file["mes"]."',".$file["suma"]."],";
+            }
+            ?>
+
         ]);
 
         var options = {
-          title: 'Facturación Mensual'
+            // title: 'Facturación Mensual'
         };
 
-        var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+        var chart_area =document.getElementById('piechart');
+        var chart = new google.visualization.PieChart(chart_area);
+
+        google.visualization.events.addListener(chart, 'ready', function(){
+            chart_area.innerHTML = '<img src="' + chart.getImageURI() + '" style="margin-left: 100px">';
+        });
 
         chart.draw(data, options);
-      }
-    </script>
-  </head>	
-	
-    </head>
-<body>
-    <h1>Reporte - Facturación mensual</h1> 
-   <br>
-    <!-- <table class="table">
-        <thead>
-        <tr>
-            <th>id_cabina</th>
-            <th>descripcion</th>
-            <th>Cantidad vendida</th>
-            <th></th>
-        </tr>
-        </thead>
-        <tbody>
-        <?php
-          //   $cabinas = getCincoCabinasMasVendida();
-          //   while ($row=mysqli_fetch_assoc($cabinas))
-          //   {
-          //       echo "<tr>";
-          //       echo "<td>".$row['id_cabina']."</td>";
-          //       echo "<td>".$row['descripcion']."</td>";
-          //       echo "<td>".$row['cant_vendida']."</td>";
-          //       echo "</tr>";
-            
-          //   }
-        ?>
-
-        </tbody>
-    </table> -->
-    <div id="piechart" style="width: 900px; height: 500px;"></div>
-     <form class="form-control row" action="../controlador/create_pdf.php" name="imprimirPdf">
-            <div class="col">
-                <input type="submit" class="btn btn-primary" id="crearPdf" value="Descargar Pdf"/>
-            </div>  
+    }
+</script>
+<div class="row page-title-header">
+    <div class="col-12">
+        <div class="page-header">
+            <h4 class="page-title">Facturación Mensual</h4>
         </div>
-    </form>
-</body>
- </html>
- <script>
-	  $(document).ready(function(){
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <div class="separador"></div>
+    </div>
+</div>
+<br>
+<div class="card shadow mb-4" >
+    <div class="card-body" >
+        <form action="../reportesPDF/create_pdf.php" method="POST" >
+            <div class="card-header py-3" id="aImprimir">
+                <table class="table table-striped"  id="testing">
+                    <thead>
+                    <tr>
+                        <th>Mes</th>
+                        <th>Total Facturado</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <?php
+                    // foreach ($meses as $mes){
+                    //     echo "<tr>
+                    //     <td scope="row">".$mes['mes']."</td>
+                    //     <td>".$mes['total']."</td>
+                    //     </tr>";
+                    // }
+                    foreach ($facturacionesMes as $facturacion){
+                        echo "<tr>
+                                <td scope='row'>".$facturacion['mes']."</td>                             
+                                <td>".$facturacion['suma']."</td>
+                            </tr>";
+                    }
+                    ?>
 
-		$('#CrearPdf').click(function(){
-											$('#hidden_html').val($('#testing').html());
-											$('#make_pdf').submit();
-										});
-		 
-	  });
-	  
-	  </script>
+                    </tbody>
+                </table>
+                <div id="piechart"  style="width: 900px; max-width:900px; height: 500px;"></div><!---->
+            </div>
+            <br>
+            <div class="row">
+                <div class="col-2 offset-4">
+                    <button class="btn btn-primary"><a href="javascript:crearPdf()" style="color:white!important">Generar PDF</a></button>
+                </div>
+                <div class="col-2">
+                    <a class="btn btn-danger" href="../vista/vista_admin.php" role="button">Regresar</a>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<script>
+    function crearPdf() {
+        var pdf = new jsPDF('p', 'pt', 'letter');
+        source = $('#aImprimir')[0];
+
+        specialElementHandlers = {
+            '#bypassme': function (element, renderer) {
+                return true
+            }
+        };
+        margins = {
+            top: 80,
+            bottom: 0,
+            left:10,
+            width: 10
+        };
+
+        pdf.fromHTML(
+            source,
+            margins.left, // x coord
+            margins.top, { // y coord
+                'width': margins.width,
+                'elementHandlers': specialElementHandlers
+            },
+
+            function (dispose) {
+                pdf.save('facturacion-mensual.pdf');
+            }, margins
+        );
+    }
+</script>

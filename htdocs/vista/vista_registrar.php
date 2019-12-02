@@ -1,5 +1,5 @@
 <?php
-
+include("../controlador/controlador_registrar.php");
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -38,10 +38,24 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="form-label-group">
-                                <input type="text" id="inputDoc" name="documento" class="form-control" placeholder="Ingrese su documento" required autofocus maxlength="8">
-                                <label for="inputDoc">Documento</label>
+                            <div class="row">
+                                <div class="col-6">
+                                    <div class="form-group">
+                                        <select class="form-control" name="tipodocumento" id="tipodocumento"  style="border-radius: 50px!important; height: 50px!important;">
+                                            <option value="0">Tipo de Documento</option>
+                                            <?php echo $tipoDoc ?>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="form-label-group">
+
+                                        <input type="text" id="inputDoc" name="documento" class="form-control" placeholder="Ingrese su documento" required autofocus maxlength="8">
+                                        <label for="inputDoc">Documento</label>
+                                    </div>
+                                </div>
                             </div>
+
                             <div class="form-label-group">
                                 <input type="email" id="inputEmail" name="email" class="form-control" placeholder="Ingrese Email" required>
                                 <label for="inputEmail">Email</label>

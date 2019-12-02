@@ -1,14 +1,39 @@
 <?php
 
 include("../modelo/modelo_admin.php");
-include("../modelo/modelo_cliente.php");
-include("../modelo/modelo_generarReporte.php");
-$vuelos = getVuelos();
-//        DE PRUEBA
-$meses = $cantidadVendida;
-//          FALTAN QUERYS
-// $meses = getFacturacionMensual();
-// $facClientes = getFacturacionCliente(cliente);
-// $cabinas = getCabinaVendidas();
-// $tasas = getTasas();
+
+$meses = cantidadVendida();
+
+if(isset( $_GET["reporte"])){
+    $cabina = $_GET["reporte"];
+
+    switch($cabina){
+        case 'tasa':
+            $tasas = tasas();
+            include("../vista/vista_imprimirTasa.php");
+            break;
+
+        case 'mensual':
+            $facturacionesMes = facturacionMensual();
+            include("../vista/vista_imprimirMensual.php");
+            break;
+
+        case 'cabina':
+            $cabinas = cantidadCabina();
+            include("../vista/vista_imprimirCabina.php");
+            break;
+
+        case 'cliente':
+            $facturacionesCliente = facturacionCliente();
+            include("../vista/vista_imprimirCliente.php");
+            break;
+
+    }
+}
+
+
+$facturacionesMes = facturacionMensual();
+$facturacionesCliente = facturacionCliente();
+$cabinas = cantidadCabina();
+$tasas = tasas();
 

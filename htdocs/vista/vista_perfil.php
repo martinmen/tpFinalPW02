@@ -139,10 +139,11 @@ include_once("../controlador/controlador_perfil.php");
                                 <tr>
                                     <th>Cód. Reserva</th>
                                     <th>Vuelo</th>
-                                    <th>Fecha</th>
+                                    <th>Fecha/Hora</th>
                                     <th>Cabina</th>
                                     <th>Importe</th>
                                     <th>Estado de Reserva</th>
+                                    <th></th>
                                 </tr>
                             </thead>
                             <tbody>";
@@ -154,7 +155,11 @@ include_once("../controlador/controlador_perfil.php");
                                      <td>".$reserva['fechaVuelo']."</td>
                                      <td>".$reserva['cabina']."</td>
                                      <td>".$reserva['importe']."</td>    
-                                     <td><a style='color: #2a3b57; font-weight: bold;'>".$reserva['estado_reserva']."</a></td>                         
+                                     <td>".$reserva['estado_reserva']."</td> ";
+                                     if($reserva['estado_reserva'] == 'Paga'){
+                                         echo "<td><a style='color: #2a3b57; font-weight: bold;' href='vista_comprobante.php?id_reserva=".$reserva['id_reserva']."'>Realizar Check-in Online</a></td>";
+                                     };
+                                     echo "
                                  </tr>";
                                 }
                             echo "</tbody>

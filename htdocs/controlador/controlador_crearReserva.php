@@ -43,6 +43,8 @@ if(isset($_POST["submit"])){
 
     sendemail($mail_username,$mail_userpassword,$mail_setFromEmail,$mail_setFromName,$mail_addAddress,$txt_message,$mail_subject,$template);
 
+    //FIN DE ENVIAR MAIL DE REGISTRO
+
     if($_POST['nombres1'] && $_POST['apellido1'] && $_POST['tipo_doc1'] && $_POST['nro_doc1'] && $_POST['email1']){
         $nombres1 = $_POST['nombres1'];
         $apellido1 = $_POST['apellido1'];
