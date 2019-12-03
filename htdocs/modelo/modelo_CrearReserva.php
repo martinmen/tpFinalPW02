@@ -83,8 +83,8 @@ function getDatosUsuario($email)
 function usuarioNuevoEnReserva($cliente = array())
 {
     $conn = getConexion();
-    $sql1 = "INSERT INTO usuario (nombre, apellido,cod_tipo_doc,num_doc,email,cod_tipo_usuario, cod_nivel_vuelo,cod_estado_usuario)
-                    values   ('$cliente[nombre]','$cliente[apellido]',2,'$cliente[nroDoc]','$cliente[email]',2,3,1);";
+    $sql1 = "INSERT INTO usuario (nombre, apellido,cod_tipo_doc,num_doc,email, contrasenia, cod_tipo_usuario, cod_nivel_vuelo,cod_estado_usuario)
+                    values   ('$cliente[nombre]','$cliente[apellido]',2,'$cliente[nroDoc]','$cliente[email]','$cliente[passRandom]',2,3,1);";
     $result1 = mysqli_query($conn, $sql1);
     // envio de email de confirmacion de usuario
     if ($result1) {

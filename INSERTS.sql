@@ -521,6 +521,9 @@ INSERT INTO `trayecto` (id_trayecto, `cod_estacion_origen`, `cod_estacion_destin
 (57,37,3,100),
 (58,38,3,100);                     
                       
+INSERT INTO metodo_pago (id_metodo_pago, descripcion) VALUES 
+(1, 'Tarjeta'), 
+(2, 'Efectivo');
                       
                       
                       

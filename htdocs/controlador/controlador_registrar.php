@@ -29,8 +29,7 @@ if(isset($_POST["submit"])){
 //        }
     } else{
 
-        $error= "<p style='color:red; font-weight: bold;'>Las contraseñas no coinciden</p>";
-        include("../vista/vista_registrar.php");
+        echo "<script>alert('Las contraseñas no coinciden.'); window.location.href=\"../vista/vista_registrar.php\";</script>";
     }
 }
 

@@ -19,6 +19,7 @@ include_once("../controlador/controlador_pago.php");
     <div class="card shadow mb-4">
         <div class="card-body">
             <div class="row">
+                <input style="display:none" name="codreserva" value="<?php echo $codReserva; ?>">
                 <p class="totalPagar">Importe total a pagar: $<?php echo $ImporteTotal;?></p>
             </div>
             <br>
@@ -113,7 +114,7 @@ include_once("../controlador/controlador_pago.php");
                     </div>
                 </div>
                 <div class="col-md-2">
-                    <button type="button" class="btn btn-danger btn-rounded btn-fw" style="float:right;"><a style="color:white!important" onclick="confimarCancelacion()">Cancelar</a></button>
+                    <button type="submit" name="cancelar" class="btn btn-danger btn-rounded btn-fw" style="float:right;"><a style="color:white!important" onclick="return confirm('¿Seguro quiere cancelar el pago?')">Cancelar</a></button> <!--onclick="confimarCancelacion()"-->
                 </div>
                 <div class="col-md-2">
                     <!--            <button name="submit" type="submit" class="btn btn-success btn-rounded btn-fw" style="float:left">Ir al pago</button>-->
@@ -124,12 +125,15 @@ include_once("../controlador/controlador_pago.php");
     </div>
 </form>
 <script>
-    function confimarCancelacion(){
-        var ask = confirm("¿Seguro quiere cancelar el pago?");
-        if (ask) {
-            window.location.href ="../vista/vista_cliente.php";
-        }
-    }
+    // function confimarCancelacion(){
+    //     var ask = confirm("¿Seguro quiere cancelar el pago?");
+    //     if (ask) {
+    //         yourformelement.submit();
+    //         // window.location.href ="../vista/vista_cliente.php";
+    //     } else {
+    //         return false;
+    //     }
+    // }
 </script>
 
 

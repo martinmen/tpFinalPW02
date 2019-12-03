@@ -18,7 +18,7 @@ include_once("../controlador/controlador_comprobante.php");
 <div class="card shadow mb-4">
     <div class="card-body">
         <div class="card-header py-3" >
-            <form class="needs-validation" novalidate="" accion="../controlador/controlador_comprobante.php">
+            <form class="needs-validation"  accion="../controlador/controlador_comprobante.php" method="post">
                 <div class="row" >
                     <div class="col-md-6 mb-3">
                         <label for="lastName">Cliente</label>

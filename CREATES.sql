@@ -30,14 +30,15 @@ SET time_zone = "+00:00";
 -- Estructura de tabla para la tabla `asiento`
 --
 create table factura(
- id_factura int(11) not null,
- cod_cliente int(11)not null,
- cod_reserva int(11) not null,
- cod_metodo_pogo int (11) not null,
- fecha_alta_factura datetime DEFAULT NOW(),
- fecha_baja_factura datetime DEFAULT NULL,
- fecha_modificacion_factura datetime DEFAULT NULL
-);
+id_factura int(11) not null,
+cod_usuario int(11)not null,
+cod_reserva varchar(20) not null,
+cod_metodo_pago int (11) not null,
+importe_total float(10.2) not null,
+fecha_alta_factura datetime DEFAULT NOW(),
+fecha_baja_factura datetime DEFAULT NULL,
+fecha_modificacion_factura datetime DEFAULT NULL);
+
 
 CREATE TABLE estado_asiento (
   id_estado_asiento int(4) NOT NULL,
@@ -178,7 +179,7 @@ CREATE TABLE usuario (
   cod_tipo_doc int(11) NOT NULL,
   num_doc varchar(20) NOT NULL,
   email varchar(200) NOT NULL,
-  contrasenia int(11) NOT NULL,
+  contrasenia varchar(20) NOT NULL,
   cod_tipo_usuario int(11) NOT NULL,
   cod_estado_usuario int(11) NOT NULL,
   cod_nivel_vuelo int(11) NOT NULL
@@ -398,6 +399,31 @@ ALTER TABLE asiento
   -- ADD CONSTRAINT asiento_ibfk_3 FOREIGN KEY (cant_asientos) REFERENCES estado_asiento (id_estado_asiento),
   ADD CONSTRAINT asiento_ibfk_4 FOREIGN KEY (cod_equipo) REFERENCES equipo (id_equipo);
 --
+
+CREATE TABLE metodo_pago ( 
+  id_metodo_pago int(4) NOT NULL, 
+  descripcion varchar(100) NOT NULL 
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+ALTER TABLE metodo_pago 
+  ADD PRIMARY KEY (id_metodo_pago);
+
+
+ALTER TABLE factura
+  ADD PRIMARY KEY (id_factura),
+  ADD KEY cod_usuario (cod_usuario),
+  ADD KEY cod_reserva (cod_reserva),  
+  ADD KEY cod_metodo_pago (cod_metodo_pago);
+  
+ALTER TABLE factura
+  MODIFY id_factura int(11) NOT NULL AUTO_INCREMENT;
+
+  ALTER TABLE factura
+  ADD CONSTRAINT factura_ibfk_1 FOREIGN KEY (cod_usuario) REFERENCES usuario (id_usuario),
+  ADD CONSTRAINT factura_ibfk_2 FOREIGN KEY (cod_metodo_pago) REFERENCES metodo_pago (id_metodo_pago);
+
+
+
 ALTER TABLE `vuelo_trayecto`
   ADD CONSTRAINT `vuelo_trayecto_ibfk_1` FOREIGN KEY (`cod_vuelo`) REFERENCES `vuelo` (`id_vuelo`),
   ADD CONSTRAINT `vuelo_trayecto_ibfk_2` FOREIGN KEY (`cod_trayecto`) REFERENCES `trayecto` (`id_trayecto`);

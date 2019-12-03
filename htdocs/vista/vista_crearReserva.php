@@ -239,6 +239,7 @@ include_once("../controlador/controlador_crearReserva.php");
     function confimarCancelacion(){
         var ask = confirm("¿Seguro quiere cancelar la reserva?");
         if (ask) {
+
             window.location.href="../vista/vista_cliente.php";
         }
     }

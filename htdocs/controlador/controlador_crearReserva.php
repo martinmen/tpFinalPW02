@@ -3,6 +3,7 @@ use mysql_xdevapi\Session;
 
 include("../modelo/modelo_CrearReserva.php");
 
+
 if (isset($_GET['vuelo']) && isset($_GET['matricula'])) {
 
     $tipo_doc = getTipoDocumentos();
@@ -19,7 +20,9 @@ if (isset($_GET['vuelo']) && isset($_GET['matricula'])) {
 if (isset($_POST["submit"])) {
     session_start();
     $vueloId = $_SESSION["idVuelo"];
-    //ENVIAR MAIL DE REGISTRO
+
+    //GENERA CODIGO RANDOM PARA VERIFICACION MAIL
+    include("../PHPMailer/sendemail.php");
     $permitted_chars = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
     function generate_string($input, $strength = 16){
         $input_length = strlen($input);
@@ -31,26 +34,19 @@ if (isset($_POST["submit"])) {
         return $random_string;
     }
 
-    include("../PHPMailer/sendemail.php");
-    $passRandom = generate_string($permitted_chars, 20);
+
     $mail_username = "guachorocket@gmail.com";
     $mail_userpassword = "guachorocket123";
-    $mail_addAddress = "$email";
     $template = "../PHPMailer/email_template.html";
-
     $mail_setFromEmail= $mail_username;
     $mail_setFromName= "Guacho Rocket - Vuelos";
-    $txt_message = "Bienvenido $apellido, $nombres. \n Ingrese a nuestra web con su correo y la siguiente contraseña <b>$passRandom</b>, y cambiela por una nueva.";
     $mail_subject= "Confirmacion de registro en GuachoRocket";
 
-    sendemail($mail_username,$mail_userpassword,$mail_setFromEmail,$mail_setFromName,$mail_addAddress,$txt_message,$mail_subject,$template);
-
-    //FIN DE ENVIAR MAIL DE REGISTRO
-
+    $codigoAlfaReserva = generate_string($permitted_chars, 6);
 
     $contador = $_POST['counter'];
-// el contador indica cuantos usuarios se van a tomar para la reserva.
-// Dependiendo la cnatidad entra en el if correspondiente. y se hacen las validaciones correspondiente
+    // el contador indica cuantos usuarios se van a tomar para la reserva.
+    // Dependiendo la cnatidad entra en el if correspondiente. y se hacen las validaciones correspondiente
     if ($contador == "") {
         if ($_POST['email']) {
             $email0 = $_POST['email'];
@@ -64,13 +60,19 @@ if (isset($_POST["submit"])) {
                 $cliente0["nroDoc"] = $_POST['nro_doc'];
                 $cliente0["email"] = $_POST['email'];
                 $cliente0["tipoCabina"] = $_POST['tipo_cabina'];
+                $passRandom = generate_string($permitted_chars, 20);
+                $cliente0['passRandom'] = $passRandom;
                 //hacer un insert de usuario
                 usuarioNuevoEnReserva($cliente0);
+
+                $txt_message = "Bienvenido/a. \n Ingrese a nuestra web con su correo y la siguiente contraseña <b>$passRandom</b>, y cámbiela por una nueva.";
+
+                sendemail($mail_username,$mail_userpassword,$mail_setFromEmail,$mail_setFromName,$cliente0["email"],$txt_message,$mail_subject,$template);
+
             }
             //si existe(true) se pasa el mail del mismo y en el metodo crearReserva se obtienen los datos necesarios para la bd
             // insert en reserva
             $importe0 = $_POST['importe'];
-            $codigoAlfaReserva = "CCC111";
             $cabina = $_POST['tipo_cabina'];
             if (crearReserva($cliente0['email'], $codigoAlfaReserva, $importe0, $cabina, $vueloId) == true) {
                 $contador = "";
@@ -97,8 +99,16 @@ if (isset($_POST["submit"])) {
                 $cliente0["tipoDoc"] = $_POST['tipo_doc'];
                 $cliente0["nroDoc"] = $_POST['nro_doc'];
                 $cliente0["email"] = $_POST['email'];
+                $passRandom = generate_string($permitted_chars, 20);
+                $cliente0['passRandom'] = $passRandom;
+
                 //hacer un insert de usuario
                 usuarioNuevoEnReserva($cliente0);
+
+
+                $txt_message = "Bienvenido/a. \n Ingrese a nuestra web con su correo y la siguiente contraseña <b>$passRandom</b>, y cámbiela por una nueva.";
+
+                sendemail($mail_username,$mail_userpassword,$mail_setFromEmail,$mail_setFromName,$cliente0["email"],$txt_message,$mail_subject,$template);
             }
             if ($cliente1 [0] == false) {
                 $cliente1["nombre"] = $_POST['nombre1'];
@@ -106,13 +116,19 @@ if (isset($_POST["submit"])) {
                 $cliente1["tipoDoc"] = $_POST['tipo_doc1'];
                 $cliente1["nroDoc"] = $_POST['nro_doc1'];
                 $cliente1["email"] = $_POST['email1'];
+                $passRandom = generate_string($permitted_chars, 20);
+                $cliente1['passRandom'] = $passRandom;
                 //hacer un insert de usuario
                 usuarioNuevoEnReserva($cliente1);
+
+                $passRandom = generate_string($permitted_chars, 20);
+                $txt_message = "Bienvenido/a. \n Ingrese a nuestra web con su correo y la siguiente contraseña <b>$passRandom</b>, y cámbiela por una nueva.";
+
+                sendemail($mail_username,$mail_userpassword,$mail_setFromEmail,$mail_setFromName,$cliente1["email"],$txt_message,$mail_subject,$template);
             }
             /// se hacen los insert en reserva
             $importe0 = $_POST['importe'];
             $importe1 = $_POST['importe1'];
-            $codigoAlfaReserva = "CCC111";
             $cabina0 = $_POST['tipo_cabina'];
             $cabina1 = $_POST['tipo_cabina1'];
             if (crearReserva($cliente0['email'], $codigoAlfaReserva, $importe0, $cabina0, $vueloId) == true &&
@@ -141,8 +157,15 @@ if (isset($_POST["submit"])) {
                 $cliente0["tipoDoc"] = $_POST['tipo_doc'];
                 $cliente0["nroDoc"] = $_POST['nro_doc'];
                 $cliente0["email"] = $_POST['email'];
+                $passRandom = generate_string($permitted_chars, 20);
+                $cliente0['passRandom'] = $passRandom;
                 //hacer un insert de usuario
                 usuarioNuevoEnReserva($cliente0);
+
+                $passRandom = generate_string($permitted_chars, 20);
+                $txt_message = "Bienvenido/a. \n Ingrese a nuestra web con su correo y la siguiente contraseña <b>$passRandom</b>, y cámbiela por una nueva.";
+
+                sendemail($mail_username,$mail_userpassword,$mail_setFromEmail,$mail_setFromName,$cliente0["email"],$txt_message,$mail_subject,$template);
             }
             if ($cliente1 [0] == false) {
                 $cliente1["nombre"] = $_POST['nombre1'];
@@ -150,8 +173,15 @@ if (isset($_POST["submit"])) {
                 $cliente1["tipoDoc"] = $_POST['tipo_doc1'];
                 $cliente1["nroDoc"] = $_POST['nro_doc1'];
                 $cliente1["email"] = $_POST['email1'];
+                $passRandom = generate_string($permitted_chars, 20);
+                $cliente1['passRandom'] = $passRandom;
                 //hacer un insert de usuario
                 usuarioNuevoEnReserva($cliente1);
+
+                $passRandom = generate_string($permitted_chars, 20);
+                $txt_message = "Bienvenido/a. \n Ingrese a nuestra web con su correo y la siguiente contraseña <b>$passRandom</b>, y cámbiela por una nueva.";
+
+                sendemail($mail_username,$mail_userpassword,$mail_setFromEmail,$mail_setFromName,$cliente1["email"],$txt_message,$mail_subject,$template);
             }
             if ($cliente2 [0] == false) {
                 $cliente2["nombre"] = $_POST['nombre2'];
@@ -159,8 +189,15 @@ if (isset($_POST["submit"])) {
                 $cliente2["tipoDoc"] = $_POST['tipo_doc2'];
                 $cliente2["nroDoc"] = $_POST['nro_doc2'];
                 $cliente2["email"] = $_POST['email2'];
+                $passRandom = generate_string($permitted_chars, 20);
+                $cliente2['passRandom'] = $passRandom;
                 //hacer un insert de usuario
                 usuarioNuevoEnReserva($cliente2);
+
+                $passRandom = generate_string($permitted_chars, 20);
+                $txt_message = "Bienvenido/a. \n Ingrese a nuestra web con su correo y la siguiente contraseña <b>$passRandom</b>, y cámbiela por una nueva.";
+
+                sendemail($mail_username,$mail_userpassword,$mail_setFromEmail,$mail_setFromName,$cliente2["email"],$txt_message,$mail_subject,$template);
             }
             /// se hacen los insert en reserva
             $importe0 = $_POST['importe'];
@@ -170,7 +207,6 @@ if (isset($_POST["submit"])) {
             $cabina1 = $_POST['tipo_cabina1'];
             $cabina2 = $_POST['tipo_cabina2'];
             // $importeTotal = $importe0+$importe1+$importe2;
-            $codigoAlfaReserva = "CCC222";
 
             if (crearReserva($cliente0['email'], $codigoAlfaReserva, $importe0, $cabina0, $vueloId) == true &&
                 crearReserva($cliente1['email'], $codigoAlfaReserva, $importe1, $cabina1, $vueloId) == true &&

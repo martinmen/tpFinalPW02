@@ -42,5 +42,18 @@ function actualizarEstadoReservasAPagada($codReserva,$usuario)
 
 function irAComprobante($usuario,$reserva)
 {
-    echo "<script>; window.location.href='../vista/vista_comprobante.php?reserva=$reserva'; </script>";
+    echo "<script>alert('El pago de su reserva se ha realizado con éxito.'); window.location.href='../vista/vista_perfil.php?';</script>";
+//    "<script>; window.location.href='../vista/vista_comprobante.php?reserva=$reserva'; </script>";
+}
+
+function cancelarReserva($codreserva){
+
+    $conn = getConexion();
+    $sql = "DELETE FROM reserva WHERE cod_codigo_reserva = '$codreserva';";
+    $result = mysqli_query($conn, $sql);
+
+    if($result){
+        echo "<script>alert('Se ha cancelado el pago de su reserva.'); window.location.href='../vista/vista_cliente.php?';</script>";
+    }
+
 }

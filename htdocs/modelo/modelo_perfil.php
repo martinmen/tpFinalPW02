@@ -114,7 +114,7 @@ function cambiarContrasenia($id_usuario, $passAnterior, $passNueva, $passConfirm
 
             $sql1 = "UPDATE usuario 
                 SET contrasenia = '$passNueva',
-                SET cod_estado_usuario = 2,
+                cod_estado_usuario = 2
                 WHERE id_usuario = '$id_usuario';";
 
             $result1 = mysqli_query($conn, $sql1);

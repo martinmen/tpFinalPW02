@@ -27,9 +27,9 @@ function generate_string($input, $strength = 8){
 }
 $codigoAbordaje = generate_string($permitted_chars, 8);
 
-if(isset($_GET['submit'])){
-
-//    realizarCheckin($id_reserva);
+if(isset($_POST['submit'])){
+    $id_reserva = $_POST['id_reserva'];
+    realizarCheckin($id_reserva);
 
     //ENVIAR CORREO
     include("../PHPMailer/sendemail.php");
