@@ -22,12 +22,34 @@ function getTipoDocumentos()
 function getTipoDeCabinas($vueloId)
 {
     $conn = getConexion();
-    $sql = "SELECT c.id_cabina, a.id_asiento, E.ID_EQUIPO, C.DESCRIPCION as descripcion, A.CANT_ASIENTOS
-	FROM ASIENTO AS A 
-		JOIN EQUIPO AS E ON E.ID_EQUIPO = A.COD_EQUIPO
-        JOIN CABINA AS C ON C.ID_CABINA = A.COD_CABINA
-        JOIN VUELO AS V ON V.COD_EQUIPO = E.ID_EQUIPO
-       WHERE V.ID_VUELO = $vueloId;";
+    $sql = "select asi.id_asiento, v.id_vuelo as vuelo, v.cod_equipo equipo, asi.cod_cabina as id_cabina, c.descripcion, ((select e.capacidad_cabinaG as capacidad_equipo from vuelo v join equipo e on v.cod_equipo = e.id_equipo and id_vuelo = '$vueloId') - 
+																  (select count(*) as reservas_g from reserva r where r.cod_cabina = 1 and cod_vuelo= '$vueloId')) as CANT_ASIENTOS
+																		from vuelo v join equipo equi join asiento asi join cabina c
+																			where id_vuelo = '$vueloId'
+																			   and asi.cod_cabina = 1
+																			   and equi.id_equipo = v.cod_equipo
+																			   and equi.id_equipo = asi.cod_equipo
+                                                                               and c.id_cabina = 1
+union
+-- disponibilidad asientos Familiar
+select asi.id_asiento, v.id_vuelo as vuelo, v.cod_equipo equipo, asi.cod_cabina as id_cabina, c.descripcion,((select e.capacidad_cabinaF as capacidad_equipo from vuelo v join equipo e on v.cod_equipo = e.id_equipo and id_vuelo ='$vueloId')-
+																 (select count(*) as reservas_f from reserva r where r.cod_cabina = 2 and cod_vuelo= '$vueloId')) as CANT_ASIENTOS
+																		from vuelo v join equipo equi join asiento asi join cabina c                    
+																			where id_vuelo = '$vueloId'
+																				and asi.cod_cabina = 2
+																			   and equi.id_equipo = v.cod_equipo
+																			   and equi.id_equipo = asi.cod_equipo
+                                                                               and c.id_cabina = 2
+union
+-- disponibilidad asientos Suit
+select asi.id_asiento, v.id_vuelo as vuelo, v.cod_equipo equipo, asi.cod_cabina as id_cabina, c.descripcion,((select e.capacidad_cabinaS as capacidad_equipo from vuelo v join equipo e on v.cod_equipo = e.id_equipo and id_vuelo = '$vueloId')-
+                                                                  (select count(*) as reservas_s from reserva r where r.cod_cabina = 3 and cod_vuelo= '$vueloId'))as CANT_ASIENTOS
+																		from vuelo v join equipo equi join asiento asi join cabina c    
+																			where id_vuelo = '$vueloId'
+																				and asi.cod_cabina = 3
+																			   and equi.id_equipo = v.cod_equipo
+																			   and equi.id_equipo = asi.cod_equipo 
+                                                                               and c.id_cabina = 3; ";
     $result = mysqli_query($conn, $sql);
     $tipo_cabina = "";
 
