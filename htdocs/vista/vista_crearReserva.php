@@ -1,6 +1,7 @@
 <?php
 include_once ("../header.php");
 include_once("../controlador/controlador_crearReserva.php");
+
 ?>
 <!--<link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">-->
 <!--<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>-->
@@ -26,7 +27,10 @@ include_once("../controlador/controlador_crearReserva.php");
 
             //Añadir divs al principal
             var card = '<span class="close" style="float:right;">X</span><br>'+
+                '<p name="contador" style= display:none>'+counter +
+                '</p>' +
                 '<div class="row">' +
+
                 '   <div class="col-md-6">' +
                 '       <div class="form-group">' +
                 '           <label>Email</label>' +
@@ -44,7 +48,7 @@ include_once("../controlador/controlador_crearReserva.php");
                 '       <div class="col-md-6">' +
                 '           <div class="form-group">' +
                 '               <label>Nombres</label>' +
-                '               <input type="text" class="form-control" name="nombres'+counter+'" placeholder="Ingrese Nombres" id="nombre'+counter+'">' +
+                '               <input type="text" class="form-control" name="nombre'+counter+'" placeholder="Ingrese Nombres" id="nombre'+counter+'">' +
                 '           </div>' +
                 '       </div>' +
                 '       <div class="col-md-6">' +
@@ -80,14 +84,14 @@ include_once("../controlador/controlador_crearReserva.php");
                 '   <div class="col-md-6">' +
                 '       <div class="form-group">' +
                 '           <label>Tipo de Cabina</label>' +
-                '           <select class="form-control" name="tipo_cabina" id="cabina'+counter+'" onchange="calcularImporte'+counter+'()">' + docType2 +
+                '           <select class="form-control" name="tipo_cabina'+counter+'" id="cabina'+counter+'" onchange="calcularImporte'+counter+'()">' + docType2 +
                 '           </select>' +
                 '       </div>' +
                 '   </div>' +
                 '   <div class="col-6">' +
                 '       <div class="form-group">' +
                 '           <label>Importe</label>' +
-                '           <p class="form-control" name="importe" id="importe'+counter+'"></p>' +
+                '           <input class="form-control" name="importe'+counter+'" id="importe'+counter+'">' +
                 '       </div>' +
                 '   </div>' +
                 '</div>';
@@ -96,8 +100,8 @@ include_once("../controlador/controlador_crearReserva.php");
             $(div1).append(card);
             //Añado el card
             $('.card').append('<br>',div1);
-
-
+            document.getElementById('hola').innerHTML = counter;
+            $('#hola').val(counter);
             if(counter > 2){
                 $('#addCard').css('display', 'none');
             }
@@ -129,7 +133,7 @@ include_once("../controlador/controlador_crearReserva.php");
     </div>
 </div>
 <br>
-<form class="form-sample" method="post" action="../controlador/controlador_crearReserva.php" id="form" name="form">
+<form class="form-sample" method="post" action="../controlador/controlador_crearReserva.php" id="form">
     <div class="card shadow mb-4">
         <div class="card-body">
             <div class="row">
@@ -150,7 +154,7 @@ include_once("../controlador/controlador_crearReserva.php");
                     <div class="col-md-6">
                         <div class="form-group">
                             <label>Nombres</label>
-                            <input type="text" class="form-control" name="nombres" placeholder="Ingrese Nombres" id="nombre">
+                            <input type="text" class="form-control" name="nombre" placeholder="Ingrese Nombres" id="nombre">
                         </div>
                     </div>
                     <div class="col-md-6">
@@ -184,7 +188,7 @@ include_once("../controlador/controlador_crearReserva.php");
                     <div class="separador"></div>
                 </div>
             </div>
-            <p class="card-description vuelo-disabled">Vuelo: <?php echo $matricula;?></p>
+            <p class="card-description vuelo-disabled" name="matricula" >Vuelo: <?php echo $matricula;?></p>
             <div class="row">
                 <div class="col-md-6">
                     <div class="form-group">
@@ -198,7 +202,7 @@ include_once("../controlador/controlador_crearReserva.php");
                 <div class="col-6">
                     <div class="form-group">
                         <label>Importe</label>
-                        <p class="form-control" name="importe" id="importe"></p>
+                        <input class="form-control" name="importe" id="importe">
                     </div>
                 </div>
             </div>
@@ -217,13 +221,14 @@ include_once("../controlador/controlador_crearReserva.php");
             <button type="button" class="btn btn-danger btn-rounded btn-fw" style="float:right;"><a style="color:white!important" onclick="confimarCancelacion()">Cancelar</a></button>
         </div>
         <div class="col-md-2">
-            <button name="submit" type="submit" class="btn btn-success btn-rounded btn-fw" style="float:left"><a style="color:white!important" >Ir al pago</a></button> <!--href="vista_pago.php?reservaId=$."-->
-<!--               <input type="button" class="btn btn-primary" onclick="pasarParametros()" id="Datos" style="float:right"  value="pasarDatos" data-toggle="tooltip" data-placement="top" title="Puede agregar otro usuario a su reserva"/>-->
-
-
+          <button name="submit" type="submit" class="btn btn-success btn-rounded btn-fw" style="float:left">Ir al pago</button>
+        <!--   <button name="submit" class="btn btn-success btn-rounded btn-fw" style="float:left"><a style="color:white!important" href="vista_pago.php">Ir al pago</a></button>
+-->
+            <input type="text" id="hola"  name="counter" style="display: none">
         </div>
     </div>
 </form>
+
 <script>
 
     window.onload=function () {
@@ -246,11 +251,11 @@ include_once("../controlador/controlador_crearReserva.php");
         var costo = parseFloat(costoText);
 
         if(cabina == 2){
-            document.getElementById('importe').innerHTML = (costo + (costo*0.25)).toString() + ".00";
+            document.getElementById('importe').value = (costo + (costo*0.25)).toString() + ".00";
         } else if (cabina == 3){
-            document.getElementById('importe').innerHTML = (costo + (costo*0.50)).toString()+ ".00";
+            document.getElementById('importe').value = (costo + (costo*0.50)).toString()+ ".00";
         } else
-            document.getElementById('importe').innerHTML = (costo).toString()+ ".00";
+            document.getElementById('importe').value = (costo).toString()+ ".00";
     }
 
     function calcularImporte1(){
@@ -261,11 +266,11 @@ include_once("../controlador/controlador_crearReserva.php");
         var costo = parseFloat(costoText);
 
         if(cabina1 == 2){
-            document.getElementById('importe1').innerHTML = (costo + (costo*0.25)).toString() + ".00";
+            document.getElementById('importe1').value = (costo + (costo*0.25)).toString() + ".00";
         } else if (cabina1 == 3){
-            document.getElementById('importe1').innerHTML = (costo + (costo*0.50)).toString()+ ".00";
+            document.getElementById('importe1').value = (costo + (costo*0.50)).toString()+ ".00";
         } else
-            document.getElementById('importe1').innerHTML = (costo).toString()+ ".00";
+            document.getElementById('importe1').value = (costo).toString()+ ".00";
     }
 
     function calcularImporte2(){
@@ -277,11 +282,11 @@ include_once("../controlador/controlador_crearReserva.php");
         var costo = parseFloat(costoText);
 
         if(cabina2 == 2){
-            document.getElementById('importe2').innerHTML = (costo + (costo*0.25)).toString() + ".00";
+            document.getElementById('importe2').value = (costo + (costo*0.25)).toString() + ".00";
         } else if (cabina2 == 3){
-            document.getElementById('importe2').innerHTML = (costo + (costo*0.50)).toString()+ ".00";
+            document.getElementById('importe2').value = (costo + (costo*0.50)).toString()+ ".00";
         } else
-            document.getElementById('importe2').innerHTML = (costo).toString()+ ".00";
+            document.getElementById('importe2').value = (costo).toString()+ ".00";
     }
 
     function getXMLHTTP() {
@@ -398,13 +403,7 @@ include_once("../controlador/controlador_crearReserva.php");
 
     }
 
-    function pasarParametros() {
-        var email=document.getElementById("email");
 
-      //  var apellido=document.getElementById("apellido").checked;
-
-
-    }
 </script>
 
 <?php

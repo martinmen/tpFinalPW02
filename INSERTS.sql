@@ -1,6 +1,5 @@
 use tpfinal;
 
-
 INSERT INTO `cabina` (`id_cabina`, `descripcion`) VALUES
 (1, 'General'),
 (2, 'Familiar'),
@@ -19,6 +18,11 @@ INSERT INTO `tipo_usuario` (`id_tipo_usuario`, `descripcion`) VALUES
 (1, 'Administrador'),
 (2, 'Cliente'),
 (3, 'Medico');
+
+insert into nivel_vuelo(id_nivel_vuelo, descripcion)
+				values(1,'Alta Aceleracion'),
+				      (2, 'Baja Aceleracion'),
+                      (3, 'No tiene');
 
 insert into `estado_usuario` (id_estado_usuario, descripcion) values
 (1,'Pendiente'),
@@ -489,11 +493,6 @@ insert into `reserva`(id_reserva,cod_usuario, cod_cabina, cod_vuelo, importe, co
                   (9, 3, 2, 11, 15000.00, 2, '9DICEJA', now(), null, null),
                   (10, 4, 1, 11, 15000.00, 2, '9DQWEWSA', now(), null, null),
                   (11, 4, 3, 11, 54000.00, 2, 'QQQQQ', now(), null, null);
-
-insert into nivel_vuelo(id_nivel_vuelo, descripcion)
-				values(1,'Alta Aceleracion'),
-				      (2, 'Baja Aceleracion'),
-                      (3, 'No tiene');
 
 INSERT INTO `trayecto` (id_trayecto, `cod_estacion_origen`, `cod_estacion_destino`) 
 			VALUES -- TOUR
