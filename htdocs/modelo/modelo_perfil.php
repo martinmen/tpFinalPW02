@@ -6,12 +6,13 @@ function getReservas($email){
     $conn = getConexion();
     $sql= "select r.id_reserva, r.cod_codigo_reserva as cod_reserva, v.id_vuelo as vuelo, v.fecha as fechaVuelo,
            r.importe as importe, er.descripcion as estado_reserva, eq.matricula as matricula
-            from reserva as r 
-				 join vuelo as v on v.id_vuelo = r.cod_vuelo
-                 join estado_reserva as er on er.id_estado_reserva = cod_estado_reserva 
-                 join usuario as u on u.id_usuario = r.cod_usuario
-                 join equipo as eq on eq.id_equipo = v.cod_equipo
-                 where u.email = '$email'" ;
+            from reserva as r
+                join vuelo as v on v.id_vuelo = r.cod_vuelo 
+                join estado_reserva as er on er.id_estado_reserva = cod_estado_reserva 
+                         join usuario as u on u.id_usuario = r.cod_usuario
+                         join equipo as eq on eq.id_equipo = v.cod_equipo
+            where IF(v.fecha >= CURDATE() and 
+            curdate() <= date_sub(v.fecha, INTERVAL 1 DAY), 1, 0) = 1 and email = '$email'" ;
     $result = mysqli_query($conn, $sql);
 
     $reservas = Array();

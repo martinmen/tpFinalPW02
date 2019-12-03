@@ -7,7 +7,8 @@
 
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Login</title>
+    <title>Guacho Rocket - Login</title>
+    <link rel="icon" type="image/png" sizes="96x96" href="assets/img/favicon-96x96.png">
 
     <link rel="stylesheet" href="assets/css/bootstrap.min.css">
     <link rel="stylesheet" href="assets/css/style.css" <!-- End layout styles -->
@@ -23,7 +24,7 @@
                 <div class="container">
                     <div class="row">
                         <div class="col-md-9 col-lg-8 mx-auto">
-                            <h3 class="login-heading mb-4">Bienvenido!</h3>
+                            <h3 class="login-heading mb-4">Bienvenido a <b>GuachoRocket!</b></h3>
 
                         </div>
                         <form class="col-md-12" action='index.php' method="POST">

@@ -113,11 +113,3 @@ function tasas(){
     return $tasas;
 }
 
-
-
-function getCincoCabinasMasVendida(){
-    $conn= getConexion();
-    $sql="SELECT * FROM cabina ORDER BY cant_vendida asc limit 3";
-    $consultaCabinaMasVendida=mysqli_query($conn,$sql); 
-   return $consultaCabinaMasVendida;
-}

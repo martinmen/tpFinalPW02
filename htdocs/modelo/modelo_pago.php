@@ -28,7 +28,7 @@ function actualizarEstadoReservasAPagada($codReserva,$usuario)
           $importe = getImporteTotalDeReserva($codReserva);
           $importe = number_format($importe[1],2,".","");
             $conn = getConexion();
-            $sql = "UPDATE reserva SET cod_estado_reserva = 2 where cod_codigo_reserva = '$codReserva';";
+            $sql = "UPDATE reserva SET cod_estado_reserva = 2, fecha_modificacion_reserva = now() where cod_codigo_reserva = '$codReserva';";
             $result = mysqli_query($conn, $sql);
             $sql2 ="insert into factura (cod_usuario,cod_reserva,cod_metodo_pago,importe_total,fecha_alta_factura)
                     value($usuario,'$codReserva',1,$importe, now());";
